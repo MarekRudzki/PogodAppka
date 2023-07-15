@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+import 'package:pogodappka/features/Fifteen_day_forecast_weather/Fifteen_day_forecast_weather.dart';
+import 'package:pogodappka/features/todays_weather/todays_weather.dart';
+import 'package:pogodappka/features/tommorows_weather/tommorows_weather.dart';
+import 'package:pogodappka/screens/home_screen/widgets/drawer.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -31,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color.fromARGB(255, 34, 123, 196),
+        endDrawer: const HomePageDrawer(),
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
@@ -43,15 +49,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           backgroundColor: Colors.transparent,
           elevation: 0,
           actions: [
-            IconButton(
-              onPressed: () {
-                //TODO add drawer from right side
+            Builder(
+              builder: (context) {
+                return IconButton(
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.search,
+                    color: Colors.white,
+                    size: 26,
+                  ),
+                );
               },
-              icon: const Icon(
-                Icons.search,
-                color: Colors.white,
-                size: 26,
-              ),
             ),
           ],
           bottom: TabBar(
@@ -66,9 +76,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         body: TabBarView(
           controller: _tabController,
           children: const [
-            Text('Text1'),
-            Text('Text2'),
-            Text('Text3'),
+            TodaysWeather(),
+            TommorowsWeather(),
+            FifteenDayForecastWeather(),
           ],
         ),
       ),
