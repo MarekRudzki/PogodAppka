@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:pogodappka/features/Fifteen_day_forecast_weather/Fifteen_day_forecast_weather.dart';
+import 'package:pogodappka/features/fifteen_day_forecast_weather/fifteen_day_forecast_weather.dart';
 import 'package:pogodappka/features/todays_weather/todays_weather.dart';
 import 'package:pogodappka/features/tommorows_weather/tommorows_weather.dart';
 import 'package:pogodappka/screens/home_screen/widgets/drawer.dart';
