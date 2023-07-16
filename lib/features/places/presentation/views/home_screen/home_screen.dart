@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:pogodappka/features/fifteen_day_forecast_weather/fifteen_day_forecast_weather.dart';
-import 'package:pogodappka/features/todays_weather/todays_weather.dart';
-import 'package:pogodappka/features/tommorows_weather/tommorows_weather.dart';
-import 'package:pogodappka/screens/home_screen/widgets/drawer.dart';
+import 'package:pogodappka/features/places/presentation/views/home_screen/widgets/drawer.dart';
+import 'package:pogodappka/features/weather_forecast/presentation/views/fifteen_day_forecast_weather.dart';
+import 'package:pogodappka/features/weather_forecast/presentation/views/todays_weather.dart';
+import 'package:pogodappka/features/weather_forecast/presentation/views/tommorows_weather.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

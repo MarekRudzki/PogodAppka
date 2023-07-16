@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:pogodappka/screens/home_screen/widgets/location_list_tile.dart';
-import 'package:pogodappka/screens/home_screen/widgets/network_utility.dart';
-import 'package:pogodappka/screens/models/autocomplete_prediction.dart';
-import 'package:pogodappka/screens/models/place_autocomplete_response.dart';
+import 'package:pogodappka/features/places/data/models/autocomplete_prediction.dart';
+import 'package:pogodappka/features/places/data/models/place_autocomplete_response.dart';
+import 'package:pogodappka/features/places/presentation/views/home_screen/widgets/location_list_tile.dart';
+import 'package:pogodappka/features/places/presentation/views/home_screen/widgets/network_utility.dart';
 
 class HomePageDrawer extends StatefulWidget {
   const HomePageDrawer({super.key});
@@ -97,7 +97,9 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                 itemCount: placePredictions.length,
                 itemBuilder: (context, index) => LocationListTile(
                   location: placePredictions[index].description!,
-                  callback: () {},
+                  callback: () {
+                    print(placePredictions[index].description!);
+                  },
                 ),
               ),
             )
