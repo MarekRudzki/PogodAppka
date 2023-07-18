@@ -1,5 +1,7 @@
-class WeatherModel {
-  WeatherModel(
+import 'package:equatable/equatable.dart';
+
+class WeatherModel extends Equatable {
+  const WeatherModel(
     this.feelsLike,
     this.currentCondition,
     this.cloudCover,
@@ -28,4 +30,16 @@ class WeatherModel {
         pressure = json['currentConditions']['pressure'],
         sunrise = json['currentConditions']['sunrise'],
         sunset = json['currentConditions']['sunset'];
+
+  @override
+  List<Object?> get props => [
+        feelsLike,
+        currentTemperature,
+        currentCondition,
+        cloudCover,
+        humidity,
+        pressure,
+        sunrise,
+        sunset,
+      ];
 }
