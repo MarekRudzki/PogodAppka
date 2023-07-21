@@ -65,8 +65,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ],
           bottom: TabBar(
             controller: _tabController,
+            labelColor: Colors.white,
             tabs: const [
-              Tab(text: 'DZISIAJ'),
+              Tab(
+                text: 'DZISIAJ',
+              ),
               Tab(text: 'JUTRO'),
               Tab(text: '15 DNI'),
             ],

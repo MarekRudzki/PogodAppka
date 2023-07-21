@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pogodappka/features/places/data/models/place_autocomplete_model.dart';
@@ -10,7 +8,6 @@ part 'autocomplete_state.dart';
 
 class AutocompleteBloc extends Bloc<AutocompleteEvent, AutocompleteState> {
   final PlacesRepository _placesRepository;
-  StreamSubscription? _placesSubscription;
 
   AutocompleteBloc({required PlacesRepository placesRepository})
       : _placesRepository = placesRepository,
@@ -26,24 +23,5 @@ class AutocompleteBloc extends Bloc<AutocompleteEvent, AutocompleteState> {
         await _placesRepository.getAutocomplete(city: event.searchInput);
 
     emit(AutocompleteLoaded(places: autocomplete));
-  }
-
-  @override
-  Stream<AutocompleteState> mapEventToState(
-    AutocompleteEvent event,
-  ) async* {
-    if (event is LoadAutocomplete) {
-      yield* _mapLoadAutocompleteToState(event);
-    }
-  }
-
-  Stream<AutocompleteState> _mapLoadAutocompleteToState(
-      LoadAutocomplete event) async* {
-    _placesSubscription?.cancel();
-
-    final List<PlaceAutocompleteModel> autocomplete =
-        await _placesRepository.getAutocomplete(city: event.searchInput);
-
-    yield AutocompleteLoaded(places: autocomplete);
   }
 }
