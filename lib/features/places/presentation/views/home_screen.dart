@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pogodappka/features/places/presentation/widgets/drawer.dart';
 import 'package:pogodappka/features/weather/presentation/views/fifteen_day_forecast_weather.dart';
-import 'package:pogodappka/features/weather/presentation/views/todays_weather.dart';
-import 'package:pogodappka/features/weather/presentation/views/tommorows_weather.dart';
+import 'package:pogodappka/features/weather/presentation/views/forecast_details.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -77,10 +76,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
         body: TabBarView(
           controller: _tabController,
-          children: const [
-            TodaysWeather(),
-            TommorowsWeather(),
-            FifteenDayForecastWeather(),
+          children: [
+            ForecastDetails(date: DateTime.now()),
+            ForecastDetails(date: DateTime.now().add(const Duration(days: 1))),
+            const FifteenDayForecastWeather(),
           ],
         ),
       ),

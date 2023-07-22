@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:location_geocoder/location_geocoder.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
+import 'package:pogodappka/features/places/presentation/widgets/current_location.dart';
 
 import 'package:pogodappka/features/places/presentation/widgets/location_list_tile.dart';
 
@@ -29,7 +28,9 @@ class HomePageDrawer extends StatelessWidget {
           child: BlocBuilder<AutocompleteBloc, AutocompleteState>(
             builder: (context, state) {
               if (state is AutocompleteLoading) {
-                return const CircularProgressIndicator();
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               } else if (state is AutocompleteLoaded) {
                 return Column(
                   children: [
@@ -67,51 +68,16 @@ class HomePageDrawer extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Divider(
-                        color: Colors.white,
-                        thickness: 1,
-                      ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 45,
-                      child: ElevatedButton.icon(
-                        onPressed: () async {
-                          var apiKey = dotenv.env['GP_Key'];
-
-                          final LocatitonGeocoder geocoder =
-                              LocatitonGeocoder(apiKey.toString());
-                          final address =
-                              await geocoder.findAddressesFromCoordinates(
-                                  Coordinates(49.391925, 20.097368));
-                          print(address.first.locality);
-                        },
-                        icon: const Icon(
-                          Icons.gps_fixed,
-                          size: 26,
-                          color: Colors.white,
-                        ),
-                        label: const Text(
-                          'Użyj Twojej lokalizacji',
-                        ),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Divider(
-                        color: Colors.white,
-                        thickness: 1,
-                      ),
-                    ),
+                    const CurrentLocation(),
                     Expanded(
                       child: ListView.builder(
                         itemCount: state.places.length,
                         itemBuilder: (context, index) => LocationListTile(
                           location: state.places[index].description,
                           callback: () {
-                            print(state.places[index].description);
+                            String adress = state.places[index].description;
+                            String city =
+                                adress.substring(0, adress.indexOf(','));
                           },
                         ),
                       ),
@@ -119,7 +85,7 @@ class HomePageDrawer extends StatelessWidget {
                   ],
                 );
               } else {
-                return const Text('Something went wrong');
+                return const Text('Nie można załadować elementu');
               }
             },
           ),

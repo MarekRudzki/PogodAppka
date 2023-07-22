@@ -18,7 +18,6 @@ class TodaysWeather extends StatelessWidget {
                 Text(
                   DateTime.now().toString(),
                 ),
-                ElevatedButton(onPressed: () {}, child: const Text('test')),
               ],
             ),
           );

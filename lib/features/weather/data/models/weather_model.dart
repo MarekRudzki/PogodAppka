@@ -2,7 +2,6 @@ import 'package:equatable/equatable.dart';
 
 class WeatherModel extends Equatable {
   const WeatherModel(
-    this.feelsLike,
     this.currentCondition,
     this.cloudCover,
     this.sunrise,
@@ -10,9 +9,12 @@ class WeatherModel extends Equatable {
     this.currentTemperature,
     this.humidity,
     this.pressure,
+    this.iconName,
+    this.precip,
+    this.winddir,
+    this.windspeed,
   );
 
-  final double feelsLike;
   final double currentTemperature;
   final String currentCondition;
   final double cloudCover;
@@ -20,20 +22,26 @@ class WeatherModel extends Equatable {
   final double pressure;
   final String sunrise;
   final String sunset;
+  final String iconName;
+  final double precip;
+  final double winddir;
+  final double windspeed;
 
   WeatherModel.fromJson(Map<String, dynamic> json)
       : currentTemperature = json['currentConditions']['temp'],
-        feelsLike = json['currentConditions']['feelslike'],
         currentCondition = json['currentConditions']['conditions'],
         cloudCover = json['currentConditions']['cloudcover'],
         humidity = json['currentConditions']['humidity'],
         pressure = json['currentConditions']['pressure'],
         sunrise = json['currentConditions']['sunrise'],
-        sunset = json['currentConditions']['sunset'];
+        sunset = json['currentConditions']['sunset'],
+        iconName = json['currentConditions']['icon'],
+        precip = json['currentConditions']['precip'] ?? 0.0,
+        winddir = json['currentConditions']['winddir'] ?? 0.0,
+        windspeed = json['currentConditions']['windspeed'] ?? 0.0;
 
   @override
   List<Object?> get props => [
-        feelsLike,
         currentTemperature,
         currentCondition,
         cloudCover,
@@ -41,5 +49,9 @@ class WeatherModel extends Equatable {
         pressure,
         sunrise,
         sunset,
+        iconName,
+        precip,
+        winddir,
+        windspeed,
       ];
 }
