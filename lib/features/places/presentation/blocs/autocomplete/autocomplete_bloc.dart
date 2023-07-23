@@ -13,6 +13,7 @@ class AutocompleteBloc extends Bloc<AutocompleteEvent, AutocompleteState> {
       : _placesRepository = placesRepository,
         super(AutocompleteLoading()) {
     on<LoadAutocomplete>(_onLoadAutocomplete);
+    on<ClearAutocomplete>(_onClearAutocomplete);
   }
 
   void _onLoadAutocomplete(
@@ -23,5 +24,12 @@ class AutocompleteBloc extends Bloc<AutocompleteEvent, AutocompleteState> {
         await _placesRepository.getAutocomplete(city: event.searchInput);
 
     emit(AutocompleteLoaded(places: autocomplete));
+  }
+
+  void _onClearAutocomplete(
+    ClearAutocomplete event,
+    Emitter<AutocompleteState> emit,
+  ) {
+    emit(const AutocompleteLoaded(places: []));
   }
 }

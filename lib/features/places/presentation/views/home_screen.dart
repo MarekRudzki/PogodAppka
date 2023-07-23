@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pogodappka/features/places/presentation/widgets/drawer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
+import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
+import 'package:pogodappka/features/places/presentation/widgets/home_page_drawer.dart';
 import 'package:pogodappka/features/weather/presentation/views/fifteen_day_forecast_weather.dart';
 import 'package:pogodappka/features/weather/presentation/views/forecast_details.dart';
 
@@ -37,12 +40,24 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         endDrawer: const HomePageDrawer(),
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            'Poznań',
-            style: TextStyle(
-              fontSize: 26,
-              color: Colors.white,
-            ),
+          title: BlocBuilder<CitiesBloc, CitiesState>(
+            builder: (context, state) {
+              if (state is CitiesLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is LatestCityLoaded) {
+                return Text(
+                  state.city,
+                  style: const TextStyle(
+                    fontSize: 26,
+                    color: Colors.white,
+                  ),
+                );
+              } else {
+                return const Text('Coś poszło nie tak');
+              }
+            },
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -52,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 return IconButton(
                   onPressed: () {
                     Scaffold.of(context).openEndDrawer();
+                    context.read<AutocompleteBloc>().add(ClearAutocomplete());
                   },
                   icon: const Icon(
                     Icons.search,
