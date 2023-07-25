@@ -11,11 +11,13 @@ class LoadLatestCity extends CitiesEvent {}
 
 class LoadRecentSearches extends CitiesEvent {}
 
-class AddLatestCity extends CitiesEvent {
-  final String city;
+class LoadGeolocation extends CitiesEvent {}
 
-  const AddLatestCity({required this.city});
+class AddLatestCity extends CitiesEvent {
+  final CityModel cityModel;
+
+  const AddLatestCity({required this.cityModel});
 
   @override
-  List<Object> get props => [city];
+  List<Object> get props => [cityModel];
 }

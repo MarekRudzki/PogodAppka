@@ -17,6 +17,7 @@ class GeolocationBloc extends Bloc<GeolocationEvent, GeolocationState> {
     LoadGeolocation event,
     Emitter<GeolocationState> emit,
   ) async {
+    emit(GeolocationLoading());
     final String city = await _geolocationRepository.getCurrentLocation();
 
     emit(GeolocationLoaded(city));

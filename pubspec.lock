@@ -201,7 +201,7 @@ packages:
     source: hosted
     version: "1.1.0"
   http:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: http
       sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
@@ -445,6 +445,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.5"
+  worldtime:
+    dependency: "direct main"
+    description:
+      name: worldtime
+      sha256: "257b9ec78a2b994273df920d8c830e0f039e59a7748397233a397b9a8845296e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.9"
   xdg_directories:
     dependency: transitive
     description:

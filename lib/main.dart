@@ -6,12 +6,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pogodappka/features/cities/data/local_data_sources/cities_local_data_source.dart';
 import 'package:pogodappka/features/cities/domain/cities_repository.dart';
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
+import 'package:pogodappka/features/place_coordinates/data/datasource/place_coordinates_remote_data_source.dart';
+import 'package:pogodappka/features/place_coordinates/domain/repositories/place_coordinates_repository.dart';
+import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_coordinates/place_coordinates_bloc.dart';
 import 'package:pogodappka/features/places/data/datasources/places_remote_data_source.dart';
 import 'package:pogodappka/features/places/domain/repositories/geolocation_repository.dart';
 import 'package:pogodappka/features/places/domain/repositories/places_repository.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
 import 'package:pogodappka/features/places/presentation/blocs/geolocation/geolocation_bloc.dart';
-import 'package:pogodappka/features/places/presentation/views/home_screen.dart';
+import 'package:pogodappka/features/weather/presentation/views/home_screen.dart';
 import 'package:pogodappka/features/weather/data/datasources/weather_remote_data_source.dart';
 import 'package:pogodappka/features/weather/domain/repositories/weather_repository.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
@@ -41,6 +44,9 @@ void main() async {
           ),
           RepositoryProvider(
               create: (context) => CitiesRepository(CitiesLocalDataSource())),
+          RepositoryProvider(
+              create: (context) => PlaceCoordinatesRepository(
+                  PlaceCoordinatesRemoteDataSource())),
         ],
         child: MultiBlocProvider(
           providers: [
@@ -49,13 +55,6 @@ void main() async {
                   placesRepository: context.read<PlacesRepository>())
                 ..add(
                   const LoadAutocomplete(),
-                ),
-            ),
-            BlocProvider(
-              create: (context) => WeatherBloc(
-                  weatherRepository: context.read<WeatherRepository>())
-                ..add(
-                  const FetchWeather(),
                 ),
             ),
             BlocProvider(
@@ -68,7 +67,27 @@ void main() async {
                         geolocationRepository:
                             context.read<GeolocationRepository>()),
                     citiesRepository: context.read<CitiesRepository>())
-                  ..add(LoadLatestCity()))
+                  ..add(LoadLatestCity())),
+            BlocProvider(
+              create: (context) => WeatherBloc(
+                  weatherRepository: context.read<WeatherRepository>())
+                ..add(
+                  FetchWeather(
+                      city: context
+                          .read<CitiesRepository>()
+                          .getLatestCity()
+                          .name),
+                ),
+            ),
+            BlocProvider(
+              create: (context) => PlaceCoordinatesBloc(
+                  context.read<PlaceCoordinatesRepository>())
+                ..add(FetchPlaceCoordinates(
+                    placeId: context
+                        .read<CitiesRepository>()
+                        .getLatestCity()
+                        .placeId)),
+            ),
           ],
           child: const MaterialApp(
             title: 'Pogodappka',

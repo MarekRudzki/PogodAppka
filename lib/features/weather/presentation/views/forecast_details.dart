@@ -5,8 +5,9 @@ import 'package:pogodappka/features/weather/presentation/widgets/day_description
 import 'package:pogodappka/features/weather/presentation/widgets/weather_tile.dart';
 
 class ForecastDetails extends StatelessWidget {
-  final DateTime date;
-  const ForecastDetails({super.key, required this.date});
+  const ForecastDetails({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class ForecastDetails extends StatelessWidget {
                       children: [
                         Column(
                           children: [
-                            DayDescription(date: date),
+                            const DayDescription(),
                             const Spacer(),
                             Text(
                               '${state.weatherModel.currentTemperature.toString()} ℃',

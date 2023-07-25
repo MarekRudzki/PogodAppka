@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
-import 'package:pogodappka/features/places/presentation/widgets/home_page_drawer.dart';
+import 'package:pogodappka/features/weather/presentation/widgets/home_page_drawer.dart';
 import 'package:pogodappka/features/weather/presentation/views/fifteen_day_forecast_weather.dart';
 import 'package:pogodappka/features/weather/presentation/views/forecast_details.dart';
 
@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 );
               } else if (state is LatestCityLoaded) {
                 return Text(
-                  state.city,
+                  state.cityModel.name,
                   style: const TextStyle(
                     fontSize: 26,
                     color: Colors.white,
@@ -92,10 +92,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
         body: TabBarView(
           controller: _tabController,
-          children: [
-            ForecastDetails(date: DateTime.now()),
-            ForecastDetails(date: DateTime.now().add(const Duration(days: 1))),
-            const FifteenDayForecastWeather(),
+          children: const [
+            ForecastDetails(),
+            ForecastDetails(),
+            FifteenDayForecastWeather(),
           ],
         ),
       ),

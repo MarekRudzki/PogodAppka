@@ -4,9 +4,13 @@ class CitiesLocalDataSource {
   final _citiesLocalDataSource = Hive.box('cities_box');
 
   /// Current City
-  Future<void> addLatestCity({required String city}) async {
+  Future<void> addLatestCity({
+    required String city,
+    required String placeId,
+  }) async {
     await _citiesLocalDataSource.put('latest_city', city);
-    await addToRecentSearches(city: city);
+    await _citiesLocalDataSource.put('latest_placeId', placeId);
+    await addToRecentSearches(city: city, placeId: placeId);
   }
 
   // Check if user has searched any city before, if not return Poland capital
@@ -20,38 +24,56 @@ class CitiesLocalDataSource {
     }
   }
 
-  /// Recent searches
-  Future<void> addToRecentSearches({required String city}) async {
-    if (!_citiesLocalDataSource.containsKey('recent_searches')) {
-      _citiesLocalDataSource.put('recent_searches', [city]);
-    } else {
-      final List<String> recentSearches =
-          _citiesLocalDataSource.get('recent_searches');
+  String getLatestPlaceId() {
+    final bool placeIdExists =
+        _citiesLocalDataSource.containsKey('latest_placeId');
 
-      if (recentSearches.contains(city)) {
-        recentSearches.removeAt(recentSearches.indexOf(city));
-        recentSearches.add(city);
-        return;
-      }
-      if (recentSearches.length == 5) {
-        recentSearches.removeAt(0);
-        recentSearches.add(city);
-      } else {
-        recentSearches.add(city);
-      }
+    if (!placeIdExists) {
+      return 'ChIJAZ-GmmbMHkcR_NPqiCq-8HI';
+    } else {
+      return _citiesLocalDataSource.get('latest_placeId') as String;
     }
   }
 
-  List<String> getRecentSearces() {
+  /// Recent searches
+  Future<void> addToRecentSearches({
+    required String city,
+    required String placeId,
+  }) async {
+    final newData = <String, String>{city: placeId};
+
+    if (!_citiesLocalDataSource.containsKey('recent_searches')) {
+      await _citiesLocalDataSource.put('recent_searches', {city: placeId});
+    } else {
+      final recentSearches =
+          _citiesLocalDataSource.get('recent_searches') as Map<String, String>;
+
+      if (recentSearches.keys.contains(city)) {
+        recentSearches.removeWhere((key, value) => key == city);
+        recentSearches.addEntries(newData.entries);
+        return;
+      }
+      if (recentSearches.length == 5) {
+        var firstElement = recentSearches.keys.first;
+        recentSearches.removeWhere((key, value) => key == firstElement);
+        recentSearches.addEntries(newData.entries);
+      } else {
+        recentSearches.addEntries(newData.entries);
+      }
+      await _citiesLocalDataSource.put('recent_searches', recentSearches);
+    }
+  }
+
+  Map<String, dynamic> getRecentSearces() {
     final bool recentSearchesExists =
         _citiesLocalDataSource.containsKey('recent_searches');
 
     if (!recentSearchesExists) {
-      return [];
+      return {};
     } else {
-      final List<String> recentSearches =
-          _citiesLocalDataSource.get('recent_searches') as List<String>;
-      return recentSearches.reversed.toList();
+      final Map<String, dynamic> recentSearches =
+          _citiesLocalDataSource.get('recent_searches') as Map<String, dynamic>;
+      return recentSearches;
     }
   }
 }

@@ -10,16 +10,17 @@ abstract class CitiesState extends Equatable {
 class CitiesLoading extends CitiesState {}
 
 class LatestCityLoaded extends CitiesState {
-  final String city;
+  final CityModel cityModel;
 
-  const LatestCityLoaded(this.city);
+  const LatestCityLoaded({required this.cityModel});
 
   @override
-  List<Object> get props => [city];
+  List<Object> get props => [cityModel];
 }
 
 class RecentSearchesLoaded extends CitiesState {
-  final List<String> recentSearches;
+  //final List<String> recentSearches;
+  final List<CityModel> recentSearches;
 
   const RecentSearchesLoaded(this.recentSearches);
 

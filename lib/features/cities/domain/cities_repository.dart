@@ -1,21 +1,40 @@
 import 'package:pogodappka/features/cities/data/local_data_sources/cities_local_data_source.dart';
+import 'package:pogodappka/features/cities/data/models/city_model.dart';
 
 class CitiesRepository {
   final CitiesLocalDataSource _citiesLocalDataSource;
 
   CitiesRepository(this._citiesLocalDataSource);
 
-  Future<void> addLatestCity({required String city}) async {
-    await _citiesLocalDataSource.addLatestCity(city: city);
+  Future<void> addLatestCity({
+    required CityModel cityModel,
+  }) async {
+    await _citiesLocalDataSource.addLatestCity(
+      city: cityModel.name,
+      placeId: cityModel.placeId,
+    );
   }
 
-  String getLatestCity() {
-    final latestCity = _citiesLocalDataSource.getLatestCity();
-    return latestCity;
+  CityModel getLatestCity() {
+    final latestCityName = _citiesLocalDataSource.getLatestCity();
+    final latestPlaceId = _citiesLocalDataSource.getLatestPlaceId();
+    return CityModel(name: latestCityName, placeId: latestPlaceId);
   }
 
-  List<String> getRecentSearches() {
+  List<CityModel> getRecentSearches() {
+    List<CityModel> recentCitiesSearches = [];
     final recentSearches = _citiesLocalDataSource.getRecentSearces();
-    return recentSearches;
+
+    final cityName =
+        List<String>.from(recentSearches.keys.map((String city) => city))
+            .toList();
+    final placeId =
+        List<String>.from(recentSearches.values.map((placeId) => placeId))
+            .toList();
+    for (int i = 0; i < cityName.length; i++) {
+      recentCitiesSearches
+          .add(CityModel(name: cityName[i], placeId: placeId[i]));
+    }
+    return recentCitiesSearches;
   }
 }
