@@ -15,12 +15,12 @@ class ForecastDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherBloc, WeatherState>(
-      builder: (context, state) {
-        if (state is WeatherLoading) {
+      builder: (context, weatherState) {
+        if (weatherState is WeatherLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is WeatherLoaded) {
+        } else if (weatherState is WeatherLoaded) {
           return Padding(
             padding: const EdgeInsets.all(12),
             child: SingleChildScrollView(
@@ -35,7 +35,7 @@ class ForecastDetails extends StatelessWidget {
                             const DayDescription(),
                             const Spacer(),
                             Text(
-                              '${state.weatherModel.currentTemperature.toString()} ℃',
+                              '${weatherState.weatherModel.currentTemperature.toString()} ℃',
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 27,
@@ -47,7 +47,7 @@ class ForecastDetails extends StatelessWidget {
                         Expanded(
                           child: Image.asset(
                             buildWeatherIcon(
-                              weatherModel: state.weatherModel,
+                              weatherModel: weatherState.weatherModel,
                             ),
                           ),
                         ),
@@ -68,9 +68,9 @@ class ForecastDetails extends StatelessWidget {
                           WeatherTile(
                             hour: '11:00',
                             assetName: 'assets/clear-day.png',
-                            precip: state.weatherModel.precip,
-                            windDir: state.weatherModel.winddir,
-                            windSpeed: state.weatherModel.windspeed,
+                            precip: weatherState.weatherModel.precip,
+                            windDir: weatherState.weatherModel.winddir,
+                            windSpeed: weatherState.weatherModel.windspeed,
                           ),
                         ],
                       ),
@@ -89,7 +89,7 @@ class ForecastDetails extends StatelessWidget {
 }
 
 String buildWeatherIcon({required WeatherModel weatherModel}) {
-  print(weatherModel.severerisk);
+  print(weatherModel.severerisk); //TODO finish weather icon
   if (weatherModel.severerisk > 30) {
     return 'assets/storm.png';
   } else {

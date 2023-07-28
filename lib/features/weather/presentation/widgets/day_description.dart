@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pogodappka/features/weather/presentation/widgets/digital_clock.dart';
 import 'package:worldtime/worldtime.dart';
 
 import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_coordinates/place_coordinates_bloc.dart';
@@ -75,24 +76,23 @@ class LocalDateTime extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 7),
-        Text(
-          displayTime(
-            hour: localDateTime.hour.toString(),
-            minute: localDateTime.minute.toString(),
-          ),
-          style: const TextStyle(
+        DigitalClock(
+          hourMinuteDigitTextStyle: const TextStyle(
             color: Colors.white,
-            fontSize: 17,
+            fontSize: 25,
+          ),
+          colonTimerInMiliseconds: 1000,
+          dateTime: localDateTime,
+          showSecondsDigit: false,
+          colon: const Text(
+            ":",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
           ),
         ),
       ],
     );
   }
-}
-
-String displayTime({required String hour, required String minute}) {
-  final String newHour = int.parse(hour) < 10 ? '0$hour' : hour;
-  final String newMinute = int.parse(minute) < 10 ? '0$minute' : minute;
-
-  return '$newHour:$newMinute';
 }
