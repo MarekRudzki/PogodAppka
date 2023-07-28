@@ -40,13 +40,12 @@ class CitiesLocalDataSource {
     required String city,
     required String placeId,
   }) async {
-    final newData = <String, String>{city: placeId};
+    final newData = {city: placeId};
 
     if (!_citiesLocalDataSource.containsKey('recent_searches')) {
-      await _citiesLocalDataSource.put('recent_searches', {city: placeId});
+      await _citiesLocalDataSource.put('recent_searches', newData);
     } else {
-      final recentSearches =
-          _citiesLocalDataSource.get('recent_searches') as Map<String, String>;
+      final recentSearches = _citiesLocalDataSource.get('recent_searches');
 
       if (recentSearches.keys.contains(city)) {
         recentSearches.removeWhere((key, value) => key == city);
@@ -71,9 +70,8 @@ class CitiesLocalDataSource {
     if (!recentSearchesExists) {
       return {};
     } else {
-      final Map<String, dynamic> recentSearches =
-          _citiesLocalDataSource.get('recent_searches') as Map<String, dynamic>;
-      return recentSearches;
+      final recentSearches = _citiesLocalDataSource.get('recent_searches');
+      return Map<String, dynamic>.from(recentSearches as Map);
     }
   }
 }

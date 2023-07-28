@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pogodappka/features/weather/data/models/weather_model.dart';
+
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/day_description.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/weather_tile.dart';
@@ -43,7 +46,9 @@ class ForecastDetails extends StatelessWidget {
                         ),
                         Expanded(
                           child: Image.asset(
-                            'assets/${state.weatherModel.iconName}.png',
+                            buildWeatherIcon(
+                              weatherModel: state.weatherModel,
+                            ),
                           ),
                         ),
                       ],
@@ -80,5 +85,14 @@ class ForecastDetails extends StatelessWidget {
         }
       },
     );
+  }
+}
+
+String buildWeatherIcon({required WeatherModel weatherModel}) {
+  print(weatherModel.severerisk);
+  if (weatherModel.severerisk > 30) {
+    return 'assets/storm.png';
+  } else {
+    return 'assets/${weatherModel.iconName}.png';
   }
 }

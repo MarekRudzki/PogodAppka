@@ -6,8 +6,9 @@ class PlacesRepository {
 
   final PlacesRemoteDataSource _placeesRemoteDataSource;
 
-  Future<List<PlaceAutocompleteModel>> getAutocomplete(
-      {required String city}) async {
+  Future<List<PlaceAutocompleteModel>> getAutocomplete({
+    required String city,
+  }) async {
     final response = await _placeesRemoteDataSource.getPlaces(city: city);
 
     if (response == null) {

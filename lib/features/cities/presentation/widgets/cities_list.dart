@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:pogodappka/features/cities/data/models/city_model.dart';
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
 import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_coordinates/place_coordinates_bloc.dart';
@@ -63,6 +65,12 @@ class CitiesList extends StatelessWidget {
                           context.read<CitiesBloc>().add(AddLatestCity(
                               cityModel:
                                   CityModel(name: city, placeId: placeId)));
+                          context
+                              .read<WeatherBloc>()
+                              .add(FetchWeather(city: city));
+                          context
+                              .read<PlaceCoordinatesBloc>()
+                              .add(FetchPlaceCoordinates(placeId: placeId));
 
                           Navigator.of(context).pop();
                         },

@@ -2,7 +2,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:dio/dio.dart';
 
 class PlacesRemoteDataSource {
-  Future<Map<String, dynamic>?> getPlaces({required String city}) async {
+  Future<Map<String, dynamic>?> getPlaces({
+    required String city,
+  }) async {
     var apiKey = dotenv.env['GP_Key'];
 
     try {

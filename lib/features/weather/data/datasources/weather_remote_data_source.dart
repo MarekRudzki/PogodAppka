@@ -1,9 +1,12 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class WeatherRemoteDataSource {
-  Future<Map<String, dynamic>?> getWeatherData({required String city}) async {
+  Future<Map<String, dynamic>?> getWeatherData({
+    required String city,
+  }) async {
     var weatherKey = dotenv.env['Weather_Key'];
+
     try {
       final response = await Dio().get<Map<String, dynamic>>(
           'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/$city?unitGroup=metric&key=$weatherKey&contentType=json');

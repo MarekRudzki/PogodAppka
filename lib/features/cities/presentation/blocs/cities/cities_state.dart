@@ -19,7 +19,6 @@ class LatestCityLoaded extends CitiesState {
 }
 
 class RecentSearchesLoaded extends CitiesState {
-  //final List<String> recentSearches;
   final List<CityModel> recentSearches;
 
   const RecentSearchesLoaded(this.recentSearches);

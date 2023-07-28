@@ -2,6 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:pogodappka/features/weather/data/models/weather_model.dart';
 import 'package:pogodappka/features/weather/domain/repositories/weather_repository.dart';
 

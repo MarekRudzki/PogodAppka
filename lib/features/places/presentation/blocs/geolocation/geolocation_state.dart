@@ -10,12 +10,12 @@ abstract class GeolocationState extends Equatable {
 class GeolocationLoading extends GeolocationState {}
 
 class GeolocationLoaded extends GeolocationState {
-  final String city;
+  final CityModel cityModel;
 
-  const GeolocationLoaded(this.city);
+  const GeolocationLoaded(this.cityModel);
 
   @override
-  List<Object> get props => [city];
+  List<Object> get props => [cityModel];
 }
 
 class GeolocationError extends GeolocationState {}

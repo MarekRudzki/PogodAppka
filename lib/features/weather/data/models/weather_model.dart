@@ -13,6 +13,7 @@ class WeatherModel extends Equatable {
     this.precip,
     this.winddir,
     this.windspeed,
+    this.severerisk,
   );
 
   final double currentTemperature;
@@ -26,6 +27,7 @@ class WeatherModel extends Equatable {
   final double precip;
   final double winddir;
   final double windspeed;
+  final double severerisk;
 
   WeatherModel.fromJson(Map<String, dynamic> json)
       : currentTemperature = json['currentConditions']['temp'],
@@ -38,7 +40,8 @@ class WeatherModel extends Equatable {
         iconName = json['currentConditions']['icon'],
         precip = json['currentConditions']['precip'] ?? 0.0,
         winddir = json['currentConditions']['winddir'] ?? 0.0,
-        windspeed = json['currentConditions']['windspeed'] ?? 0.0;
+        windspeed = json['currentConditions']['windspeed'] ?? 0.0,
+        severerisk = json['currentConditions']['severerisk'] ?? 0.0;
 
   @override
   List<Object?> get props => [

@@ -10,7 +10,9 @@ abstract class PlaceCoordinatesEvent extends Equatable {
 class FetchPlaceCoordinates extends PlaceCoordinatesEvent {
   final String placeId;
 
-  const FetchPlaceCoordinates({required this.placeId});
+  const FetchPlaceCoordinates({
+    required this.placeId,
+  });
 
   @override
   List<Object> get props => [placeId];

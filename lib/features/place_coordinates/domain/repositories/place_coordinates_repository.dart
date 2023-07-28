@@ -15,9 +15,6 @@ class PlaceCoordinatesRepository {
       return PlaceCooridnatesModel(52.069337, 19.480245);
     }
 
-    var latitude = response['result']['geometry']['location']['lat'];
-    var longitude = response['result']['geometry']['location']['lng'];
-
-    return PlaceCooridnatesModel(latitude, longitude);
+    return PlaceCooridnatesModel.fromJson(response);
   }
 }

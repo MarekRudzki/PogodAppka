@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldtime/worldtime.dart';
+
 import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_coordinates/place_coordinates_bloc.dart';
 
 class DayDescription extends StatelessWidget {
@@ -31,7 +33,7 @@ class DayDescription extends StatelessWidget {
                   localDateTime: snapshot.data!,
                 );
               } else {
-                return const Text('test');
+                return const Text('Nie można wyświetlić daty i godziny');
               }
             },
           );

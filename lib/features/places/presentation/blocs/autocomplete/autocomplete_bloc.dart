@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:pogodappka/features/places/data/models/place_autocomplete_model.dart';
 import 'package:pogodappka/features/places/domain/repositories/places_repository.dart';
 

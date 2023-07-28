@@ -12,7 +12,9 @@ class WeatherLoading extends WeatherState {}
 class WeatherLoaded extends WeatherState {
   final WeatherModel weatherModel;
 
-  const WeatherLoaded({required this.weatherModel});
+  const WeatherLoaded({
+    required this.weatherModel,
+  });
 
   @override
   List<Object> get props => [weatherModel];

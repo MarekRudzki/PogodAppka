@@ -26,17 +26,21 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
         add(LoadGeolocation());
       }
       if (state is GeolocationLoaded) {
-        add(AddLatestCity(
+        add(
+          AddLatestCity(
             cityModel: CityModel(
-                name: state.city,
-                placeId: ''))); //TODO skad wziac placeID przy geolokacji
+              name: state.cityModel.name,
+              placeId: state.cityModel.placeId,
+            ),
+          ),
+        );
       }
     });
 
     on<LoadLatestCity>(_onLoadLatestCity);
     on<LoadRecentSearches>(_onLoadRecentSearches);
     on<AddLatestCity>(_onAddLatestCity);
-    on<LoadGeolocation>(_onLoadGeolocation);
+    on<LoadGeolocation>(_onGeolocationLoading);
   }
 
   void _onLoadLatestCity(
@@ -46,8 +50,9 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
     emit(
       LatestCityLoaded(
         cityModel: CityModel(
-            name: _citiesRepository.getLatestCity().name,
-            placeId: _citiesRepository.getLatestCity().placeId),
+          name: _citiesRepository.getLatestCity().name,
+          placeId: _citiesRepository.getLatestCity().placeId,
+        ),
       ),
     );
   }
@@ -67,17 +72,21 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
   ) async {
     await _citiesRepository.addLatestCity(
       cityModel: CityModel(
-          name: event.cityModel.name, placeId: event.cityModel.placeId),
+        name: event.cityModel.name,
+        placeId: event.cityModel.placeId,
+      ),
     );
     emit(
       LatestCityLoaded(
         cityModel: CityModel(
-            name: event.cityModel.name, placeId: event.cityModel.placeId),
+          name: event.cityModel.name,
+          placeId: event.cityModel.placeId,
+        ),
       ),
     );
   }
 
-  void _onLoadGeolocation(
+  void _onGeolocationLoading(
     LoadGeolocation event,
     Emitter<CitiesState> emit,
   ) {

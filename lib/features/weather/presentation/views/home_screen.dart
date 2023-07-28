@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/home_page_drawer.dart';
-import 'package:pogodappka/features/weather/presentation/views/fifteen_day_forecast_weather.dart';
 import 'package:pogodappka/features/weather/presentation/views/forecast_details.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -55,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ),
                 );
               } else {
-                return const Text('Coś poszło nie tak');
+                return const Text('Błąd! Prognoza niedostępna');
               }
             },
           ),
@@ -94,8 +95,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           controller: _tabController,
           children: const [
             ForecastDetails(),
-            ForecastDetails(),
-            FifteenDayForecastWeather(),
+            Placeholder(),
+            Placeholder(),
           ],
         ),
       ),
