@@ -5,6 +5,7 @@ import 'package:pogodappka/features/weather/data/models/weather_model.dart';
 
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/day_description.dart';
+import 'package:pogodappka/features/weather/presentation/widgets/sunrise_sunset.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/weather_tile.dart';
 
 class ForecastDetails extends StatelessWidget {
@@ -76,6 +77,10 @@ class ForecastDetails extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SunriseSunset(
+                    sunrise: weatherState.weatherModel.sunrise,
+                    sunset: weatherState.weatherModel.sunset,
+                  ),
                 ],
               ),
             ),
@@ -88,10 +93,11 @@ class ForecastDetails extends StatelessWidget {
   }
 }
 
-String buildWeatherIcon({required WeatherModel weatherModel}) {
-  print(weatherModel.severerisk); //TODO finish weather icon
+String buildWeatherIcon({
+  required WeatherModel weatherModel,
+}) {
   if (weatherModel.severerisk > 30) {
-    return 'assets/storm.png';
+    return 'assets/storm.png'; //TODO
   } else {
     return 'assets/${weatherModel.iconName}.png';
   }

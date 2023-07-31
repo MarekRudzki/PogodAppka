@@ -1,4 +1,5 @@
 /// This is a slide_digital_clock 1.0.3 package from pub_dev
+/// https://pub.dev/packages/slide_digital_clock
 /// It is saved as .dart file, not used as import package
 /// Due to the need to use other DateTime than DateTime.now()
 /// and to adjust colon timer which was not modifiable in original package
