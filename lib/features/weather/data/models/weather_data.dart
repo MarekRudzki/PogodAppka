@@ -1,34 +1,35 @@
+import 'package:pogodappka/features/weather/data/models/daily_weather_data.dart';
 import 'package:pogodappka/features/weather/data/models/weather_data_hourly.dart';
 import 'package:pogodappka/features/weather/data/models/weather_day_length.dart';
 
 class WeatherData {
-  List<DailyWeatherData> dailyWeatherData;
+  List<WeatherDataModel> weatherDataModel;
 
   WeatherData({
-    required this.dailyWeatherData,
+    required this.weatherDataModel,
   });
 
   factory WeatherData.fromJson(Map<String, dynamic> json) => WeatherData(
-      dailyWeatherData: List<DailyWeatherData>.from(
-          json['days'].map((e) => DailyWeatherData.fromJson(e))).toList());
+      weatherDataModel: List<WeatherDataModel>.from(
+          json['days'].map((e) => WeatherDataModel.fromJson(e))).toList());
 }
 
-class DailyWeatherData {
+class WeatherDataModel {
   final WeatherDataHourly weatherDataHourly;
   final WeatherDayLength weatherDayLength;
+  final DailyWeatherData dailyWeatherData;
 
-  DailyWeatherData({
+  WeatherDataModel({
     required this.weatherDataHourly,
     required this.weatherDayLength,
+    required this.dailyWeatherData,
   });
 
-  factory DailyWeatherData.fromJson(Map<String, dynamic> json) {
-    return DailyWeatherData(
-      weatherDataHourly: WeatherDataHourly(
-          hourly:
-              List<Hourly>.from(json['hours'].map((e) => Hourly.fromJson(e)))),
-      weatherDayLength:
-          WeatherDayLength(sunrise: json['sunrise'], sunset: json['sunset']),
+  factory WeatherDataModel.fromJson(Map<String, dynamic> json) {
+    return WeatherDataModel(
+      weatherDataHourly: WeatherDataHourly.fromJson(json),
+      weatherDayLength: WeatherDayLength.fromJson(json),
+      dailyWeatherData: DailyWeatherData.fromJson(json),
     );
   }
 }

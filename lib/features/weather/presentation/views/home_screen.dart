@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/home_page_drawer.dart';
-import 'package:pogodappka/features/weather/presentation/views/forecast_details.dart';
+import 'package:pogodappka/features/weather/presentation/widgets/forecast_details.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 34, 123, 196),
+        backgroundColor: const Color.fromARGB(255, 135, 191, 50),
         endDrawer: const HomePageDrawer(),
         appBar: AppBar(
           centerTitle: true,
@@ -94,8 +94,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         body: TabBarView(
           controller: _tabController,
           children: const [
-            ForecastDetails(),
-            Placeholder(),
+            ForecastDetails(
+              day: 0,
+            ),
+            ForecastDetails(
+              day: 1,
+            ),
             Placeholder(),
           ],
         ),

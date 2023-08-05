@@ -24,6 +24,7 @@ class Hourly extends Equatable {
   final int winddir;
   final int windspeed;
   final int severerisk;
+  final int precipprob;
 
   const Hourly({
     required this.datetime,
@@ -33,6 +34,7 @@ class Hourly extends Equatable {
     required this.pressure,
     required this.icon,
     required this.precip,
+    required this.precipprob,
     required this.winddir,
     required this.windspeed,
     required this.severerisk,
@@ -46,6 +48,7 @@ class Hourly extends Equatable {
         pressure: (json['pressure'] as num).round(),
         icon: json['icon'],
         precip: (json['precip'] as num?)?.round() ?? 0,
+        precipprob: (json['precipprob'] as num?)?.round() ?? 0,
         winddir: (json['winddir'] as num?)?.round() ?? 0,
         windspeed: (json['windspeed'] as num?)?.round() ?? 0,
         severerisk: (json['severerisk'] as num?)?.round() ?? 0,
@@ -58,6 +61,7 @@ class Hourly extends Equatable {
         cloudCover,
         humidity,
         pressure,
+        precipprob,
         icon,
         precip,
         winddir,

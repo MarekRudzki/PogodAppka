@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class WeatherTile extends StatelessWidget {
   final String hour;
   final String assetName;
+  final int temp;
   final int precip;
   final int windDir;
   final int windSpeed;
@@ -14,6 +15,7 @@ class WeatherTile extends StatelessWidget {
     required this.precip,
     required this.windDir,
     required this.windSpeed,
+    required this.temp,
   });
 
   @override
@@ -27,15 +29,15 @@ class WeatherTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              hour,
+              hour.substring(0, 5),
               style: const TextStyle(
                 color: Colors.white,
               ),
             ),
-            Image.asset(assetName),
-            const Text(
-              '25 ℃',
-              style: TextStyle(
+            Image.asset('assets/$assetName.png'),
+            Text(
+              '$temp ℃',
+              style: const TextStyle(
                 color: Colors.white,
               ),
             ),
