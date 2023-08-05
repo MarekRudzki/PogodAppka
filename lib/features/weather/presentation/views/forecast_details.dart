@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pogodappka/features/weather/data/models/weather_model.dart';
+import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/day_description.dart';
@@ -31,24 +31,24 @@ class ForecastDetails extends StatelessWidget {
                     height: 200,
                     child: Row(
                       children: [
-                        Column(
+                        const Column(
                           children: [
-                            const DayDescription(),
-                            const Spacer(),
+                            DayDescription(),
+                            Spacer(),
                             Text(
-                              '${weatherState.weatherModel.currentTemperature.toString()} ℃',
-                              style: const TextStyle(
+                              '22 ℃',
+                              style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 27,
                               ),
                             ),
-                            const Spacer(),
+                            Spacer(),
                           ],
                         ),
                         Expanded(
                           child: Image.asset(
                             buildWeatherIcon(
-                              weatherModel: weatherState.weatherModel,
+                              weatherData: weatherState.weatherData,
                             ),
                           ),
                         ),
@@ -64,22 +64,24 @@ class ForecastDetails extends StatelessWidget {
                         borderRadius: BorderRadius.circular(15),
                         color: Colors.grey.withOpacity(0.3),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
                           WeatherTile(
                             hour: '11:00',
                             assetName: 'assets/clear-day.png',
-                            precip: weatherState.weatherModel.precip,
-                            windDir: weatherState.weatherModel.winddir,
-                            windSpeed: weatherState.weatherModel.windspeed,
+                            precip: 3,
+                            windDir: 223,
+                            windSpeed: 5,
                           ),
                         ],
                       ),
                     ),
                   ),
                   SunriseSunset(
-                    sunrise: weatherState.weatherModel.sunrise,
-                    sunset: weatherState.weatherModel.sunset,
+                    sunrise: weatherState.weatherData.dailyWeatherData[0]
+                        .weatherDayLength.sunrise,
+                    sunset: weatherState.weatherData.dailyWeatherData[0]
+                        .weatherDayLength.sunset,
                   ),
                 ],
               ),
@@ -94,11 +96,12 @@ class ForecastDetails extends StatelessWidget {
 }
 
 String buildWeatherIcon({
-  required WeatherModel weatherModel,
+  required WeatherData weatherData,
 }) {
-  if (weatherModel.severerisk > 30) {
-    return 'assets/storm.png'; //TODO
-  } else {
-    return 'assets/${weatherModel.iconName}.png';
-  }
+  return 'assets/${weatherData.dailyWeatherData[0].weatherDataHourly.hourly[13].icon}.png';
+  // if (weatherData.severerisk > 30) {
+  //   return 'assets/storm.png'; //TODO
+  // } else {
+  //   return 'assets/${weatherData.iconName}.png';
+  // }
 }

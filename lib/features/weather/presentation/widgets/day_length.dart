@@ -28,20 +28,18 @@ class DayLength extends StatelessWidget {
     final String nightLength = ((1 - dayLengthPercentage) * 24).toString();
     final String nightHours =
         nightLength.substring(0, nightLength.indexOf('.'));
-    final String nightMinutesUnconverted = nightLength.substring(
-        nightLength.indexOf('.') + 1, nightLength.indexOf('.') + 3);
-    final double nightMinutesDouble =
-        (double.parse(nightMinutesUnconverted) / 100 * 60);
-    final int addToFullHour = int.parse(nightMinutesDouble
+    final double nightMinutes =
+        (double.parse(nightLength) - double.parse(nightHours)) * 60;
+    final int addToFullHour = int.parse(nightMinutes
                     .toString()
-                    .substring(0, nightMinutesDouble.toString().indexOf('.'))) +
+                    .substring(0, nightMinutes.toString().indexOf('.'))) +
                 int.parse(dayMinutes) ==
             60
         ? 0
         : 1;
-    final String nightMinutes = nightMinutesDouble < 10
-        ? '0${nightMinutesDouble + addToFullHour}'.substring(0, 2)
-        : '${nightMinutesDouble + addToFullHour}'.substring(0, 2);
+    final String nightMinutesText = nightMinutes < 10
+        ? '0${nightMinutes + addToFullHour}'.substring(0, 2)
+        : '${nightMinutes + addToFullHour}'.substring(0, 2);
 
     return Column(
       children: [
@@ -94,7 +92,7 @@ class DayLength extends StatelessWidget {
                       ),
                       const SizedBox(width: 5),
                       Text(
-                        '$nightHours:$nightMinutes',
+                        '$nightHours:$nightMinutesText',
                         // nightLength,
                         style: const TextStyle(
                           color: Colors.white,

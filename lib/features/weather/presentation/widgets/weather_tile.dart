@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class WeatherTile extends StatelessWidget {
   final String hour;
   final String assetName;
-  final double precip;
-  final double windDir;
-  final double windSpeed;
+  final int precip;
+  final int windDir;
+  final int windSpeed;
 
   const WeatherTile({
     super.key,
@@ -52,7 +52,7 @@ class WeatherTile extends StatelessWidget {
             ),
             const SizedBox(height: 7),
             Transform.rotate(
-              angle: windDir,
+              angle: double.parse(windDir.toString()),
               child: Image.asset(
                 'assets/wind-arrow.png',
                 scale: 13,

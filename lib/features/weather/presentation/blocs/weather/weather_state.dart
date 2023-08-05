@@ -10,14 +10,14 @@ abstract class WeatherState extends Equatable {
 class WeatherLoading extends WeatherState {}
 
 class WeatherLoaded extends WeatherState {
-  final WeatherModel weatherModel;
+  final WeatherData weatherData;
 
   const WeatherLoaded({
-    required this.weatherModel,
+    required this.weatherData,
   });
 
   @override
-  List<Object> get props => [weatherModel];
+  List<Object> get props => [weatherData];
 }
 
 class WeatherError extends WeatherState {}

@@ -2,8 +2,8 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 
-import 'package:pogodappka/features/weather/data/models/weather_model.dart';
 import 'package:pogodappka/features/weather/domain/repositories/weather_repository.dart';
 
 part 'weather_event.dart';
@@ -24,11 +24,11 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     Emitter<WeatherState> emit,
   ) async {
     emit(WeatherLoading());
-    final WeatherModel? weatherModel =
-        await _weatherRepository.getWeatherModel(city: event.city);
+    final WeatherData? weatherData =
+        await _weatherRepository.getWeatherData(city: event.city);
 
-    if (weatherModel != null) {
-      emit(WeatherLoaded(weatherModel: weatherModel));
+    if (weatherData != null) {
+      emit(WeatherLoaded(weatherData: weatherData));
     }
   }
 }
