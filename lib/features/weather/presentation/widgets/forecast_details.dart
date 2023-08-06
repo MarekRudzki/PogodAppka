@@ -66,6 +66,7 @@ class ForecastDetails extends StatelessWidget {
                       }
                       if (snapshot.connectionState == ConnectionState.done) {
                         final DateTime currentLocalTime = snapshot.data!;
+
                         return SingleChildScrollView(
                           child: Column(
                             children: [
@@ -93,6 +94,8 @@ class ForecastDetails extends StatelessWidget {
                               HourlyDetails(
                                 weatherDataHourly: weatherState.weatherData
                                     .weatherDataModel[day].weatherDataHourly,
+                                day: day,
+                                localDateTime: currentLocalTime,
                                 sunrise: sunrise,
                                 sunset: sunset,
                               ),
@@ -144,21 +147,25 @@ String buildWeatherIcon({
           .hourly[localDateTime.hour].severerisk
       : weatherData.weatherDataModel[day].dailyWeatherData.severerisk;
 
-  final String modelIcon = day == 0
-      ? localDateTime.minute < 30
-          ? weatherData.weatherDataModel[day].weatherDataHourly
-              .hourly[localDateTime.hour].icon
-          : weatherData.weatherDataModel[day].weatherDataHourly
-              .hourly[localDateTime.hour + 1].icon
-      : weatherData.weatherDataModel[day].dailyWeatherData.icon;
+  String getModelIcon() {
+    if (day != 0) {
+      return weatherData.weatherDataModel[day].dailyWeatherData.icon;
+    } else if (localDateTime.minute < 30 || localDateTime.hour == 23) {
+      return weatherData.weatherDataModel[day].weatherDataHourly
+          .hourly[localDateTime.hour].icon;
+    } else {
+      return weatherData.weatherDataModel[day].weatherDataHourly
+          .hourly[localDateTime.hour + 1].icon;
+    }
+  }
 
   if (severerisk > 30 && (isDay || day != 0)) {
     return 'assets/storm.png';
   } else if (severerisk > 30) {
     return 'assets/night-storm.png';
-  } else if (modelIcon == 'rain' && !isDay) {
+  } else if (getModelIcon() == 'rain' && !isDay) {
     return 'assets/night-rain.png';
   } else {
-    return 'assets/$modelIcon.png';
+    return 'assets/${getModelIcon()}.png';
   }
 }

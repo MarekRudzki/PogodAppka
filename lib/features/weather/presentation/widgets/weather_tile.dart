@@ -66,20 +66,21 @@ class WeatherTile extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              // const SizedBox(height: 7),
-              // Transform.rotate(
-              //   angle: double.parse(windDir.toString()),
-              //   child: Image.asset(
-              //     'assets/wind-arrow.png',
-              //     scale: 13,
-              //   ),
-              // ),
-              // Text(
-              //   '$windSpeed km/h',
-              //   style: const TextStyle(
-              //     color: Colors.white,
-              //   ),
-              // ),//TODO add this to other tab
+              const SizedBox(height: 7),
+              Transform.rotate(
+                angle: double.parse(hourlyData.winddir.toString()),
+                child: Image.asset(
+                  'assets/wind-arrow.png',
+                  scale: 13,
+                ),
+              ),
+              Text(
+                '${hourlyData.windspeed} km/h',
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ), //TODO add this to other tab
+              //TODO when using geolocation the name is changing but weather not
             ],
           ),
         ),
