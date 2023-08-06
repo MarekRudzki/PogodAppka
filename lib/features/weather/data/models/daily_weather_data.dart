@@ -1,39 +1,51 @@
 import 'package:equatable/equatable.dart';
 
 class DailyWeatherData extends Equatable {
-  final double temp;
+  final int cloudCover;
   final String dateTime;
+  final int humidity;
+  final String icon;
   final int precip;
   final int precipprob;
-  final String icon;
+  final int pressure;
   final int severerisk;
+  final double tempMax;
 
   const DailyWeatherData({
-    required this.temp,
+    required this.cloudCover,
     required this.dateTime,
+    required this.humidity,
+    required this.icon,
     required this.precip,
     required this.precipprob,
-    required this.icon,
+    required this.pressure,
     required this.severerisk,
+    required this.tempMax,
   });
 
   factory DailyWeatherData.fromJson(Map<String, dynamic> json) =>
       DailyWeatherData(
-        temp: json['temp'],
+        cloudCover: (json['cloudcover'] as num).round(),
         dateTime: json['datetime'],
+        humidity: (json['humidity'] as num).round(),
+        icon: json['icon'],
         precip: (json['precip'] as num?)?.round() ?? 0,
         precipprob: (json['precipprob'] as num?)?.round() ?? 0,
-        icon: json['icon'],
+        pressure: (json['pressure'] as num).round(),
         severerisk: (json['severerisk'] as num?)?.round() ?? 0,
+        tempMax: json['tempmax'],
       );
 
   @override
   List<Object?> get props => [
-        temp,
+        cloudCover,
         dateTime,
+        humidity,
+        icon,
         precip,
         precipprob,
-        icon,
+        pressure,
         severerisk,
+        tempMax,
       ];
 }

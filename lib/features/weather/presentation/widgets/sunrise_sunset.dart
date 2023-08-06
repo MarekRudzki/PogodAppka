@@ -28,14 +28,14 @@ class SunriseSunset extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
                 SizedBox(
                   width: 60,
                   child: Image.asset(
                     'assets/sunrise.png',
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
                 Text(
                   sunrise.substring(0, 5),
                   style: const TextStyle(

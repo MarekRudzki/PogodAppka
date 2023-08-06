@@ -6,7 +6,7 @@ import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/hourly_details.dart';
-import 'package:pogodappka/features/weather/presentation/widgets/local_date_time.dart';
+import 'package:pogodappka/features/weather/presentation/widgets/overall_day_infos.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/sunrise_sunset.dart';
 import 'package:worldtime/worldtime.dart';
 
@@ -15,7 +15,6 @@ class ForecastDetails extends StatelessWidget {
   /// Day 1 -> tommorow
   /// ...
   final int day;
-//TODO adjust this widget for tommorow and future days data (to not use localtime)
   const ForecastDetails({
     super.key,
     required this.day,
@@ -70,49 +69,32 @@ class ForecastDetails extends StatelessWidget {
                         return SingleChildScrollView(
                           child: Column(
                             children: [
-                              SizedBox(
-                                height: 200,
-                                child: Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        LocalDateTime(
-                                          localDateTime: currentLocalTime,
-                                          day: day,
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          showTemperature(
-                                            weatherData:
-                                                weatherState.weatherData,
-                                            day: day,
-                                            localTime: currentLocalTime,
-                                          ),
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 27,
-                                          ),
-                                        ),
-                                        const Spacer(),
-                                      ],
-                                    ),
-                                    Expanded(
-                                      child: Image.asset(
-                                        buildWeatherIcon(
-                                          weatherData: weatherState.weatherData,
-                                          day: day,
-                                          localDateTime: currentLocalTime,
-                                          sunrise: sunrise,
-                                          sunset: sunset,
-                                        ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  OverallDayInfos(
+                                    localDateTime: currentLocalTime,
+                                    day: day,
+                                    weatherData: weatherState.weatherData,
+                                  ),
+                                  Expanded(
+                                    child: Image.asset(
+                                      buildWeatherIcon(
+                                        weatherData: weatherState.weatherData,
+                                        day: day,
+                                        localDateTime: currentLocalTime,
+                                        sunrise: sunrise,
+                                        sunset: sunset,
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                               HourlyDetails(
                                 weatherDataHourly: weatherState.weatherData
                                     .weatherDataModel[day].weatherDataHourly,
+                                sunrise: sunrise,
+                                sunset: sunset,
                               ),
                               SunriseSunset(
                                 sunrise: sunrise,
@@ -153,15 +135,24 @@ String buildWeatherIcon({
       double.parse(sunrise.substring(3, 5)) / 60;
   final double sunsetDouble = double.parse(sunset.substring(0, 2)) +
       double.parse(sunset.substring(3, 5)) / 60;
-  final bool isDay =
-      localTimeDouble > sunriseDouble && localTimeDouble < sunsetDouble;
+  final bool isDay = day == 0
+      ? localTimeDouble > sunriseDouble && localTimeDouble < sunsetDouble
+      : true;
 
-  final int severerisk = weatherData.weatherDataModel[day].weatherDataHourly
-      .hourly[localDateTime.hour].severerisk;
-  final String modelIcon = weatherData
-      .weatherDataModel[day].weatherDataHourly.hourly[localDateTime.hour].icon;
+  final int severerisk = day == 0
+      ? weatherData.weatherDataModel[0].weatherDataHourly
+          .hourly[localDateTime.hour].severerisk
+      : weatherData.weatherDataModel[day].dailyWeatherData.severerisk;
 
-  if (severerisk > 30 && isDay) {
+  final String modelIcon = day == 0
+      ? localDateTime.minute < 30
+          ? weatherData.weatherDataModel[day].weatherDataHourly
+              .hourly[localDateTime.hour].icon
+          : weatherData.weatherDataModel[day].weatherDataHourly
+              .hourly[localDateTime.hour + 1].icon
+      : weatherData.weatherDataModel[day].dailyWeatherData.icon;
+
+  if (severerisk > 30 && (isDay || day != 0)) {
     return 'assets/storm.png';
   } else if (severerisk > 30) {
     return 'assets/night-storm.png';
@@ -169,18 +160,5 @@ String buildWeatherIcon({
     return 'assets/night-rain.png';
   } else {
     return 'assets/$modelIcon.png';
-  }
-}
-
-String showTemperature({
-  required WeatherData weatherData,
-  required int day,
-  required DateTime localTime,
-}) {
-  if (day == 0) {
-    final int currentHour = localTime.hour;
-    return '${weatherData.weatherDataModel[0].weatherDataHourly.hourly[currentHour].temp} ℃';
-  } else {
-    return 'zara opracuje ℃';
   }
 }

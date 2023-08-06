@@ -19,7 +19,7 @@ class HomePageDrawer extends StatelessWidget {
         return true;
       },
       child: Drawer(
-        backgroundColor: const Color.fromARGB(255, 34, 123, 196),
+        backgroundColor: const Color.fromARGB(255, 7, 193, 171),
         width: double.infinity,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),

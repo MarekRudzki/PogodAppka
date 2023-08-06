@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter/services.dart';
 
 import 'package:pogodappka/features/cities/data/local_data_sources/cities_local_data_source.dart';
 import 'package:pogodappka/features/cities/domain/cities_repository.dart';
@@ -27,87 +28,91 @@ void main() async {
   await Hive.openBox('cities_box');
 
   await dotenv.load(fileName: ".env");
-  initializeDateFormatting('pl').then(
-    (_) => runApp(
-      MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider(
-            create: (context) => PlacesRepository(
-              PlacesRemoteDataSource(),
-            ),
-          ),
-          RepositoryProvider(
-            create: (context) => WeatherRepository(
-              WeatherRemoteDataSource(),
-            ),
-          ),
-          RepositoryProvider(
-            create: (context) => GeolocationRepository(
-              GeolocationRemoteDataSource(),
-            ),
-          ),
-          RepositoryProvider(
-            create: (context) => CitiesRepository(
-              CitiesLocalDataSource(),
-            ),
-          ),
-          RepositoryProvider(
-            create: (context) => PlaceCoordinatesRepository(
-              PlaceCoordinatesRemoteDataSource(),
-            ),
-          ),
-        ],
-        child: MultiBlocProvider(
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then(
+    (_) => initializeDateFormatting('pl').then(
+      (_) => runApp(
+        MultiRepositoryProvider(
           providers: [
-            BlocProvider(
-              create: (context) => AutocompleteBloc(
-                  placesRepository: context.read<PlacesRepository>())
-                ..add(
-                  const LoadAutocomplete(),
-                ),
-            ),
-            BlocProvider(
-              create: (context) => GeolocationBloc(
-                geolocationRepository: context.read<GeolocationRepository>(),
+            RepositoryProvider(
+              create: (context) => PlacesRepository(
+                PlacesRemoteDataSource(),
               ),
             ),
-            BlocProvider(
-              create: (context) => CitiesBloc(
-                geolocationBloc: context.read<GeolocationBloc>(),
-                citiesRepository: context.read<CitiesRepository>(),
-              )..add(
-                  LoadLatestCity(),
-                ),
+            RepositoryProvider(
+              create: (context) => WeatherRepository(
+                WeatherRemoteDataSource(),
+              ),
             ),
-            BlocProvider(
-              create: (context) => WeatherBloc(
-                weatherRepository: context.read<WeatherRepository>(),
-              )..add(
-                  FetchWeather(
-                      city: context
-                          .read<CitiesRepository>()
-                          .getLatestCity()
-                          .name),
-                ),
+            RepositoryProvider(
+              create: (context) => GeolocationRepository(
+                GeolocationRemoteDataSource(),
+              ),
             ),
-            BlocProvider(
-              create: (context) => PlaceCoordinatesBloc(
-                placeCoordinatesRepository:
-                    context.read<PlaceCoordinatesRepository>(),
-                geolocationBloc: context.read<GeolocationBloc>(),
-              )..add(
-                  FetchPlaceCoordinates(
-                      placeId: context
-                          .read<CitiesRepository>()
-                          .getLatestCity()
-                          .placeId),
-                ),
+            RepositoryProvider(
+              create: (context) => CitiesRepository(
+                CitiesLocalDataSource(),
+              ),
+            ),
+            RepositoryProvider(
+              create: (context) => PlaceCoordinatesRepository(
+                PlaceCoordinatesRemoteDataSource(),
+              ),
             ),
           ],
-          child: const MaterialApp(
-            title: 'Pogodappka',
-            debugShowCheckedModeBanner: false,
-            home: HomeScreen(),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => AutocompleteBloc(
+                    placesRepository: context.read<PlacesRepository>())
+                  ..add(
+                    const LoadAutocomplete(),
+                  ),
+              ),
+              BlocProvider(
+                create: (context) => GeolocationBloc(
+                  geolocationRepository: context.read<GeolocationRepository>(),
+                ),
+              ),
+              BlocProvider(
+                create: (context) => CitiesBloc(
+                  geolocationBloc: context.read<GeolocationBloc>(),
+                  citiesRepository: context.read<CitiesRepository>(),
+                )..add(
+                    LoadLatestCity(),
+                  ),
+              ),
+              BlocProvider(
+                create: (context) => WeatherBloc(
+                  weatherRepository: context.read<WeatherRepository>(),
+                )..add(
+                    FetchWeather(
+                        city: context
+                            .read<CitiesRepository>()
+                            .getLatestCity()
+                            .name),
+                  ),
+              ),
+              BlocProvider(
+                create: (context) => PlaceCoordinatesBloc(
+                  placeCoordinatesRepository:
+                      context.read<PlaceCoordinatesRepository>(),
+                  geolocationBloc: context.read<GeolocationBloc>(),
+                )..add(
+                    FetchPlaceCoordinates(
+                        placeId: context
+                            .read<CitiesRepository>()
+                            .getLatestCity()
+                            .placeId),
+                  ),
+              ),
+            ],
+            child: const MaterialApp(
+              title: 'Pogodappka',
+              debugShowCheckedModeBanner: false,
+              home: HomeScreen(),
+            ),
           ),
         ),
       ),

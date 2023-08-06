@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:pogodappka/features/weather/data/models/weather_data_hourly.dart';
 
 class WeatherTile extends StatelessWidget {
-  final String hour;
-  final String assetName;
-  final int temp;
-  final int precip;
-  final int windDir;
-  final int windSpeed;
+  final Hourly hourlyData;
+  final String sunrise;
+  final String sunset;
 
   const WeatherTile({
     super.key,
-    required this.hour,
-    required this.assetName,
-    required this.precip,
-    required this.windDir,
-    required this.windSpeed,
-    required this.temp,
+    required this.hourlyData,
+    required this.sunrise,
+    required this.sunset,
   });
 
   @override
@@ -24,51 +19,98 @@ class WeatherTile extends StatelessWidget {
       padding: const EdgeInsets.all(5),
       child: SizedBox(
         width: 60,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              hour.substring(0, 5),
-              style: const TextStyle(
-                color: Colors.white,
+        child: IntrinsicHeight(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 5),
+              Text(
+                hourlyData.datetime.substring(0, 5),
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
-            ),
-            Image.asset('assets/$assetName.png'),
-            Text(
-              '$temp ℃',
-              style: const TextStyle(
-                color: Colors.white,
+              const SizedBox(height: 10),
+              Image.asset(
+                buildWeatherIcon(
+                  dateTime: hourlyData.datetime,
+                  sunrise: sunrise,
+                  sunset: sunset,
+                  severerisk: hourlyData.severerisk,
+                  icon: hourlyData.icon,
+                ),
               ),
-            ),
-            const SizedBox(height: 7),
-            Image.asset(
-              'assets/precip.png',
-              scale: 10,
-            ),
-            Text(
-              '$precip mm',
-              style: const TextStyle(
-                color: Colors.white,
+              Text(
+                '${hourlyData.temp.round()} ℃',
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
-            ),
-            const SizedBox(height: 7),
-            Transform.rotate(
-              angle: double.parse(windDir.toString()),
-              child: Image.asset(
-                'assets/wind-arrow.png',
-                scale: 13,
+              const SizedBox(height: 30),
+              Text(
+                '${hourlyData.precipprob} %',
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
-            ),
-            Text(
-              '$windSpeed km/h',
-              style: const TextStyle(
-                color: Colors.white,
+              const SizedBox(height: 5),
+              Image.asset(
+                'assets/precip.png',
+                scale: 10,
               ),
-            ),
-          ],
+              const SizedBox(height: 5),
+              Text(
+                '${hourlyData.precip} mm',
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              // const SizedBox(height: 7),
+              // Transform.rotate(
+              //   angle: double.parse(windDir.toString()),
+              //   child: Image.asset(
+              //     'assets/wind-arrow.png',
+              //     scale: 13,
+              //   ),
+              // ),
+              // Text(
+              //   '$windSpeed km/h',
+              //   style: const TextStyle(
+              //     color: Colors.white,
+              //   ),
+              // ),//TODO add this to other tab
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+String buildWeatherIcon({
+  required String dateTime,
+  required String sunrise,
+  required String sunset,
+  required int severerisk,
+  required String icon,
+}) {
+  final double dateTimeDouble = double.parse(dateTime.substring(0, 2)) +
+      double.parse(dateTime.substring(3, 5)) / 60;
+  final double sunriseDouble = double.parse(sunrise.substring(0, 2)) +
+      double.parse(sunrise.substring(3, 5)) / 60;
+  final double sunsetDouble = double.parse(sunset.substring(0, 2)) +
+      double.parse(sunset.substring(3, 5)) / 60;
+  final bool isDay =
+      dateTimeDouble > sunriseDouble && dateTimeDouble < sunsetDouble;
+
+  if (severerisk > 30 && isDay) {
+    return 'assets/storm.png';
+  } else if (severerisk > 30) {
+    return 'assets/night-storm.png';
+  } else if (icon == 'rain' && !isDay) {
+    return 'assets/night-rain.png';
+  } else {
+    return 'assets/$icon.png';
   }
 }

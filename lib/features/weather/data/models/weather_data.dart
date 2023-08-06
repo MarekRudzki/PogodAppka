@@ -15,21 +15,21 @@ class WeatherData {
 }
 
 class WeatherDataModel {
+  final DailyWeatherData dailyWeatherData;
   final WeatherDataHourly weatherDataHourly;
   final WeatherDayLength weatherDayLength;
-  final DailyWeatherData dailyWeatherData;
 
   WeatherDataModel({
+    required this.dailyWeatherData,
     required this.weatherDataHourly,
     required this.weatherDayLength,
-    required this.dailyWeatherData,
   });
 
   factory WeatherDataModel.fromJson(Map<String, dynamic> json) {
     return WeatherDataModel(
+      dailyWeatherData: DailyWeatherData.fromJson(json),
       weatherDataHourly: WeatherDataHourly.fromJson(json),
       weatherDayLength: WeatherDayLength.fromJson(json),
-      dailyWeatherData: DailyWeatherData.fromJson(json),
     );
   }
 }

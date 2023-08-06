@@ -4,42 +4,41 @@ import 'package:pogodappka/features/weather/presentation/widgets/weather_tile.da
 
 class HourlyDetails extends StatelessWidget {
   final WeatherDataHourly weatherDataHourly;
+  final String sunrise;
+  final String sunset;
+
   const HourlyDetails({
     super.key,
     required this.weatherDataHourly,
+    required this.sunrise,
+    required this.sunset,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: 300,
-          width: 500,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.grey.withOpacity(0.3),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: weatherDataHourly.hourly.length,
-                  itemBuilder: (context, index) => WeatherTile(
-                    hour: weatherDataHourly.hourly[index].datetime,
-                    assetName: weatherDataHourly.hourly[index].icon,
-                    temp: weatherDataHourly.hourly[index].temp.round(),
-                    precip: weatherDataHourly.hourly[index].precip,
-                    windDir: weatherDataHourly.hourly[index].winddir,
-                    windSpeed: weatherDataHourly.hourly[index].windspeed,
-                  ),
-                ),
+    return Container(
+      height: 250,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.grey.withOpacity(0.6),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: weatherDataHourly.hourly.length,
+              itemBuilder: (context, index) => WeatherTile(
+                hourlyData: weatherDataHourly.hourly[index],
+                sunrise: sunrise,
+                sunset: sunset,
               ),
-            ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
