@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
+import 'package:pogodappka/features/weather/presentation/widgets/fifteen_day_forecast.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/home_screen_drawer.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/forecast_details.dart';
 
@@ -100,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ForecastDetails(
               day: 1,
             ),
-            SizedBox.shrink(),
+            FifteenDayForecast(),
           ],
         ),
       ),
