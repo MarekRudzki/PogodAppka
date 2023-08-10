@@ -24,6 +24,10 @@ class LocationListTile extends StatelessWidget {
             horizontalTitleGap: 0,
             title: Text(
               location,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),

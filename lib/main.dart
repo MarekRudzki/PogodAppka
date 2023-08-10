@@ -20,6 +20,7 @@ import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autoc
 import 'package:pogodappka/features/places/presentation/blocs/geolocation/geolocation_bloc.dart';
 import 'package:pogodappka/features/weather/data/datasources/weather_remote_data_source.dart';
 import 'package:pogodappka/features/weather/domain/repositories/weather_repository.dart';
+import 'package:pogodappka/features/weather/presentation/blocs/bloc/fifteen_day_forecast_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/views/home_screen.dart';
 
@@ -106,6 +107,19 @@ void main() async {
                             .getLatestCity()
                             .placeId),
                   ),
+              ),
+              BlocProvider(
+                create: (context) => FifteenDayForecastBloc(
+                  weatherBloc: context.read<WeatherBloc>()
+                    ..add(
+                      FetchWeather(
+                        city: context
+                            .read<CitiesRepository>()
+                            .getLatestCity()
+                            .name,
+                      ),
+                    ),
+                ),
               ),
             ],
             child: const MaterialApp(

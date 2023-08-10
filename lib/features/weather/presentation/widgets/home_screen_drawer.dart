@@ -19,7 +19,7 @@ class HomePageDrawer extends StatelessWidget {
         return true;
       },
       child: Drawer(
-        backgroundColor: const Color.fromARGB(255, 7, 193, 171),
+        backgroundColor: const Color.fromARGB(255, 8, 180, 160),
         width: double.infinity,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
@@ -44,6 +44,7 @@ class HomePageDrawer extends StatelessWidget {
                             .read<AutocompleteBloc>()
                             .add(LoadAutocomplete(searchInput: value));
                       },
+                      keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.search,
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(

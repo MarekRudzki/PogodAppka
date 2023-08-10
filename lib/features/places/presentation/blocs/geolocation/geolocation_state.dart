@@ -18,4 +18,11 @@ class GeolocationLoaded extends GeolocationState {
   List<Object> get props => [cityModel];
 }
 
-class GeolocationError extends GeolocationState {}
+class GeolocationError extends GeolocationState {
+  final String errorMessage;
+
+  const GeolocationError(this.errorMessage);
+
+  @override
+  List<Object> get props => [errorMessage];
+}

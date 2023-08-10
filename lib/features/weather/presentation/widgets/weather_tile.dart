@@ -79,8 +79,7 @@ class WeatherTile extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-              ), //TODO add this to other tab
-              //TODO when using geolocation the name is changing but weather not
+              ),
             ],
           ),
         ),

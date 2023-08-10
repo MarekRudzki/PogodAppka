@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color.fromARGB(255, 7, 193, 171),
+        backgroundColor: const Color.fromARGB(255, 54, 202, 184),
         endDrawer: const HomePageDrawer(),
         appBar: AppBar(
           centerTitle: true,
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               }
             },
           ),
-          backgroundColor: Colors.transparent,
+          backgroundColor: const Color.fromARGB(255, 8, 180, 160),
           elevation: 0,
           actions: [
             Builder(
@@ -83,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           bottom: TabBar(
             controller: _tabController,
             labelColor: Colors.white,
+            indicatorColor: Colors.white,
             tabs: const [
               Tab(
                 text: 'DZISIAJ',

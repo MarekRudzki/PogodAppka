@@ -50,7 +50,7 @@ class _HourlyDetailsState extends State<HourlyDetails> {
       height: 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.grey.withOpacity(0.6),
+        color: const Color.fromARGB(255, 8, 180, 160),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

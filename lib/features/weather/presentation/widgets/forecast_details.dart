@@ -12,8 +12,7 @@ import 'package:worldtime/worldtime.dart';
 
 class ForecastDetails extends StatelessWidget {
   /// Day 0 -> today,
-  /// Day 1 -> tommorow
-  /// ...
+  /// Day 1 -> tommorow..
   final int day;
   const ForecastDetails({
     super.key,
@@ -37,85 +36,89 @@ class ForecastDetails extends StatelessWidget {
           final sunset = weatherState
               .weatherData.weatherDataModel[day].weatherDayLength.sunset;
 
-          return Padding(
-            padding: const EdgeInsets.all(12),
-            child: BlocBuilder<PlaceCoordinatesBloc, PlaceCoordinatesState>(
-              builder: (context, state) {
-                if (state is PlaceCoordinatesLoading) {
-                  return Center(
-                    child: Image.asset(
-                      'assets/waiting_animation.gif',
-                      width: 200,
-                    ),
-                  );
-                } else if (state is PlaceCoordinatesLoaded) {
-                  final worldtimePlugin = Worldtime();
-                  return FutureBuilder(
-                    future: worldtimePlugin.timeByLocation(
-                      latitude: state.placeCooridnatesModel.latitude,
-                      longitude: state.placeCooridnatesModel.longitude,
-                    ),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
-                          child: Image.asset(
-                            'assets/waiting_animation.gif',
-                            width: 200,
-                          ),
-                        );
-                      }
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        final DateTime currentLocalTime = snapshot.data!;
+          return Container(
+            color: const Color.fromARGB(255, 54, 202, 184),
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: BlocBuilder<PlaceCoordinatesBloc, PlaceCoordinatesState>(
+                builder: (context, state) {
+                  if (state is PlaceCoordinatesLoading) {
+                    return Center(
+                      child: Image.asset(
+                        'assets/waiting_animation.gif',
+                        width: 200,
+                      ),
+                    );
+                  } else if (state is PlaceCoordinatesLoaded) {
+                    final worldtimePlugin = Worldtime();
+                    return FutureBuilder(
+                      future: worldtimePlugin.timeByLocation(
+                        latitude: state.placeCooridnatesModel.latitude,
+                        longitude: state.placeCooridnatesModel.longitude,
+                      ),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: Image.asset(
+                              'assets/waiting_animation.gif',
+                              width: 200,
+                            ),
+                          );
+                        }
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          final DateTime currentLocalTime = snapshot.data!;
 
-                        return SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  OverallDayInfos(
-                                    localDateTime: currentLocalTime,
-                                    day: day,
-                                    weatherData: weatherState.weatherData,
-                                  ),
-                                  Expanded(
-                                    child: Image.asset(
-                                      buildWeatherIcon(
-                                        weatherData: weatherState.weatherData,
-                                        day: day,
-                                        localDateTime: currentLocalTime,
-                                        sunrise: sunrise,
-                                        sunset: sunset,
+                          return SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    OverallDayInfos(
+                                      localDateTime: currentLocalTime,
+                                      day: day,
+                                      weatherData: weatherState.weatherData,
+                                    ),
+                                    Expanded(
+                                      child: Image.asset(
+                                        buildWeatherIcon(
+                                          weatherData: weatherState.weatherData,
+                                          day: day,
+                                          localDateTime: currentLocalTime,
+                                          sunrise: sunrise,
+                                          sunset: sunset,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              HourlyDetails(
-                                weatherDataHourly: weatherState.weatherData
-                                    .weatherDataModel[day].weatherDataHourly,
-                                day: day,
-                                localDateTime: currentLocalTime,
-                                sunrise: sunrise,
-                                sunset: sunset,
-                              ),
-                              SunriseSunset(
-                                sunrise: sunrise,
-                                sunset: sunset,
-                              ),
-                            ],
-                          ),
-                        );
-                      } else {
-                        return const Text(
-                            'Nie można wyświetlić daty i godziny');
-                      }
-                    },
-                  );
-                } else {
-                  return const Text('Nie można wyświetlić daty i godziny');
-                }
-              },
+                                  ],
+                                ),
+                                HourlyDetails(
+                                  weatherDataHourly: weatherState.weatherData
+                                      .weatherDataModel[day].weatherDataHourly,
+                                  day: day,
+                                  localDateTime: currentLocalTime,
+                                  sunrise: sunrise,
+                                  sunset: sunset,
+                                ),
+                                SunriseSunset(
+                                  sunrise: sunrise,
+                                  sunset: sunset,
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return const Text(
+                              'Nie można wyświetlić daty i godziny');
+                        }
+                      },
+                    );
+                  } else {
+                    return const Text('Nie można wyświetlić daty i godziny');
+                  }
+                },
+              ),
             ),
           );
         } else {
