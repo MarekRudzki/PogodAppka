@@ -55,6 +55,12 @@ class CurrentLocation extends StatelessWidget {
                         );
                       },
                     );
+                  } else {
+                    if (context.mounted) {
+                      BlocProvider.of<GeolocationBloc>(context)
+                          .add(LoadGeolocation());
+                      Navigator.of(context).pop();
+                    }
                   }
                 },
                 icon: const Icon(
