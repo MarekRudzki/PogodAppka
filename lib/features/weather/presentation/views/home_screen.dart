@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
-import 'package:pogodappka/features/weather/presentation/widgets/fifteen_day_forecast.dart';
+import 'package:pogodappka/features/weather/presentation/widgets/forecast/fifteen_day_forecast.dart';
+import 'package:pogodappka/features/weather/presentation/widgets/forecast/forecast_details.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/home_screen_drawer.dart';
-import 'package:pogodappka/features/weather/presentation/widgets/forecast_details.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -85,9 +85,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             labelColor: Colors.white,
             indicatorColor: Colors.white,
             tabs: const [
-              Tab(
-                text: 'DZISIAJ',
-              ),
+              Tab(text: 'DZISIAJ'),
               Tab(text: 'JUTRO'),
               Tab(text: '15 DNI'),
             ],

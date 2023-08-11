@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/bloc/fifteen_day_forecast_bloc.dart';
-import 'package:pogodappka/features/weather/presentation/widgets/forecast_details.dart';
+import 'package:pogodappka/features/weather/presentation/widgets/forecast/forecast_details.dart';
 
 class FifteenDayForecast extends StatelessWidget {
   const FifteenDayForecast({super.key});
