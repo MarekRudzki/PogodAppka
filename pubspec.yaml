@@ -26,6 +26,7 @@ dependencies:
   worldtime: ^1.0.9
   google_geocoding_api: ^1.3.0
   scrollable_positioned_list: ^0.3.8
+  internet_connection_checker: ^1.0.0+1
   
 
 dev_dependencies:

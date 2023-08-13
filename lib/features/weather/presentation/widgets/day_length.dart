@@ -28,15 +28,12 @@ class DayLength extends StatelessWidget {
     final String nightLength = ((1 - dayLengthPercentage) * 24).toString();
     final String nightHours =
         nightLength.substring(0, nightLength.indexOf('.'));
-    final double nightMinutes =
-        (double.parse(nightLength) - double.parse(nightHours)) * 60;
-    final int addToFullHour = int.parse(nightMinutes
-                    .toString()
-                    .substring(0, nightMinutes.toString().indexOf('.'))) +
-                int.parse(dayMinutes) ==
-            60
-        ? 0
-        : 1;
+
+    final int nightMinutes =
+        ((double.parse(nightLength) - double.parse(nightHours)) * 60).round();
+
+    final int addToFullHour =
+        nightMinutes + int.parse(dayMinutes) == 60 ? 0 : 1;
     final String nightMinutesText = nightMinutes < 10
         ? '0${nightMinutes + addToFullHour}'.substring(0, 2)
         : '${nightMinutes + addToFullHour}'.substring(0, 2);
