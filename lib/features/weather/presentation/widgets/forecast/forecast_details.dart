@@ -147,9 +147,36 @@ String buildWeatherIcon({
           .hourly[localDateTime.hour].severerisk
       : weatherData.weatherDataModel[day].dailyWeatherData.severerisk;
 
+  // Daily data about icons from API service is not always correctly
+  // so the following function has to been done
+  String replaceRainIcon() {
+    final int sunriseHour = int.parse(sunrise.substring(0, 2)) + 1;
+    final int sunsetHour = int.parse(sunset.substring(0, 2));
+    final List<String> dayIcons = [];
+
+    for (int i = sunriseHour; i < sunsetHour; i++) {
+      dayIcons.add(
+          weatherData.weatherDataModel[day].weatherDataHourly.hourly[i].icon);
+    }
+
+    // Create map of all values and count it
+    final folded = dayIcons.fold({}, (acc, curr) {
+      acc[curr] = (acc[curr] ?? 0) + 1;
+      return acc;
+    });
+
+    // Get maximum value inside map
+    final sortedKeys = folded.keys.toList()
+      ..sort((a, b) => folded[b].compareTo(folded[a]));
+    return '${sortedKeys.first}';
+  }
+
   String getModelIcon() {
     if (day != 0) {
-      return weatherData.weatherDataModel[day].dailyWeatherData.icon;
+      final String modelIcon =
+          weatherData.weatherDataModel[day].dailyWeatherData.icon;
+      final forecastIcon = modelIcon == 'rain' ? replaceRainIcon() : modelIcon;
+      return forecastIcon;
     } else if (localDateTime.minute < 30 || localDateTime.hour == 23) {
       return weatherData.weatherDataModel[day].weatherDataHourly
           .hourly[localDateTime.hour].icon;
