@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, unused_element
 
 import 'dart:async';
 
@@ -17,8 +17,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final WeatherRepository _weatherRepository;
   final GeolocationBloc _geolocationBloc;
   final CitiesBloc _citiesBloc;
-  late StreamSubscription _citiesStreamSubscription;
-  late StreamSubscription _streamSubscription;
+  late StreamSubscription<CitiesState> _citiesStreamSubscription;
+  late StreamSubscription<GeolocationState> _geolocationStreamSubscription;
 
   WeatherBloc({
     required WeatherRepository weatherRepository,
@@ -28,23 +28,32 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         _geolocationBloc = geolocationBloc,
         _citiesBloc = citiesBloc,
         super(WeatherLoading()) {
-    _streamSubscription = geolocationBloc.stream.listen(
+    _geolocationStreamSubscription = geolocationBloc.stream.listen(
       (state) {
         if (state is GeolocationLoaded) {
           add(FetchWeather(city: state.cityModel.name));
         }
       },
     );
-    _citiesStreamSubscription = citiesBloc.stream.listen((state) {
-      if (state is LatestCityLoaded) {
-        add(FetchWeather(city: state.cityModel.name));
-      }
-    });
+    _citiesStreamSubscription = citiesBloc.stream.listen(
+      (state) {
+        if (state is LatestCityLoaded) {
+          add(FetchWeather(city: state.cityModel.name));
+        }
+      },
+    );
+
+    @override
+    Future<void> close() {
+      _citiesStreamSubscription.cancel();
+      _geolocationStreamSubscription.cancel();
+      return super.close();
+    }
 
     on<FetchWeather>(_onFetchWeather);
   }
 
-  void _onFetchWeather(
+  Future<void> _onFetchWeather(
     FetchWeather event,
     Emitter<WeatherState> emit,
   ) async {

@@ -9,7 +9,8 @@ class WeatherDataHourly {
 
   factory WeatherDataHourly.fromJson(Map<String, dynamic> json) =>
       WeatherDataHourly(
-        hourly: List<Hourly>.from(json['hours'].map((e) => Hourly.fromJson(e))),
+        hourly: List<Hourly>.from((json['hours'] as List<dynamic>)
+            .map((e) => Hourly.fromJson(e as Map<String, dynamic>))),
       );
 }
 
@@ -35,12 +36,12 @@ class Hourly extends Equatable {
   });
 
   factory Hourly.fromJson(Map<String, dynamic> json) => Hourly(
-        datetime: json['datetime'],
-        icon: json['icon'],
+        datetime: json['datetime'] as String,
+        icon: json['icon'] as String,
         precip: (json['precip'] as num?)?.round() ?? 0,
         precipprob: (json['precipprob'] as num?)?.round() ?? 0,
         severerisk: (json['severerisk'] as num?)?.round() ?? 0,
-        temp: json['temp'],
+        temp: json['temp'] as double,
         winddir: (json['winddir'] as num?)?.round() ?? 0,
         windspeed: (json['windspeed'] as num?)?.round() ?? 0,
       );

@@ -10,8 +10,10 @@ class WeatherData {
   });
 
   factory WeatherData.fromJson(Map<String, dynamic> json) => WeatherData(
-      weatherDataModel: List<WeatherDataModel>.from(
-          json['days'].map((e) => WeatherDataModel.fromJson(e))).toList());
+      weatherDataModel: List<WeatherDataModel>.from((json['days']
+                  as List<dynamic>)
+              .map((e) => WeatherDataModel.fromJson(e as Map<String, dynamic>)))
+          .toList());
 }
 
 class WeatherDataModel {

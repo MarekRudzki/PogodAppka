@@ -28,7 +28,7 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox('cities_box');
 
-  await dotenv.load(fileName: ".env");
+  await dotenv.load();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]).then(

@@ -26,14 +26,14 @@ class DailyWeatherData extends Equatable {
   factory DailyWeatherData.fromJson(Map<String, dynamic> json) =>
       DailyWeatherData(
         cloudCover: (json['cloudcover'] as num).round(),
-        dateTime: json['datetime'],
+        dateTime: json['datetime'] as String,
         humidity: (json['humidity'] as num).round(),
-        icon: json['icon'],
+        icon: json['icon'] as String,
         precip: (json['precip'] as num?)?.round() ?? 0,
         precipprob: (json['precipprob'] as num?)?.round() ?? 0,
         pressure: (json['pressure'] as num).round(),
         severerisk: (json['severerisk'] as num?)?.round() ?? 0,
-        tempMax: json['tempmax'],
+        tempMax: json['tempmax'] as double,
       );
 
   @override

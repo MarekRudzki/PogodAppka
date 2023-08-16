@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, unused_element
 
 import 'dart:async';
 
@@ -13,16 +13,25 @@ part 'fifteen_day_forecast_state.dart';
 class FifteenDayForecastBloc
     extends Bloc<FifteenDayForecastEvent, FifteenDayForecastState> {
   final WeatherBloc _weatherBloc;
-  late StreamSubscription _streamSubscription;
+  late StreamSubscription<WeatherState> _streamSubscription;
 
   FifteenDayForecastBloc({required WeatherBloc weatherBloc})
       : _weatherBloc = weatherBloc,
         super(FifteenDayForecastLoading()) {
-    _streamSubscription = weatherBloc.stream.listen((state) {
-      if (state is WeatherLoaded) {
-        add(LoadForecast(weatherData: state.weatherData));
-      }
-    });
+    _streamSubscription = weatherBloc.stream.listen(
+      (state) {
+        if (state is WeatherLoaded) {
+          add(LoadForecast(weatherData: state.weatherData));
+        }
+      },
+    );
+
+    @override
+    Future<void> close() {
+      _streamSubscription.cancel();
+      return super.close();
+    }
+
     on<LoadForecast>(_onLoadForecast);
     on<ExpandTile>(_onExpandTile);
   }
@@ -31,6 +40,7 @@ class FifteenDayForecastBloc
     LoadForecast event,
     Emitter<FifteenDayForecastState> emit,
   ) {
+    emit(FifteenDayForecastLoading());
     emit(
       FifteenDayForecastLoaded(
           weatherData: event.weatherData,

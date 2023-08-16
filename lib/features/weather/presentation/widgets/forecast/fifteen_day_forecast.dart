@@ -143,15 +143,15 @@ String showWeatherIcon({
     }
 
     // Create map of all values and count it
-    final folded = dayIcons.fold({}, (acc, curr) {
+    final Map<String, int> folded = dayIcons.fold({}, (acc, curr) {
       acc[curr] = (acc[curr] ?? 0) + 1;
       return acc;
     });
 
     // Get maximum value inside map
     final sortedKeys = folded.keys.toList()
-      ..sort((a, b) => folded[b].compareTo(folded[a]));
-    return '${sortedKeys.first}';
+      ..sort((a, b) => folded[b]!.compareTo(folded[a]!));
+    return sortedKeys.first;
   }
 
   if (severerisk > 30) {

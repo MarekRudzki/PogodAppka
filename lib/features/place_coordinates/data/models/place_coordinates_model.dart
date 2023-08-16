@@ -9,8 +9,11 @@ class PlaceCooridnatesModel {
 
   factory PlaceCooridnatesModel.fromJson(Map<String, dynamic> json) {
     return PlaceCooridnatesModel(
-      json['result']['geometry']['location']['lat'],
-      json['result']['geometry']['location']['lng'],
-    );
+        (((json['result'] as Map<String, dynamic>)['geometry']
+                as Map<String, dynamic>)['location']
+            as Map<String, dynamic>)['lat'] as double,
+        (((json['result'] as Map<String, dynamic>)['geometry']
+                as Map<String, dynamic>)['location']
+            as Map<String, dynamic>)['lng'] as double);
   }
 }

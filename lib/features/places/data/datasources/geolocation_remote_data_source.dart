@@ -6,7 +6,7 @@ import 'package:pogodappka/features/cities/data/models/city_model.dart';
 
 class GeolocationRemoteDataSource {
   Future<CityModel> getCurrentGeolocation() async {
-    var apiKey = dotenv.env['GP_Key'];
+    final apiKey = dotenv.env['GP_Key'];
     final LocatitonGeocoder geocoder = LocatitonGeocoder(apiKey.toString());
 
     try {
@@ -17,7 +17,7 @@ class GeolocationRemoteDataSource {
 
       final response = await Dio().get<Map<String, dynamic>>(
           'https://maps.googleapis.com/maps/api/geocode/json?&latlng=${currentPosition.latitude}%2C${currentPosition.longitude}&key=$apiKey');
-      var responseList = response.data!['results'] as List<dynamic>;
+      final responseList = response.data!['results'] as List<dynamic>;
       final convertedResponse =
           responseList.map((e) => e as Map<String, dynamic>).toList();
       final String placeId = convertedResponse.first['place_id'] as String;

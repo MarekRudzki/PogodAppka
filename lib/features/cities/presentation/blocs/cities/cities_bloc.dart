@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_field, unused_element
 
 import 'dart:async';
 
@@ -13,7 +13,7 @@ part 'cities_state.dart';
 
 class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
   final GeolocationBloc _geolocationBloc;
-  late StreamSubscription _streamSubscription;
+  late StreamSubscription<GeolocationState> _streamSubscription;
   final CitiesRepository _citiesRepository;
 
   CitiesBloc({
@@ -22,25 +22,33 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
   })  : _citiesRepository = citiesRepository,
         _geolocationBloc = geolocationBloc,
         super(CitiesLoading()) {
-    _streamSubscription = geolocationBloc.stream.listen((state) {
-      if (state is GeolocationLoaded) {
-        add(
-          AddLatestCity(
-            cityModel: CityModel(
-              name: state.cityModel.name,
-              placeId: state.cityModel.placeId,
+    _streamSubscription = geolocationBloc.stream.listen(
+      (state) {
+        if (state is GeolocationLoaded) {
+          add(
+            AddLatestCity(
+              cityModel: CityModel(
+                name: state.cityModel.name,
+                placeId: state.cityModel.placeId,
+              ),
             ),
-          ),
-        );
-      }
-    });
+          );
+        }
+      },
+    );
+
+    @override
+    Future<void> close() {
+      _streamSubscription.cancel();
+      return super.close();
+    }
 
     on<LoadLatestCity>(_onLoadLatestCity);
     on<LoadRecentSearches>(_onLoadRecentSearches);
     on<AddLatestCity>(_onAddLatestCity);
   }
 
-  void _onLoadLatestCity(
+  Future<void> _onLoadLatestCity(
     LoadLatestCity event,
     Emitter<CitiesState> emit,
   ) async {
@@ -54,7 +62,7 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
     );
   }
 
-  void _onLoadRecentSearches(
+  Future<void> _onLoadRecentSearches(
     LoadRecentSearches event,
     Emitter<CitiesState> emit,
   ) async {
@@ -63,7 +71,7 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
     emit(RecentSearchesLoaded(recentSearches));
   }
 
-  void _onAddLatestCity(
+  Future<void> _onAddLatestCity(
     AddLatestCity event,
     Emitter<CitiesState> emit,
   ) async {

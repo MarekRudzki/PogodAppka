@@ -18,7 +18,7 @@ class AutocompleteBloc extends Bloc<AutocompleteEvent, AutocompleteState> {
     on<ClearAutocomplete>(_onClearAutocomplete);
   }
 
-  void _onLoadAutocomplete(
+  Future<void> _onLoadAutocomplete(
     LoadAutocomplete event,
     Emitter<AutocompleteState> emit,
   ) async {

@@ -25,7 +25,6 @@ class WeatherTile extends StatelessWidget {
         width: 60,
         child: IntrinsicHeight(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 10),
@@ -36,73 +35,76 @@ class WeatherTile extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 15),
-              index == 0
-                  ? Column(
-                      children: [
-                        Image.asset(
-                          getIconName(
-                            dateTime: hourlyData.datetime,
-                            sunrise: sunrise,
-                            sunset: sunset,
-                            severerisk: hourlyData.severerisk,
-                            icon: hourlyData.icon,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          '${hourlyData.temp.round()} ℃',
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    )
-                  : const SizedBox.shrink(),
-              index == 1
-                  ? Column(
-                      children: [
-                        Image.asset(
-                          'assets/precip.png',
-                          scale: 10,
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          '${hourlyData.precipprob} %',
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          '${hourlyData.precip} mm',
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    )
-                  : const SizedBox.shrink(),
-              index == 2
-                  ? Column(
-                      children: [
-                        const SizedBox(height: 15),
-                        Transform.rotate(
-                          angle: double.parse(hourlyData.winddir.toString()),
-                          child: Image.asset(
-                            'assets/wind-arrow.png',
-                            scale: 15,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          '${hourlyData.windspeed} km/h',
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    )
-                  : const SizedBox.shrink(),
+              if (index == 0)
+                Column(
+                  children: [
+                    Image.asset(
+                      getIconName(
+                        dateTime: hourlyData.datetime,
+                        sunrise: sunrise,
+                        sunset: sunset,
+                        severerisk: hourlyData.severerisk,
+                        icon: hourlyData.icon,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      '${hourlyData.temp.round()} ℃',
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                )
+              else
+                const SizedBox.shrink(),
+              if (index == 1)
+                Column(
+                  children: [
+                    Image.asset(
+                      'assets/precip.png',
+                      scale: 10,
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      '${hourlyData.precipprob} %',
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      '${hourlyData.precip} mm',
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                )
+              else
+                const SizedBox.shrink(),
+              if (index == 2)
+                Column(
+                  children: [
+                    const SizedBox(height: 15),
+                    Transform.rotate(
+                      angle: double.parse(hourlyData.winddir.toString()),
+                      child: Image.asset(
+                        'assets/wind-arrow.png',
+                        scale: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      '${hourlyData.windspeed} km/h',
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                )
+              else
+                const SizedBox.shrink(),
             ],
           ),
         ),

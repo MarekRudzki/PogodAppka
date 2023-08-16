@@ -31,9 +31,10 @@ class CitiesList extends StatelessWidget {
           if (autocompleteState.places.isNotEmpty) {
             return BlocListener<WeatherBloc, WeatherState>(
               listener: (context, weatherState) {
-                String placeId = autocompleteState.places[index].placeId;
-                String adress = autocompleteState.places[index].description;
-                String city = adress.substring(0, adress.indexOf(','));
+                final String placeId = autocompleteState.places[index].placeId;
+                final String adress =
+                    autocompleteState.places[index].description;
+                final String city = adress.substring(0, adress.indexOf(','));
                 if (weatherState is WeatherLoaded) {
                   context.read<CitiesBloc>().add(AddLatestCity(
                       cityModel: CityModel(name: city, placeId: placeId)));
@@ -90,9 +91,10 @@ class CitiesList extends StatelessWidget {
                   itemBuilder: (context, index) => LocationListTile(
                     location: autocompleteState.places[index].description,
                     callback: () {
-                      String adress =
+                      final String adress =
                           autocompleteState.places[index].description;
-                      String city = adress.substring(0, adress.indexOf(','));
+                      final String city =
+                          adress.substring(0, adress.indexOf(','));
 
                       context.read<WeatherBloc>().add(FetchWeather(city: city));
 
@@ -117,8 +119,8 @@ class CitiesList extends StatelessWidget {
                       itemBuilder: (context, index) => LocationListTile(
                         location: cities[index].name,
                         callback: () {
-                          String city = cities[index].name;
-                          String placeId = cities[index].placeId;
+                          final String city = cities[index].name;
+                          final String placeId = cities[index].placeId;
 
                           context
                               .read<WeatherBloc>()

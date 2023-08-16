@@ -45,15 +45,16 @@ class CitiesLocalDataSource {
     if (!_citiesLocalDataSource.containsKey('recent_searches')) {
       await _citiesLocalDataSource.put('recent_searches', newData);
     } else {
-      final recentSearches = _citiesLocalDataSource.get('recent_searches');
+      final recentSearches =
+          _citiesLocalDataSource.get('recent_searches') as Map;
 
-      if (recentSearches.keys.contains(city)) {
+      if (recentSearches.containsKey(city)) {
         recentSearches.removeWhere((key, value) => key == city);
         recentSearches.addEntries(newData.entries);
         return;
       }
       if (recentSearches.length == 5) {
-        var firstElement = recentSearches.keys.first;
+        final firstElement = recentSearches.keys.first;
         recentSearches.removeWhere((key, value) => key == firstElement);
         recentSearches.addEntries(newData.entries);
       } else {

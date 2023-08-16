@@ -22,7 +22,7 @@ class CitiesRepository {
   }
 
   List<CityModel> getRecentSearches() {
-    List<CityModel> recentCitiesSearches = [];
+    final List<CityModel> recentCitiesSearches = [];
     final recentSearches = _citiesLocalDataSource.getRecentSearces();
 
     final cityName =

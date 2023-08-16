@@ -11,8 +11,8 @@ class WeatherDayLength extends Equatable {
 
   factory WeatherDayLength.fromJson(Map<String, dynamic> json) =>
       WeatherDayLength(
-        sunrise: json['sunrise'],
-        sunset: json['sunset'],
+        sunrise: json['sunrise'] as String,
+        sunset: json['sunset'] as String,
       );
 
   @override

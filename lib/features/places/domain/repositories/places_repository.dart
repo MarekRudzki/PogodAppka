@@ -15,10 +15,11 @@ class PlacesRepository {
       return [];
     }
 
-    var results = response['predictions'] as List;
+    final results = response['predictions'] as List;
 
     return results
-        .map((place) => PlaceAutocompleteModel.fromJson(place))
+        .map((place) =>
+            PlaceAutocompleteModel.fromJson(place as Map<String, dynamic>))
         .toList();
   }
 }

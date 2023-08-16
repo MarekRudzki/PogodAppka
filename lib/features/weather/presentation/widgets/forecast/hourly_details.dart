@@ -42,7 +42,6 @@ class _HourlyDetailsState extends State<HourlyDetails>
     _tabController = TabController(
       length: 3,
       vsync: this,
-      initialIndex: 0,
     );
 
     _tabController.addListener(() {

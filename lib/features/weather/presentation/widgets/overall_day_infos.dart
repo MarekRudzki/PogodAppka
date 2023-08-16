@@ -21,18 +21,18 @@ class OverallDayInfos extends StatelessWidget {
     final dailyData = weatherData.weatherDataModel[day].dailyWeatherData;
     final String dateFormatted =
         '${toBeginningOfSentenceCase(DateFormat('EEEE', 'pl').format(
-              day == 0
-                  ? localDateTime
-                  : localDateTime.add(
-                      Duration(days: day),
-                    ),
-            ).toString())!}, ${toBeginningOfSentenceCase(DateFormat('d MMMM', 'pl').format(
-              day == 0
-                  ? localDateTime
-                  : localDateTime.add(
-                      Duration(days: day),
-                    ),
-            ).toString())!}';
+      day == 0
+          ? localDateTime
+          : localDateTime.add(
+              Duration(days: day),
+            ),
+    ))!}, ${toBeginningOfSentenceCase(DateFormat('d MMMM', 'pl').format(
+      day == 0
+          ? localDateTime
+          : localDateTime.add(
+              Duration(days: day),
+            ),
+    ))!}';
 
     return Column(
       children: [
@@ -43,24 +43,25 @@ class OverallDayInfos extends StatelessWidget {
             fontSize: 17,
           ),
         ),
-        day == 0
-            ? DigitalClock(
-                hourMinuteDigitTextStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-                colonTimerInMiliseconds: 1000,
-                dateTime: localDateTime,
-                showSecondsDigit: false,
-                colon: const Text(
-                  ":",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                ),
-              )
-            : const SizedBox(height: 15),
+        if (day == 0)
+          DigitalClock(
+            hourMinuteDigitTextStyle: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+            ),
+            colonTimerInMiliseconds: 1000,
+            dateTime: localDateTime,
+            showSecondsDigit: false,
+            colon: const Text(
+              ":",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            ),
+          )
+        else
+          const SizedBox(height: 15),
         const SizedBox(height: 20),
         Text(
           showTemperature(
@@ -73,7 +74,10 @@ class OverallDayInfos extends StatelessWidget {
             fontSize: 27,
           ),
         ),
-        day == 0 ? const SizedBox(height: 20) : const SizedBox(height: 35),
+        if (day == 0)
+          const SizedBox(height: 20)
+        else
+          const SizedBox(height: 35),
         Text(
           'Zachmurzenie: ${dailyData.cloudCover}%',
           style: const TextStyle(

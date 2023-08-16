@@ -172,9 +172,12 @@ String buildWeatherIcon({
       double.parse(sunrise.substring(3, 5)) / 60;
   final double sunsetDouble = double.parse(sunset.substring(0, 2)) +
       double.parse(sunset.substring(3, 5)) / 60;
-  final bool isDay = day == 0
-      ? localTimeDouble > sunriseDouble && localTimeDouble < sunsetDouble
-      : true;
+  final bool isDay;
+  if (day == 0) {
+    isDay = localTimeDouble > sunriseDouble && localTimeDouble < sunsetDouble;
+  } else {
+    isDay = true;
+  }
 
   final int severerisk = day == 0
       ? weatherData.weatherDataModel[0].weatherDataHourly
@@ -194,15 +197,15 @@ String buildWeatherIcon({
     }
 
     // Create map of all values and count it
-    final folded = dayIcons.fold({}, (acc, curr) {
+    final Map<String, int> folded = dayIcons.fold({}, (acc, curr) {
       acc[curr] = (acc[curr] ?? 0) + 1;
       return acc;
     });
 
     // Get maximum value inside map
     final sortedKeys = folded.keys.toList()
-      ..sort((a, b) => folded[b].compareTo(folded[a]));
-    return '${sortedKeys.first}';
+      ..sort((a, b) => folded[b]!.compareTo(folded[a]!));
+    return sortedKeys.first;
   }
 
   String getModelIcon() {

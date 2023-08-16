@@ -9,8 +9,8 @@ class PlaceAutocompleteModel {
 
   factory PlaceAutocompleteModel.fromJson(Map<String, dynamic> json) {
     return PlaceAutocompleteModel(
-      description: json['description'],
-      placeId: json['place_id'],
+      description: json['description'] as String,
+      placeId: json['place_id'] as String,
     );
   }
 }

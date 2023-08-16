@@ -132,7 +132,6 @@ class DigitalClockState extends State<DigitalClock> {
           decoration: widget.areaDecoration,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               _amPm,
               _hour(),
@@ -162,7 +161,7 @@ class DigitalClockState extends State<DigitalClock> {
         child: SpinnerText(
           text: _clockModel.is24HourTimeFormat
               ? hTOhh_24hTrue(_clockModel.hour)
-              : hTOhh_24hFalse(_clockModel.hour)[0],
+              : hTOhh_24hFalse(_clockModel.hour)[0].toString(),
           animationStyle: widget.digitAnimationStyle,
           textStyle: widget.hourMinuteDigitTextStyle ??
               Theme.of(context).textTheme.bodyLarge,
@@ -219,10 +218,10 @@ class ColonWidget extends StatefulWidget {
   final int colonTimer;
 
   const ColonWidget({
-    Key? key,
+    super.key,
     this.colon,
     required this.colonTimer,
-  }) : super(key: key);
+  });
 
   @override
   State<ColonWidget> createState() => _ColonWidgetState();
@@ -270,10 +269,10 @@ class ClockModel {
   late int second;
   late bool is24HourFormat;
 
-  get is24HourTimeFormat => is24HourFormat;
+  bool get is24HourTimeFormat => is24HourFormat;
 }
 
-hTOhh_24hTrue(int hour) {
+String hTOhh_24hTrue(int hour) {
   late String sHour;
   if (hour < 10) {
     sHour = "0$hour";
@@ -283,10 +282,10 @@ hTOhh_24hTrue(int hour) {
   return sHour;
 }
 
-hTOhh_24hFalse(int hour) {
+List<dynamic> hTOhh_24hFalse(int hour) {
   late String sHour;
   late String h12State;
-  var times = [];
+  final times = [];
   if (hour < 10) {
     sHour = "0$hour";
     h12State = "AM";
@@ -308,7 +307,7 @@ hTOhh_24hFalse(int hour) {
   return times;
 }
 
-mTOmm(int minute) {
+String mTOmm(int minute) {
   late String sMinute;
   if (minute < 10) {
     sMinute = "0$minute";
@@ -318,7 +317,7 @@ mTOmm(int minute) {
   return sMinute;
 }
 
-sTOss(int second) {
+String sTOss(int second) {
   late String sSecond;
   if (second < 10) {
     sSecond = "0$second";

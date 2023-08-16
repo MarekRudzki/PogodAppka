@@ -1,4 +1,4 @@
-// ignore_for_file: unused_field
+// ignore_for_file: unused_element
 
 import 'dart:async';
 
@@ -14,8 +14,9 @@ part 'place_coordinates_state.dart';
 
 class PlaceCoordinatesBloc
     extends Bloc<PlaceCoordinatesEvent, PlaceCoordinatesState> {
+  // ignore: unused_field
   final GeolocationBloc _geolocationBloc;
-  late StreamSubscription _streamSubscription;
+  late StreamSubscription<GeolocationState> _streamSubscription;
   final PlaceCoordinatesRepository _placeCoordinatesRepository;
 
   PlaceCoordinatesBloc({
@@ -30,14 +31,20 @@ class PlaceCoordinatesBloc
       }
     });
 
+    @override
+    Future<void> close() {
+      _streamSubscription.cancel();
+      return super.close();
+    }
+
     on<FetchPlaceCoordinates>(_onFetchPlaceCoordinates);
   }
 
-  void _onFetchPlaceCoordinates(
+  Future<void> _onFetchPlaceCoordinates(
       FetchPlaceCoordinates event, Emitter<PlaceCoordinatesState> emit) async {
     emit(PlaceCoordinatesLoading());
 
-    PlaceCooridnatesModel placeCooridnatesModel =
+    final PlaceCooridnatesModel placeCooridnatesModel =
         await _placeCoordinatesRepository.getCoordinates(
             placeId: event.placeId);
 

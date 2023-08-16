@@ -17,14 +17,14 @@ class GeolocationBloc extends Bloc<GeolocationEvent, GeolocationState> {
     on<LoadGeolocation>(_onLoadGeolocation);
   }
 
-  void _onLoadGeolocation(
+  Future<void> _onLoadGeolocation(
     LoadGeolocation event,
     Emitter<GeolocationState> emit,
   ) async {
     emit(GeolocationLoading());
 
     try {
-      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      final bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
         emit(const GeolocationError('Lokalizacja jest wyłączona'));
         return;

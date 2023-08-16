@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late TabController _tabController;
   // ignore: unused_field
-  late StreamSubscription _internetSubscription;
+  late StreamSubscription<InternetConnectionStatus> _internetSubscription;
   bool hasInternet = true;
 
   @override
@@ -31,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _tabController = TabController(
       length: 3,
       vsync: this,
-      initialIndex: 0,
     );
 
     _internetSubscription =
@@ -51,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void dispose() {
     _tabController.dispose();
+    _internetSubscription.cancel();
     super.dispose();
   }
 
