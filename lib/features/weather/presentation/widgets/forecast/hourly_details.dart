@@ -36,7 +36,7 @@ class _HourlyDetailsState extends State<HourlyDetails>
       _scrollController = ScrollController(initialScrollOffset: itemWidth * 6);
     } else {
       _scrollController = ScrollController(
-          initialScrollOffset: itemWidth * (widget.localDateTime.hour - 1.0));
+          initialScrollOffset: itemWidth * (widget.localDateTime.hour + 0.0));
     }
 
     _tabController = TabController(

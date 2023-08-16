@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
 import 'package:pogodappka/features/places/presentation/blocs/geolocation/geolocation_bloc.dart';
 import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 
@@ -15,16 +16,27 @@ part 'weather_state.dart';
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final WeatherRepository _weatherRepository;
   final GeolocationBloc _geolocationBloc;
+  final CitiesBloc _citiesBloc;
+  late StreamSubscription _citiesStreamSubscription;
   late StreamSubscription _streamSubscription;
 
   WeatherBloc({
     required WeatherRepository weatherRepository,
     required GeolocationBloc geolocationBloc,
+    required CitiesBloc citiesBloc,
   })  : _weatherRepository = weatherRepository,
         _geolocationBloc = geolocationBloc,
+        _citiesBloc = citiesBloc,
         super(WeatherLoading()) {
-    _streamSubscription = geolocationBloc.stream.listen((state) {
-      if (state is GeolocationLoaded) {
+    _streamSubscription = geolocationBloc.stream.listen(
+      (state) {
+        if (state is GeolocationLoaded) {
+          add(FetchWeather(city: state.cityModel.name));
+        }
+      },
+    );
+    _citiesStreamSubscription = citiesBloc.stream.listen((state) {
+      if (state is LatestCityLoaded) {
         add(FetchWeather(city: state.cityModel.name));
       }
     });
@@ -37,11 +49,13 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     Emitter<WeatherState> emit,
   ) async {
     emit(WeatherLoading());
-    final WeatherData? weatherData =
-        await _weatherRepository.getWeatherData(city: event.city);
+    try {
+      final WeatherData? weatherData =
+          await _weatherRepository.getWeatherData(city: event.city);
 
-    if (weatherData != null) {
-      emit(WeatherLoaded(weatherData: weatherData));
+      emit(WeatherLoaded(weatherData: weatherData!));
+    } on Exception {
+      emit(WeatherError());
     }
   }
 }

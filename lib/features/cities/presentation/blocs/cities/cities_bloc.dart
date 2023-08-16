@@ -15,6 +15,7 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
   final GeolocationBloc _geolocationBloc;
   late StreamSubscription _streamSubscription;
   final CitiesRepository _citiesRepository;
+
   CitiesBloc({
     required CitiesRepository citiesRepository,
     required GeolocationBloc geolocationBloc,
@@ -22,9 +23,6 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
         _geolocationBloc = geolocationBloc,
         super(CitiesLoading()) {
     _streamSubscription = geolocationBloc.stream.listen((state) {
-      if (state is GeolocationLoading) {
-        add(LoadGeolocation());
-      }
       if (state is GeolocationLoaded) {
         add(
           AddLatestCity(
@@ -40,7 +38,6 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
     on<LoadLatestCity>(_onLoadLatestCity);
     on<LoadRecentSearches>(_onLoadRecentSearches);
     on<AddLatestCity>(_onAddLatestCity);
-    on<LoadGeolocation>(_onGeolocationLoading);
   }
 
   void _onLoadLatestCity(
@@ -84,12 +81,5 @@ class CitiesBloc extends Bloc<CitiesEvent, CitiesState> {
         ),
       ),
     );
-  }
-
-  void _onGeolocationLoading(
-    LoadGeolocation event,
-    Emitter<CitiesState> emit,
-  ) {
-    emit(CitiesLoading());
   }
 }

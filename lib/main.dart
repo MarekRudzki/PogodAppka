@@ -87,6 +87,7 @@ void main() async {
               BlocProvider(
                 create: (context) => WeatherBloc(
                   geolocationBloc: context.read<GeolocationBloc>(),
+                  citiesBloc: context.read<CitiesBloc>(),
                   weatherRepository: context.read<WeatherRepository>(),
                 )..add(
                     FetchWeather(

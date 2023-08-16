@@ -7,6 +7,8 @@ abstract class GeolocationState extends Equatable {
   List<Object> get props => [];
 }
 
+class GeolocationInitial extends GeolocationState {}
+
 class GeolocationLoading extends GeolocationState {}
 
 class GeolocationLoaded extends GeolocationState {

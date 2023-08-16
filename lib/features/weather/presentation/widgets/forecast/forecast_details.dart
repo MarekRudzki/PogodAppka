@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldtime/worldtime.dart';
+
 import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_coordinates/place_coordinates_bloc.dart';
 import 'package:pogodappka/features/weather/data/models/weather_data.dart';
-
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/forecast/hourly_details.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/overall_day_infos.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/sunrise_sunset.dart';
-import 'package:worldtime/worldtime.dart';
 
 class ForecastDetails extends StatelessWidget {
   /// Day 0 -> today,
@@ -27,7 +27,7 @@ class ForecastDetails extends StatelessWidget {
         if (weatherState is WeatherLoading) {
           return Center(
             child: Image.asset(
-              'assets/waiting_animation.gif',
+              'assets/waiting-animation.gif',
               width: 200,
             ),
           );
@@ -44,7 +44,7 @@ class ForecastDetails extends StatelessWidget {
                 if (state is PlaceCoordinatesLoading) {
                   return Center(
                     child: Image.asset(
-                      'assets/waiting_animation.gif',
+                      'assets/waiting-animation.gif',
                       width: 200,
                     ),
                   );
@@ -59,7 +59,7 @@ class ForecastDetails extends StatelessWidget {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
                           child: Image.asset(
-                            'assets/waiting_animation.gif',
+                            'assets/waiting-animation.gif',
                             width: 200,
                           ),
                         );
@@ -107,19 +107,53 @@ class ForecastDetails extends StatelessWidget {
                           ),
                         );
                       } else {
-                        return const Text(
-                            'Nie można wyświetlić daty i godziny');
+                        return const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Center(
+                            child: Text(
+                              'Nie można wyświetlić daty i godziny',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                              softWrap: true,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        );
                       }
                     },
                   );
                 } else {
-                  return const Text('Nie można wyświetlić daty i godziny');
+                  return const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Center(
+                      child: Text(
+                        'Nie można wyświetlić daty i godziny',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
                 }
               },
             ),
           );
         } else {
-          return const Text('Błąd! Coś poszło nie tak');
+          return const Padding(
+            padding: EdgeInsets.all(10),
+            child: Center(
+              child: Text(
+                'Błąd! Coś poszło nie tak. Spróbuj wyszukać miasto ponownie.',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
         }
       },
     );

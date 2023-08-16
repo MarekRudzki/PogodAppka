@@ -30,8 +30,7 @@ class GeolocationRemoteDataSource {
         placeId: placeId,
       );
     } catch (error) {
-      throw Exception(
-          'Obecnie nie można zlokalizować Twojej pozycji. Spróbuj wyszukać ją ręcznie');
+      throw Exception();
     }
   }
 }

@@ -14,33 +14,91 @@ class CitiesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int index = 0;
+    void getId({
+      required int id,
+    }) {
+      index = id;
+    }
+
     return BlocBuilder<AutocompleteBloc, AutocompleteState>(
-      builder: (context, state) {
-        if (state is AutocompleteLoading) {
+      builder: (context, autocompleteState) {
+        if (autocompleteState is AutocompleteLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is AutocompleteLoaded) {
-          if (state.places.isNotEmpty) {
-            return Expanded(
-              child: ListView.builder(
-                itemCount: state.places.length,
-                itemBuilder: (context, index) => LocationListTile(
-                  location: state.places[index].description,
-                  callback: () {
-                    String adress = state.places[index].description;
-                    String placeId = state.places[index].placeId;
+        } else if (autocompleteState is AutocompleteLoaded) {
+          if (autocompleteState.places.isNotEmpty) {
+            return BlocListener<WeatherBloc, WeatherState>(
+              listener: (context, weatherState) {
+                String placeId = autocompleteState.places[index].placeId;
+                String adress = autocompleteState.places[index].description;
+                String city = adress.substring(0, adress.indexOf(','));
+                if (weatherState is WeatherLoaded) {
+                  context.read<CitiesBloc>().add(AddLatestCity(
+                      cityModel: CityModel(name: city, placeId: placeId)));
+                  context.read<PlaceCoordinatesBloc>().add(
+                      FetchPlaceCoordinates(
+                          placeId: autocompleteState.places[index].placeId));
+                  Navigator.of(context).pop();
+                } else if (weatherState is WeatherError) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  showModalBottomSheet(
+                    context: context,
+                    useRootNavigator: true,
+                    barrierColor: const Color.fromARGB(62, 3, 2, 2),
+                    builder: (BuildContext context) {
+                      return Container(
+                        color: const Color.fromARGB(255, 54, 202, 184),
+                        padding: const EdgeInsets.all(12),
+                        child: Wrap(
+                          children: [
+                            Center(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Prognoza dla miasta $city jest niedostępna',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    icon: const Icon(
+                                      Icons.done,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                }
+              },
+              child: Expanded(
+                child: ListView.builder(
+                  itemCount: autocompleteState.places.length,
+                  itemBuilder: (context, index) => LocationListTile(
+                    location: autocompleteState.places[index].description,
+                    callback: () {
+                      String adress =
+                          autocompleteState.places[index].description;
+                      String city = adress.substring(0, adress.indexOf(','));
 
-                    String city = adress.substring(0, adress.indexOf(','));
-                    context.read<CitiesBloc>().add(AddLatestCity(
-                        cityModel: CityModel(name: city, placeId: placeId)));
-                    context.read<WeatherBloc>().add(FetchWeather(city: city));
-                    context.read<PlaceCoordinatesBloc>().add(
-                        FetchPlaceCoordinates(
-                            placeId: state.places[index].placeId));
+                      context.read<WeatherBloc>().add(FetchWeather(city: city));
 
-                    Navigator.of(context).pop();
-                  },
+                      getId(id: index);
+                    },
+                  ),
                 ),
               ),
             );
@@ -62,16 +120,15 @@ class CitiesList extends StatelessWidget {
                           String city = cities[index].name;
                           String placeId = cities[index].placeId;
 
+                          context
+                              .read<WeatherBloc>()
+                              .add(FetchWeather(city: city));
                           context.read<CitiesBloc>().add(AddLatestCity(
                               cityModel:
                                   CityModel(name: city, placeId: placeId)));
                           context
-                              .read<WeatherBloc>()
-                              .add(FetchWeather(city: city));
-                          context
                               .read<PlaceCoordinatesBloc>()
                               .add(FetchPlaceCoordinates(placeId: placeId));
-
                           Navigator.of(context).pop();
                         },
                       ),

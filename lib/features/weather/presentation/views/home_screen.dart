@@ -61,60 +61,57 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           ? Scaffold(
               backgroundColor: const Color.fromARGB(255, 54, 202, 184),
               endDrawer: const HomePageDrawer(),
-              appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(95),
-                child: AppBar(
-                  centerTitle: true,
-                  title: BlocBuilder<CitiesBloc, CitiesState>(
-                    builder: (context, state) {
-                      if (state is CitiesLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else if (state is LatestCityLoaded) {
-                        return Text(
-                          state.cityModel.name,
-                          style: const TextStyle(
-                            fontSize: 24,
-                            color: Colors.white,
-                          ),
-                        );
-                      } else {
-                        return const Text('Błąd! Prognoza niedostępna');
-                      }
+              appBar: AppBar(
+                centerTitle: true,
+                title: BlocBuilder<CitiesBloc, CitiesState>(
+                  builder: (context, state) {
+                    if (state is CitiesLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is LatestCityLoaded) {
+                      return Text(
+                        state.cityModel.name,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          color: Colors.white,
+                        ),
+                      );
+                    } else {
+                      return const Text('Błąd! Prognoza niedostępna');
+                    }
+                  },
+                ),
+                backgroundColor: const Color.fromARGB(255, 8, 180, 160),
+                elevation: 0,
+                actions: [
+                  Builder(
+                    builder: (context) {
+                      return IconButton(
+                        onPressed: () {
+                          Scaffold.of(context).openEndDrawer();
+                          context
+                              .read<AutocompleteBloc>()
+                              .add(ClearAutocomplete());
+                        },
+                        icon: const Icon(
+                          Icons.search,
+                          color: Colors.white,
+                          size: 26,
+                        ),
+                      );
                     },
                   ),
-                  backgroundColor: const Color.fromARGB(255, 8, 180, 160),
-                  elevation: 0,
-                  actions: [
-                    Builder(
-                      builder: (context) {
-                        return IconButton(
-                          onPressed: () {
-                            Scaffold.of(context).openEndDrawer();
-                            context
-                                .read<AutocompleteBloc>()
-                                .add(ClearAutocomplete());
-                          },
-                          icon: const Icon(
-                            Icons.search,
-                            color: Colors.white,
-                            size: 26,
-                          ),
-                        );
-                      },
-                    ),
+                ],
+                bottom: TabBar(
+                  controller: _tabController,
+                  labelColor: Colors.white,
+                  indicatorColor: Colors.white,
+                  tabs: const [
+                    Tab(text: 'DZISIAJ'),
+                    Tab(text: 'JUTRO'),
+                    Tab(text: '14 DNI'),
                   ],
-                  bottom: TabBar(
-                    controller: _tabController,
-                    labelColor: Colors.white,
-                    indicatorColor: Colors.white,
-                    tabs: const [
-                      Tab(text: 'DZISIAJ'),
-                      Tab(text: 'JUTRO'),
-                      Tab(text: '15 DNI'),
-                    ],
-                  ),
                 ),
               ),
               body: TabBarView(

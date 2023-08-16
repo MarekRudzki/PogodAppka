@@ -11,8 +11,6 @@ class LoadLatestCity extends CitiesEvent {}
 
 class LoadRecentSearches extends CitiesEvent {}
 
-class LoadGeolocation extends CitiesEvent {}
-
 class AddLatestCity extends CitiesEvent {
   final CityModel cityModel;
 
