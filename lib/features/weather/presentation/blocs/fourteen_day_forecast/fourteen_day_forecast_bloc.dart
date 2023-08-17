@@ -7,17 +7,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 
-part 'fifteen_day_forecast_event.dart';
-part 'fifteen_day_forecast_state.dart';
+part 'fourteen_day_forecast_event.dart';
+part 'fourteen_day_forecast_state.dart';
 
-class FifteenDayForecastBloc
-    extends Bloc<FifteenDayForecastEvent, FifteenDayForecastState> {
+class FourteenDayForecastBloc
+    extends Bloc<FourteenDayForecastEvent, FourteenDayForecastState> {
   final WeatherBloc _weatherBloc;
   late StreamSubscription<WeatherState> _streamSubscription;
 
-  FifteenDayForecastBloc({required WeatherBloc weatherBloc})
+  FourteenDayForecastBloc({required WeatherBloc weatherBloc})
       : _weatherBloc = weatherBloc,
-        super(FifteenDayForecastLoading()) {
+        super(FourteenDayForecastLoading()) {
     _streamSubscription = weatherBloc.stream.listen(
       (state) {
         if (state is WeatherLoaded) {
@@ -38,11 +38,11 @@ class FifteenDayForecastBloc
 
   void _onLoadForecast(
     LoadForecast event,
-    Emitter<FifteenDayForecastState> emit,
+    Emitter<FourteenDayForecastState> emit,
   ) {
-    emit(FifteenDayForecastLoading());
+    emit(FourteenDayForecastLoading());
     emit(
-      FifteenDayForecastLoaded(
+      FourteenDayForecastLoaded(
           weatherData: event.weatherData,
           isExpanded: List.generate(15, (_) => false)),
     );
@@ -50,11 +50,11 @@ class FifteenDayForecastBloc
 
   void _onExpandTile(
     ExpandTile event,
-    Emitter<FifteenDayForecastState> emit,
+    Emitter<FourteenDayForecastState> emit,
   ) {
     final defaultList = List.generate(15, (_) => false);
     defaultList[event.tileIndex + 2] = !event.isExpanded;
-    emit(FifteenDayForecastLoaded(
+    emit(FourteenDayForecastLoaded(
       weatherData: event.weatherData,
       isExpanded: defaultList,
     ));

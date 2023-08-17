@@ -20,7 +20,7 @@ import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autoc
 import 'package:pogodappka/features/places/presentation/blocs/geolocation/geolocation_bloc.dart';
 import 'package:pogodappka/features/weather/data/datasources/weather_remote_data_source.dart';
 import 'package:pogodappka/features/weather/domain/repositories/weather_repository.dart';
-import 'package:pogodappka/features/weather/presentation/blocs/fifteen_day_forecast/fifteen_day_forecast_bloc.dart';
+import 'package:pogodappka/features/weather/presentation/blocs/fourteen_day_forecast/fourteen_day_forecast_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/views/home_screen.dart';
 
@@ -111,7 +111,7 @@ void main() async {
                   ),
               ),
               BlocProvider(
-                create: (context) => FifteenDayForecastBloc(
+                create: (context) => FourteenDayForecastBloc(
                   weatherBloc: context.read<WeatherBloc>()
                     ..add(
                       FetchWeather(

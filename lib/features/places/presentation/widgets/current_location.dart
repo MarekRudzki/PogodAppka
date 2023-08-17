@@ -34,6 +34,8 @@ class CurrentLocation extends StatelessWidget {
                     Center(
                       child: Text(
                         state.errorMessage,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.visible,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 15,

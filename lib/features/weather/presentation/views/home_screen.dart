@@ -7,7 +7,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
-import 'package:pogodappka/features/weather/presentation/widgets/forecast/fifteen_day_forecast.dart';
+import 'package:pogodappka/features/weather/presentation/widgets/forecast/fourteen_day_forecast.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/forecast/forecast_details.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/home_screen_drawer.dart';
 import 'package:pogodappka/utils/no_network.dart';
@@ -56,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    _tabController.index = 0;
     return SafeArea(
       child: hasInternet
           ? Scaffold(
@@ -65,11 +66,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 centerTitle: true,
                 title: BlocBuilder<CitiesBloc, CitiesState>(
                   builder: (context, state) {
-                    if (state is CitiesLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (state is LatestCityLoaded) {
+                    if (state is LatestCityLoaded) {
                       return Text(
                         state.cityModel.name,
                         style: const TextStyle(
@@ -78,7 +75,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         ),
                       );
                     } else {
-                      return const Text('Błąd! Prognoza niedostępna');
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
                     }
                   },
                 ),
@@ -123,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ForecastDetails(
                     day: 1,
                   ),
-                  FifteenDayForecast(),
+                  FourteenDayForecast(),
                 ],
               ),
             )

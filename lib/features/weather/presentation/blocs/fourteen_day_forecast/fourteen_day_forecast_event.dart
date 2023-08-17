@@ -1,13 +1,13 @@
-part of 'fifteen_day_forecast_bloc.dart';
+part of 'fourteen_day_forecast_bloc.dart';
 
-class FifteenDayForecastEvent extends Equatable {
-  const FifteenDayForecastEvent();
+class FourteenDayForecastEvent extends Equatable {
+  const FourteenDayForecastEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class LoadForecast extends FifteenDayForecastEvent {
+class LoadForecast extends FourteenDayForecastEvent {
   final WeatherData weatherData;
 
   const LoadForecast({required this.weatherData});
@@ -16,7 +16,7 @@ class LoadForecast extends FifteenDayForecastEvent {
   List<Object> get props => [weatherData];
 }
 
-class ExpandTile extends FifteenDayForecastEvent {
+class ExpandTile extends FourteenDayForecastEvent {
   final int tileIndex;
   final bool isExpanded;
   final WeatherData weatherData;

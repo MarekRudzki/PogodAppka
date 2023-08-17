@@ -4,17 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import 'package:pogodappka/features/weather/data/models/weather_data.dart';
-import 'package:pogodappka/features/weather/presentation/blocs/fifteen_day_forecast/fifteen_day_forecast_bloc.dart';
+import 'package:pogodappka/features/weather/presentation/blocs/fourteen_day_forecast/fourteen_day_forecast_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/forecast/forecast_details.dart';
 
-class FifteenDayForecast extends StatelessWidget {
-  const FifteenDayForecast({super.key});
+class FourteenDayForecast extends StatelessWidget {
+  const FourteenDayForecast({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FifteenDayForecastBloc, FifteenDayForecastState>(
+    return BlocBuilder<FourteenDayForecastBloc, FourteenDayForecastState>(
       builder: (context, state) {
-        if (state is FifteenDayForecastLoading) {
+        if (state is FourteenDayForecastLoading) {
           return Center(
             child: Image.asset(
               'assets/waiting-animation.gif',
@@ -22,11 +22,11 @@ class FifteenDayForecast extends StatelessWidget {
             ),
           );
         }
-        if (state is FifteenDayForecastLoaded) {
+        if (state is FourteenDayForecastLoaded) {
           return SingleChildScrollView(
             child: ExpansionPanelList(
               expansionCallback: (index, isExpanded) {
-                context.read<FifteenDayForecastBloc>().add(
+                context.read<FourteenDayForecastBloc>().add(
                       ExpandTile(
                         tileIndex: index,
                         isExpanded: isExpanded,
@@ -126,13 +126,12 @@ String showWeatherIcon({
 }) {
   final int severerisk =
       weatherData.weatherDataModel[day].dailyWeatherData.severerisk;
-  final icon = weatherData.weatherDataModel[day].dailyWeatherData.icon;
   final sunrise = weatherData.weatherDataModel[day].weatherDayLength.sunrise;
   final sunset = weatherData.weatherDataModel[day].weatherDayLength.sunset;
 
   // Daily data about icons from API service is not always correctly
   // so the following function has to been done
-  String replaceRainIcon() {
+  String showIcon() {
     final int sunriseHour = int.parse(sunrise.substring(0, 2)) + 1;
     final int sunsetHour = int.parse(sunset.substring(0, 2));
     final List<String> dayIcons = [];
@@ -156,9 +155,7 @@ String showWeatherIcon({
 
   if (severerisk > 30) {
     return 'assets/storm.png';
-  } else if (icon == 'rain') {
-    return 'assets/${replaceRainIcon()}.png';
   } else {
-    return 'assets/$icon.png';
+    return 'assets/${showIcon()}.png';
   }
 }

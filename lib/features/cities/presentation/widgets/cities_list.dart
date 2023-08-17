@@ -8,6 +8,7 @@ import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_c
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
 import 'package:pogodappka/features/places/presentation/widgets/location_list_tile.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
+import 'package:pogodappka/features/weather/presentation/views/home_screen.dart';
 
 class CitiesList extends StatelessWidget {
   const CitiesList({super.key});
@@ -41,7 +42,11 @@ class CitiesList extends StatelessWidget {
                   context.read<PlaceCoordinatesBloc>().add(
                       FetchPlaceCoordinates(
                           placeId: autocompleteState.places[index].placeId));
-                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const HomeScreen(),
+                    ),
+                  );
                 } else if (weatherState is WeatherError) {
                   FocusManager.instance.primaryFocus?.unfocus();
                   showModalBottomSheet(
@@ -59,11 +64,15 @@ class CitiesList extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    'Prognoza dla miasta $city jest niedostępna',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
+                                  Flexible(
+                                    child: Text(
+                                      'Prognoza dla miasta $city jest niedostępna',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                      ),
+                                      overflow: TextOverflow.visible,
+                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                   IconButton(
@@ -131,33 +140,22 @@ class CitiesList extends StatelessWidget {
                           context
                               .read<PlaceCoordinatesBloc>()
                               .add(FetchPlaceCoordinates(placeId: placeId));
-                          Navigator.of(context).pop();
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ));
                         },
                       ),
                     ),
                   );
                 } else {
-                  return const Center(
-                    child: Text(
-                      'Nie można było załadować elementu',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  );
+                  return const SizedBox.shrink();
                 }
               },
             );
           }
         } else {
-          return const Center(
-            child: Text(
-              'Nie można było załadować elementu',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          );
+          return const SizedBox.shrink();
         }
       },
     );

@@ -186,7 +186,7 @@ String buildWeatherIcon({
 
   // Daily data about icons from API service is not always correctly
   // so the following function has to been done
-  String replaceRainIcon() {
+  String showIcon() {
     final int sunriseHour = int.parse(sunrise.substring(0, 2)) + 1;
     final int sunsetHour = int.parse(sunset.substring(0, 2));
     final List<String> dayIcons = [];
@@ -205,15 +205,13 @@ String buildWeatherIcon({
     // Get maximum value inside map
     final sortedKeys = folded.keys.toList()
       ..sort((a, b) => folded[b]!.compareTo(folded[a]!));
+
     return sortedKeys.first;
   }
 
   String getModelIcon() {
     if (day != 0) {
-      final String modelIcon =
-          weatherData.weatherDataModel[day].dailyWeatherData.icon;
-      final forecastIcon = modelIcon == 'rain' ? replaceRainIcon() : modelIcon;
-      return forecastIcon;
+      return showIcon();
     } else if (localDateTime.minute < 30 || localDateTime.hour == 23) {
       return weatherData.weatherDataModel[day].weatherDataHourly
           .hourly[localDateTime.hour].icon;
