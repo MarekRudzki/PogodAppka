@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pogodappka/utils/l10n/localization.dart';
 
 class DayLength extends StatelessWidget {
   final String sunset;
@@ -41,9 +42,9 @@ class DayLength extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 15),
-        const Text(
-          'Długość dnia i nocy',
-          style: TextStyle(
+        Text(
+          context.l10n.dayLength,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 17,
           ),
@@ -90,7 +91,6 @@ class DayLength extends StatelessWidget {
                       const SizedBox(width: 5),
                       Text(
                         '$nightHours:$nightMinutesText',
-                        // nightLength,
                         style: const TextStyle(
                           color: Colors.white,
                         ),

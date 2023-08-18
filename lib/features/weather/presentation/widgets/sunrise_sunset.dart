@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/day_length.dart';
+import 'package:pogodappka/utils/l10n/localization.dart';
 
 class SunriseSunset extends StatelessWidget {
   final String sunset;
@@ -21,9 +22,9 @@ class SunriseSunset extends StatelessWidget {
           children: [
             Column(
               children: [
-                const Text(
-                  'Wschód',
-                  style: TextStyle(
+                Text(
+                  context.l10n.sunrise,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                   ),
@@ -47,9 +48,9 @@ class SunriseSunset extends StatelessWidget {
             ),
             Column(
               children: [
-                const Text(
-                  'Zachód',
-                  style: TextStyle(
+                Text(
+                  context.l10n.sunset,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                   ),

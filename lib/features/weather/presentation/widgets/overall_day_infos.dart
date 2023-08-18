@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 
 import 'package:pogodappka/features/weather/presentation/widgets/digital_clock.dart';
+import 'package:pogodappka/utils/l10n/localization.dart';
 
 class OverallDayInfos extends StatelessWidget {
   final DateTime localDateTime;
@@ -20,13 +21,13 @@ class OverallDayInfos extends StatelessWidget {
   Widget build(BuildContext context) {
     final dailyData = weatherData.weatherDataModel[day].dailyWeatherData;
     final String dateFormatted =
-        '${toBeginningOfSentenceCase(DateFormat('EEEE', 'pl').format(
+        '${toBeginningOfSentenceCase(DateFormat('EEEE', context.l10n.dateTypeLanguage).format(
       day == 0
           ? localDateTime
           : localDateTime.add(
               Duration(days: day),
             ),
-    ))!}, ${toBeginningOfSentenceCase(DateFormat('d MMMM', 'pl').format(
+    ))!}, ${toBeginningOfSentenceCase(DateFormat('d MMMM', context.l10n.dateTypeLanguage).format(
       day == 0
           ? localDateTime
           : localDateTime.add(
@@ -79,21 +80,21 @@ class OverallDayInfos extends StatelessWidget {
         else
           const SizedBox(height: 35),
         Text(
-          'Zachmurzenie: ${dailyData.cloudCover}%',
+          '${context.l10n.cloudCover}: ${dailyData.cloudCover}%',
           style: const TextStyle(
             color: Colors.white,
           ),
         ),
         const SizedBox(height: 7),
         Text(
-          'Wilgotość: ${dailyData.humidity}%',
+          '${context.l10n.humidity}: ${dailyData.humidity}%',
           style: const TextStyle(
             color: Colors.white,
           ),
         ),
         const SizedBox(height: 7),
         Text(
-          'Ciśnienie: ${dailyData.pressure} hPa',
+          '${context.l10n.pressure}: ${dailyData.pressure} hPa',
           style: const TextStyle(
             color: Colors.white,
           ),

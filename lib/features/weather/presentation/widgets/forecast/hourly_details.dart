@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pogodappka/features/weather/data/models/weather_data_hourly.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/forecast/weather_tile.dart';
+import 'package:pogodappka/utils/l10n/localization.dart';
 
 class HourlyDetails extends StatefulWidget {
   final WeatherDataHourly weatherDataHourly;
@@ -68,10 +69,10 @@ class _HourlyDetailsState extends State<HourlyDetails>
           controller: _tabController,
           labelColor: Colors.white,
           indicatorColor: Colors.white,
-          tabs: const [
-            Tab(text: 'Temperatura'),
-            Tab(text: 'Opady'),
-            Tab(text: 'Wiatr'),
+          tabs: [
+            Tab(text: context.l10n.temperature),
+            Tab(text: context.l10n.precipitation),
+            Tab(text: context.l10n.wind),
           ],
         ),
         Container(

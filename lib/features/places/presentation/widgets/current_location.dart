@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:pogodappka/features/places/presentation/blocs/geolocation/geolocation_bloc.dart';
+import 'package:pogodappka/utils/l10n/localization.dart';
 
 class CurrentLocation extends StatelessWidget {
   const CurrentLocation({super.key});
@@ -33,7 +34,10 @@ class CurrentLocation extends StatelessWidget {
                   children: [
                     Center(
                       child: Text(
-                        state.errorMessage,
+                        showGeolocationError(
+                          errorMessage: state.errorMessage,
+                          context: context,
+                        ),
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.visible,
                         style: const TextStyle(
@@ -80,8 +84,8 @@ class CurrentLocation extends StatelessWidget {
                       size: 26,
                       color: Colors.white,
                     ),
-                    label: const Text(
-                      'Użyj Twojej lokalizacji',
+                    label: Text(
+                      context.l10n.useGeolocation,
                     ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 60, 212, 194),
@@ -102,5 +106,18 @@ class CurrentLocation extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+String showGeolocationError({
+  required String errorMessage,
+  required BuildContext context,
+}) {
+  if (errorMessage == 'location-off') {
+    return context.l10n.locationDisabled;
+  } else if (errorMessage == 'location-deniedForever') {
+    return context.l10n.locationDisabledForever;
+  } else {
+    return context.l10n.cannotGeolocate;
   }
 }

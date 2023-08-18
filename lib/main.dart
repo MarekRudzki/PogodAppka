@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,9 @@ import 'package:flutter/services.dart';
 import 'package:pogodappka/features/cities/data/local_data_sources/cities_local_data_source.dart';
 import 'package:pogodappka/features/cities/domain/cities_repository.dart';
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
+import 'package:pogodappka/features/language/data/language_local_data_source.dart';
+import 'package:pogodappka/features/language/domain/repositories/language_repository.dart';
+import 'package:pogodappka/features/language/presentation/blocs/language_bloc/language_bloc.dart';
 import 'package:pogodappka/features/place_coordinates/data/datasource/place_coordinates_remote_data_source.dart';
 import 'package:pogodappka/features/place_coordinates/domain/repositories/place_coordinates_repository.dart';
 import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_coordinates/place_coordinates_bloc.dart';
@@ -23,10 +27,12 @@ import 'package:pogodappka/features/weather/domain/repositories/weather_reposito
 import 'package:pogodappka/features/weather/presentation/blocs/fourteen_day_forecast/fourteen_day_forecast_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/views/home_screen.dart';
+import 'package:pogodappka/utils/l10n/translations/translation.dart';
 
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox('cities_box');
+  await Hive.openBox('language');
 
   await dotenv.load();
   await SystemChrome.setPreferredOrientations([
@@ -59,6 +65,11 @@ void main() async {
             RepositoryProvider(
               create: (context) => PlaceCoordinatesRepository(
                 PlaceCoordinatesRemoteDataSource(),
+              ),
+            ),
+            RepositoryProvider(
+              create: (context) => LanguageRepository(
+                LanguageLocalDataSource(),
               ),
             ),
           ],
@@ -123,11 +134,33 @@ void main() async {
                     ),
                 ),
               ),
+              BlocProvider(
+                create: (context) => LanguageBloc(
+                  languageRepository: context.read<LanguageRepository>(),
+                )..add(
+                    FetchLanguage(),
+                  ),
+              )
             ],
-            child: const MaterialApp(
-              title: 'Pogodappka',
-              debugShowCheckedModeBanner: false,
-              home: HomeScreen(),
+            child: BlocBuilder<LanguageBloc, LanguageState>(
+              builder: (context, state) {
+                return MaterialApp(
+                  localizationsDelegates: [
+                    WeatherTranslations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate
+                  ],
+                  locale: state.selectedLanguage.locale,
+                  supportedLocales: [
+                    const Locale('pl', ''),
+                    const Locale('en', ''),
+                  ],
+                  title: 'Pogodappka',
+                  debugShowCheckedModeBanner: false,
+                  home: const HomeScreen(),
+                );
+              },
             ),
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pogodappka/utils/l10n/localization.dart';
 import 'package:worldtime/worldtime.dart';
 
 import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_coordinates/place_coordinates_bloc.dart';
@@ -107,47 +108,23 @@ class ForecastDetails extends StatelessWidget {
                           ),
                         );
                       } else {
-                        return const Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Center(
-                            child: Text(
-                              'Nie można wyświetlić daty i godziny',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                              softWrap: true,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        );
+                        return const SizedBox.shrink();
                       }
                     },
                   );
                 } else {
-                  return const Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Center(
-                      child: Text(
-                        'Nie można wyświetlić daty i godziny',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                        softWrap: true,
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  );
+                  return const SizedBox.shrink();
                 }
               },
             ),
           );
         } else {
-          return const Padding(
-            padding: EdgeInsets.all(10),
+          return Padding(
+            padding: const EdgeInsets.all(10),
             child: Center(
               child: Text(
-                'Błąd! Coś poszło nie tak. Spróbuj wyszukać miasto ponownie.',
-                style: TextStyle(
+                context.l10n.errorCitySearch,
+                style: const TextStyle(
                   color: Colors.white,
                 ),
                 textAlign: TextAlign.center,

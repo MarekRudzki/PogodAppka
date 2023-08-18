@@ -6,6 +6,7 @@ import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
 import 'package:pogodappka/features/cities/presentation/widgets/cities_list.dart';
 import 'package:pogodappka/features/places/presentation/widgets/current_location.dart';
+import 'package:pogodappka/utils/l10n/localization.dart';
 
 class HomePageDrawer extends StatelessWidget {
   const HomePageDrawer({super.key});
@@ -47,13 +48,13 @@ class HomePageDrawer extends StatelessWidget {
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.search,
                       textAlign: TextAlign.center,
-                      decoration: const InputDecoration(
-                        hintText: 'Wpisz miasto...',
+                      decoration: InputDecoration(
+                        hintText: context.l10n.searchCity,
                         border: InputBorder.none,
-                        hintStyle: TextStyle(
+                        hintStyle: const TextStyle(
                           color: Colors.white,
                         ),
-                        suffixIcon: Icon(
+                        suffixIcon: const Icon(
                           Icons.location_city,
                           color: Colors.white,
                         ),

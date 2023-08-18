@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pogodappka/utils/l10n/localization.dart';
 
 class NoNetwork extends StatelessWidget {
   const NoNetwork({super.key});
@@ -10,9 +11,9 @@ class NoNetwork extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 8, 180, 160),
-        title: const Text(
-          'Brak połączenia z Internetem',
-          style: TextStyle(
+        title: Text(
+          context.l10n.noNetworkAppBar,
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 17,
           ),
@@ -23,10 +24,10 @@ class NoNetwork extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Do korzystania z aplikacji wymagane jest połączenie z siecią.',
+            Text(
+              context.l10n.noNetworkMessage,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,
               ),
@@ -37,10 +38,10 @@ class NoNetwork extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.5,
             ),
             const SizedBox(height: 15),
-            const Text(
-              'Włącz Inernet, a aplikacja sama się odświeży!',
+            Text(
+              context.l10n.noNetworkInstructions,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,
               ),

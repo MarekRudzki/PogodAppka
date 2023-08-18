@@ -26,7 +26,7 @@ class GeolocationBloc extends Bloc<GeolocationEvent, GeolocationState> {
     try {
       final bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        emit(const GeolocationError('Lokalizacja jest wyłączona'));
+        emit(const GeolocationError('location-off'));
         return;
       }
       LocationPermission permission = await Geolocator.checkPermission();
@@ -35,7 +35,7 @@ class GeolocationBloc extends Bloc<GeolocationEvent, GeolocationState> {
         if (permission == LocationPermission.deniedForever) {
           emit(
             const GeolocationError(
-              'Lokalizacja jest wyłączona na stałe, nie można zlokalizować Twojej pozycji',
+              'location-deniedForever',
             ),
           );
           return;

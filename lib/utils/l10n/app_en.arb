@@ -1,0 +1,35 @@
+{
+    "today": "TODAY",
+    "tomorrow": "TOMORROW",
+    "fourteenDays": "14 DAYS",
+    "temperature": "Temperature",
+    "precipitation": "Precipitation",
+    "wind": "Wind",
+    "cloudCover": "Cloud cover",
+    "humidity": "Humidity",
+    "pressure": "Pressure",
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "dayLength": "Length of day and night",
+    "searchCity": "Search city...",
+    "useGeolocation": "Use my location",
+    "dateTypeLanguage": "en",
+    "noNetworkAppBar": "No Internet connection",
+    "noNetworkMessage": "A network connection is required to use the application.",
+    "noNetworkInstructions": "Turn on Inernet and the application will refresh!",
+    "cityNotAvailable": "Forecast for {city} is unavailable",
+     "@cityNotAvailable": {
+        "description": "Weather forecast is not available for this city",
+        "placeholders": {
+            "city": {
+                "type": "String",
+                "example": "Poznań"
+            }
+        }
+    },
+    "locationDisabled": "Location is disabled",
+    "locationDisabledForever": "Location is permanently disabled, your position cannot be located",
+    "cannotGeolocate": "Currently, your position cannot be located. Try searching for it manually",
+    "errorCitySearch": "Something went wrong. Try searching for the city again.",
+    "errorWeather": "Cannot load weather"
+}

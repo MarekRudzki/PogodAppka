@@ -9,6 +9,7 @@ import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autoc
 import 'package:pogodappka/features/places/presentation/widgets/location_list_tile.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/views/home_screen.dart';
+import 'package:pogodappka/utils/l10n/localization.dart';
 
 class CitiesList extends StatelessWidget {
   const CitiesList({super.key});
@@ -65,14 +66,16 @@ class CitiesList extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Flexible(
-                                    child: Text(
-                                      'Prognoza dla miasta $city jest niedostępna',
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
+                                    child: Center(
+                                      child: Text(
+                                        context.l10n.cityNotAvailable(city),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                        ),
+                                        overflow: TextOverflow.visible,
+                                        textAlign: TextAlign.center,
                                       ),
-                                      overflow: TextOverflow.visible,
-                                      textAlign: TextAlign.center,
                                     ),
                                   ),
                                   IconButton(

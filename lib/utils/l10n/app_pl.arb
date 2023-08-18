@@ -1,0 +1,35 @@
+{
+    "today": "DZISIAJ",
+    "tomorrow": "JUTRO",
+    "fourteenDays": "14 DNI",
+    "temperature": "Temperatura",
+    "precipitation": "Opady",
+    "wind": "Wiatr",
+    "cloudCover": "Zachmurzenie",
+    "humidity": "Wilgotność",
+    "pressure": "Ciśnienie",
+    "sunrise": "Wschód",
+    "sunset": "Zachód",
+    "dayLength": "Długość dnia i nocy",
+    "searchCity": "Wpisz miasto...",
+    "useGeolocation": "Użyj mojej lokalizacji",
+    "dateTypeLanguage": "pl",
+    "noNetworkAppBar": "Brak połączenia z Internetem",
+    "noNetworkMessage": "Do korzystania z aplikacji wymagane jest połączenie z siecią.",
+    "noNetworkInstructions": "Włącz Inernet, a aplikacja sama się odświeży!",
+    "cityNotAvailable": "Prognoza dla miasta {city} jest niedostępna",
+    "@cityNotAvailable": {
+        "description": "Weather forecast is not available for this city",
+        "placeholders": {
+            "city": {
+                "type": "String",
+                "example": "Poznań"
+            }
+        }
+    },
+    "locationDisabled": "Lokalizacja jest wyłączona",
+    "locationDisabledForever": "Lokalizacja jest wyłączona na stałe, nie można zlokalizować Twojej pozycji",
+    "cannotGeolocate": "Obecnie nie można zlokalizować Twojej pozycji. Spróbuj wyszukać ją ręcznie",
+    "errorCitySearch": "Błąd! Coś poszło nie tak. Spróbuj wyszukać miasto ponownie.",
+    "errorWeather": "Nie można załadować pogody"
+}
