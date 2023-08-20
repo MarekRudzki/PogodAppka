@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:injectable/injectable.dart';
 import 'package:location_geocoder/location_geocoder.dart';
 import 'package:pogodappka/features/cities/data/models/city_model.dart';
 
+@lazySingleton
 class GeolocationRemoteDataSource {
   Future<CityModel> getCurrentGeolocation() async {
     final apiKey = dotenv.env['GP_Key'];

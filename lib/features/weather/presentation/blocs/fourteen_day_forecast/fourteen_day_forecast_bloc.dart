@@ -1,37 +1,15 @@
-// ignore_for_file: unused_field, unused_element
-
-import 'dart:async';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pogodappka/features/weather/data/models/weather_data.dart';
-import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 
 part 'fourteen_day_forecast_event.dart';
 part 'fourteen_day_forecast_state.dart';
 
+@injectable
 class FourteenDayForecastBloc
     extends Bloc<FourteenDayForecastEvent, FourteenDayForecastState> {
-  final WeatherBloc _weatherBloc;
-  late StreamSubscription<WeatherState> _streamSubscription;
-
-  FourteenDayForecastBloc({required WeatherBloc weatherBloc})
-      : _weatherBloc = weatherBloc,
-        super(FourteenDayForecastLoading()) {
-    _streamSubscription = weatherBloc.stream.listen(
-      (state) {
-        if (state is WeatherLoaded) {
-          add(LoadForecast(weatherData: state.weatherData));
-        }
-      },
-    );
-
-    @override
-    Future<void> close() {
-      _streamSubscription.cancel();
-      return super.close();
-    }
-
+  FourteenDayForecastBloc() : super(FourteenDayForecastLoading()) {
     on<LoadForecast>(_onLoadForecast);
     on<ExpandTile>(_onExpandTile);
   }

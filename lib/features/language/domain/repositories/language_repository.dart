@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:pogodappka/features/language/data/language_local_data_source.dart';
 import 'package:pogodappka/features/language/language.dart';
 
+@lazySingleton
 class LanguageRepository {
   final LanguageLocalDataSource languageLocalDataSource;
 

@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:pogodappka/features/places/data/datasources/places_remote_data_source.dart';
 import 'package:pogodappka/features/places/data/models/place_autocomplete_model.dart';
 
+@lazySingleton
 class PlacesRepository {
   PlacesRepository(this._placeesRemoteDataSource);
 

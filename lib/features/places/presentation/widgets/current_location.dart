@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pogodappka/features/cities/data/models/city_model.dart';
+import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
+import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_coordinates/place_coordinates_bloc.dart';
 
 import 'package:pogodappka/features/places/presentation/blocs/geolocation/geolocation_bloc.dart';
+import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/utils/l10n/localization.dart';
 
 class CurrentLocation extends StatelessWidget {
@@ -13,6 +17,20 @@ class CurrentLocation extends StatelessWidget {
     return BlocListener<GeolocationBloc, GeolocationState>(
       listener: (context, state) {
         if (state is GeolocationLoaded) {
+          context
+              .read<WeatherBloc>()
+              .add(FetchWeather(city: state.cityModel.name));
+          context
+              .read<PlaceCoordinatesBloc>()
+              .add(FetchPlaceCoordinates(placeId: state.cityModel.placeId));
+          context.read<CitiesBloc>().add(
+                AddLatestCity(
+                  cityModel: CityModel(
+                    name: state.cityModel.name,
+                    placeId: state.cityModel.placeId,
+                  ),
+                ),
+              );
           Navigator.of(context).pop();
         }
         if (state is GeolocationError) {

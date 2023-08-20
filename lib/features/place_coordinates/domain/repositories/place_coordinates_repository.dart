@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:pogodappka/features/place_coordinates/data/datasource/place_coordinates_remote_data_source.dart';
 import 'package:pogodappka/features/place_coordinates/data/models/place_coordinates_model.dart';
 
+@lazySingleton
 class PlaceCoordinatesRepository {
   final PlaceCoordinatesRemoteDataSource _coordinatesRemoteDataSource;
 

@@ -1,5 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class LanguageLocalDataSource {
   final _languageBox = Hive.box('language');
 

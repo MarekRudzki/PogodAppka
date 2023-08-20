@@ -70,8 +70,22 @@ class _HourlyDetailsState extends State<HourlyDetails>
           labelColor: Colors.white,
           indicatorColor: Colors.white,
           tabs: [
-            Tab(text: context.l10n.temperature),
-            Tab(text: context.l10n.precipitation),
+            Tab(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  context.l10n.temperature,
+                ),
+              ),
+            ),
+            Tab(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  context.l10n.precipitation,
+                ),
+              ),
+            ),
             Tab(text: context.l10n.wind),
           ],
         ),

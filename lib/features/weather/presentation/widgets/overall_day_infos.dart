@@ -39,6 +39,8 @@ class OverallDayInfos extends StatelessWidget {
       children: [
         Text(
           dateFormatted,
+          softWrap: true,
+          textAlign: TextAlign.center,
           style: const TextStyle(
             color: Colors.white,
             fontSize: 17,

@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
 import 'package:pogodappka/features/places/data/models/place_autocomplete_model.dart';
 import 'package:pogodappka/features/places/domain/repositories/places_repository.dart';
@@ -8,6 +9,7 @@ import 'package:pogodappka/features/places/domain/repositories/places_repository
 part 'autocomplete_event.dart';
 part 'autocomplete_state.dart';
 
+@injectable
 class AutocompleteBloc extends Bloc<AutocompleteEvent, AutocompleteState> {
   final PlacesRepository _placesRepository;
 

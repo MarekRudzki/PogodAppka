@@ -74,20 +74,22 @@ class ForecastDetails extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  OverallDayInfos(
-                                    localDateTime: currentLocalTime,
-                                    day: day,
-                                    weatherData: weatherState.weatherData,
-                                  ),
                                   Expanded(
-                                    child: Image.asset(
-                                      buildWeatherIcon(
-                                        weatherData: weatherState.weatherData,
-                                        day: day,
-                                        localDateTime: currentLocalTime,
-                                        sunrise: sunrise,
-                                        sunset: sunset,
-                                      ),
+                                    child: OverallDayInfos(
+                                      localDateTime: currentLocalTime,
+                                      day: day,
+                                      weatherData: weatherState.weatherData,
+                                    ),
+                                  ),
+                                  Image.asset(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                    buildWeatherIcon(
+                                      weatherData: weatherState.weatherData,
+                                      day: day,
+                                      localDateTime: currentLocalTime,
+                                      sunrise: sunrise,
+                                      sunset: sunset,
                                     ),
                                   ),
                                 ],

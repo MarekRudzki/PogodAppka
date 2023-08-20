@@ -124,6 +124,7 @@ class FourteenDayForecast extends StatelessWidget {
           return Text(context.l10n.errorWeather);
         }
       },
+      //   ),
     );
   }
 }

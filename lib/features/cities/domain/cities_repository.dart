@@ -1,6 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:pogodappka/features/cities/data/local_data_sources/cities_local_data_source.dart';
 import 'package:pogodappka/features/cities/data/models/city_model.dart';
 
+@lazySingleton
 class CitiesRepository {
   final CitiesLocalDataSource _citiesLocalDataSource;
 

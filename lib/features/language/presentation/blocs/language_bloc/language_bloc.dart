@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pogodappka/features/language/domain/repositories/language_repository.dart';
 import 'package:pogodappka/features/language/language.dart';
 
 part 'language_event.dart';
 part 'language_state.dart';
 
+@injectable
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   final LanguageRepository languageRepository;
   LanguageBloc({required this.languageRepository})

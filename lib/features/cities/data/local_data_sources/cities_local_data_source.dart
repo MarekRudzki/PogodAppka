@@ -1,5 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class CitiesLocalDataSource {
   final _citiesLocalDataSource = Hive.box('cities_box');
 

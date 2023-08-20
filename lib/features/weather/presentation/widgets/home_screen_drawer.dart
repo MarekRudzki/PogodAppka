@@ -40,6 +40,9 @@ class HomePageDrawer extends StatelessWidget {
                   ),
                   Expanded(
                     child: TextFormField(
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
                       onChanged: (value) {
                         context
                             .read<AutocompleteBloc>()

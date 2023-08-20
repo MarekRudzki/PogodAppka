@@ -7,6 +7,7 @@ import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc
 import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_coordinates/place_coordinates_bloc.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
 import 'package:pogodappka/features/places/presentation/widgets/location_list_tile.dart';
+import 'package:pogodappka/features/weather/presentation/blocs/fourteen_day_forecast/fourteen_day_forecast_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/views/home_screen.dart';
 import 'package:pogodappka/utils/l10n/localization.dart';
@@ -36,13 +37,21 @@ class CitiesList extends StatelessWidget {
                 final String placeId = autocompleteState.places[index].placeId;
                 final String adress =
                     autocompleteState.places[index].description;
-                final String city = adress.substring(0, adress.indexOf(','));
+                final String city;
+                if (adress.contains(',')) {
+                  city = adress.substring(0, adress.indexOf(','));
+                } else {
+                  city = adress.substring(0, adress.indexOf(' '));
+                }
                 if (weatherState is WeatherLoaded) {
                   context.read<CitiesBloc>().add(AddLatestCity(
                       cityModel: CityModel(name: city, placeId: placeId)));
                   context.read<PlaceCoordinatesBloc>().add(
                       FetchPlaceCoordinates(
                           placeId: autocompleteState.places[index].placeId));
+                  context
+                      .read<FourteenDayForecastBloc>()
+                      .add(LoadForecast(weatherData: weatherState.weatherData));
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => const HomeScreen(),
@@ -105,8 +114,12 @@ class CitiesList extends StatelessWidget {
                     callback: () {
                       final String adress =
                           autocompleteState.places[index].description;
-                      final String city =
-                          adress.substring(0, adress.indexOf(','));
+                      final String city;
+                      if (adress.contains(',')) {
+                        city = adress.substring(0, adress.indexOf(','));
+                      } else {
+                        city = adress.substring(0, adress.indexOf(' '));
+                      }
 
                       context.read<WeatherBloc>().add(FetchWeather(city: city));
 

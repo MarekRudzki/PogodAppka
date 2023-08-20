@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:injectable/injectable.dart';
 
 import 'package:pogodappka/features/cities/data/models/city_model.dart';
 import 'package:pogodappka/features/places/domain/repositories/geolocation_repository.dart';
@@ -8,6 +9,7 @@ import 'package:pogodappka/features/places/domain/repositories/geolocation_repos
 part 'geolocation_event.dart';
 part 'geolocation_state.dart';
 
+@injectable
 class GeolocationBloc extends Bloc<GeolocationEvent, GeolocationState> {
   final GeolocationRepository _geolocationRepository;
 
@@ -44,7 +46,6 @@ class GeolocationBloc extends Bloc<GeolocationEvent, GeolocationState> {
 
       final CityModel cityModel =
           await _geolocationRepository.getCurrentLocation();
-
       emit(GeolocationLoaded(cityModel));
     } on Exception {
       emit(const GeolocationError(

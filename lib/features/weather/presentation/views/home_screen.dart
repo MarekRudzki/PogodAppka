@@ -8,6 +8,8 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
 import 'package:pogodappka/features/language/presentation/widgets/language_picker.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
+import 'package:pogodappka/features/weather/presentation/blocs/fourteen_day_forecast/fourteen_day_forecast_bloc.dart';
+import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/forecast/fourteen_day_forecast.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/forecast/forecast_details.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/home_screen_drawer.dart';
@@ -116,17 +118,38 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              body: TabBarView(
-                controller: _tabController,
-                children: const [
-                  ForecastDetails(
-                    day: 0,
+              body: MultiBlocListener(
+                listeners: [
+                  BlocListener<WeatherBloc, WeatherState>(
+                    listener: (context, weatherState) {
+                      if (weatherState is WeatherLoaded) {
+                        context.read<FourteenDayForecastBloc>().add(
+                            LoadForecast(
+                                weatherData: weatherState.weatherData));
+                      }
+                    },
                   ),
-                  ForecastDetails(
-                    day: 1,
-                  ),
-                  FourteenDayForecast(),
+                  BlocListener<CitiesBloc, CitiesState>(
+                    listener: (context, citiesState) {
+                      if (citiesState is LatestCityLoaded) {
+                        context.read<WeatherBloc>().add(
+                            FetchWeather(city: citiesState.cityModel.name));
+                      }
+                    },
+                  )
                 ],
+                child: TabBarView(
+                  controller: _tabController,
+                  children: const [
+                    ForecastDetails(
+                      day: 0,
+                    ),
+                    ForecastDetails(
+                      day: 1,
+                    ),
+                    FourteenDayForecast(),
+                  ],
+                ),
               ),
             )
           : const NoNetwork(),
