@@ -17,5 +17,3 @@ class PlaceCoordinatesLoaded extends PlaceCoordinatesState {
   @override
   List<Object> get props => [placeCooridnatesModel];
 }
-
-class PlaceCoordinatesError extends PlaceCoordinatesState {}

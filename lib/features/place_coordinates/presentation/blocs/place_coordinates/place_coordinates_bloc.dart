@@ -1,9 +1,12 @@
+// Dart imports:
 import 'dart:async';
 
+// Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+// Project imports:
 import 'package:pogodappka/features/place_coordinates/data/models/place_coordinates_model.dart';
 import 'package:pogodappka/features/place_coordinates/domain/repositories/place_coordinates_repository.dart';
 

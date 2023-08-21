@@ -1,17 +1,21 @@
+// Dart imports:
 import 'dart:async';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+// Project imports:
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
 import 'package:pogodappka/features/language/presentation/widgets/language_picker.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/fourteen_day_forecast/fourteen_day_forecast_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
-import 'package:pogodappka/features/weather/presentation/widgets/forecast/fourteen_day_forecast.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/forecast/forecast_details.dart';
+import 'package:pogodappka/features/weather/presentation/widgets/forecast/fourteen_day_forecast.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/home_screen_drawer.dart';
 import 'package:pogodappka/utils/l10n/localization.dart';
 import 'package:pogodappka/utils/no_network.dart';

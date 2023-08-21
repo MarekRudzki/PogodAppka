@@ -17,5 +17,3 @@ class AutocompleteLoaded extends AutocompleteState {
   @override
   List<Object> get props => [places];
 }
-
-class AutocompleteError extends AutocompleteState {}

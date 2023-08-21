@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:pogodappka/utils/l10n/localization.dart';
 
 class NoNetwork extends StatelessWidget {

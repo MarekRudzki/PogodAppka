@@ -1,15 +1,18 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pogodappka/utils/l10n/localization.dart';
 import 'package:worldtime/worldtime.dart';
 
+// Project imports:
 import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_coordinates/place_coordinates_bloc.dart';
 import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/weather/weather_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/forecast/hourly_details.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/overall_day_infos.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/sunrise_sunset.dart';
+import 'package:pogodappka/utils/l10n/localization.dart';
 
 class ForecastDetails extends StatelessWidget {
   /// Day 0 -> today,
@@ -84,7 +87,7 @@ class ForecastDetails extends StatelessWidget {
                                   Image.asset(
                                     width:
                                         MediaQuery.of(context).size.width * 0.5,
-                                    buildWeatherIcon(
+                                    showWeatherIcon(
                                       weatherData: weatherState.weatherData,
                                       day: day,
                                       localDateTime: currentLocalTime,
@@ -139,7 +142,7 @@ class ForecastDetails extends StatelessWidget {
   }
 }
 
-String buildWeatherIcon({
+String showWeatherIcon({
   required WeatherData weatherData,
   required int day,
   required DateTime localDateTime,

@@ -1,6 +1,9 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
+// Project imports:
 import 'package:pogodappka/features/language/domain/repositories/language_repository.dart';
 import 'package:pogodappka/features/language/language.dart';
 

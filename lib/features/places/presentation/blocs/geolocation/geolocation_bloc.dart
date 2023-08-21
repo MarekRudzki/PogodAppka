@@ -1,8 +1,10 @@
+// Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
 
+// Project imports:
 import 'package:pogodappka/features/cities/data/models/city_model.dart';
 import 'package:pogodappka/features/places/domain/repositories/geolocation_repository.dart';
 

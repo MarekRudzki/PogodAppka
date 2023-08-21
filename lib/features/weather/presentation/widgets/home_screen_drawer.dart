@@ -1,10 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// Project imports:
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
-import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
 import 'package:pogodappka/features/cities/presentation/widgets/cities_list.dart';
+import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
 import 'package:pogodappka/features/places/presentation/widgets/current_location.dart';
 import 'package:pogodappka/utils/l10n/localization.dart';
 

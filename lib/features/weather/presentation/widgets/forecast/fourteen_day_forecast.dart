@@ -1,8 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+// Project imports:
 import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 import 'package:pogodappka/features/weather/presentation/blocs/fourteen_day_forecast/fourteen_day_forecast_bloc.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/forecast/forecast_details.dart';

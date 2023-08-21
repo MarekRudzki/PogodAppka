@@ -1,36 +1,18 @@
+// Package imports:
 import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
-import 'package:location_geocoder/location_geocoder.dart';
-import 'package:pogodappka/features/cities/data/models/city_model.dart';
 
 @lazySingleton
 class GeolocationRemoteDataSource {
-  Future<CityModel> getCurrentGeolocation() async {
-    final apiKey = dotenv.env['GP_Key'];
-    final LocatitonGeocoder geocoder = LocatitonGeocoder(apiKey.toString());
-
+  Future<Map<String, dynamic>> getCurrentGeolocation({
+    required String apiKey,
+    required Position currentPosition,
+  }) async {
     try {
-      final currentPosition = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low,
-        timeLimit: const Duration(seconds: 5),
-      );
-
       final response = await Dio().get<Map<String, dynamic>>(
           'https://maps.googleapis.com/maps/api/geocode/json?&latlng=${currentPosition.latitude}%2C${currentPosition.longitude}&key=$apiKey');
-      final responseList = response.data!['results'] as List<dynamic>;
-      final convertedResponse =
-          responseList.map((e) => e as Map<String, dynamic>).toList();
-      final String placeId = convertedResponse.first['place_id'] as String;
-
-      final address = await geocoder.findAddressesFromCoordinates(
-        Coordinates(currentPosition.latitude, currentPosition.longitude),
-      );
-      return CityModel(
-        name: address.first.locality!,
-        placeId: placeId,
-      );
+      return response.data!;
     } catch (error) {
       throw Exception();
     }

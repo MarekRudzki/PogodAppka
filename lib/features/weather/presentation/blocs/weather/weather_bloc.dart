@@ -1,10 +1,13 @@
+// Dart imports:
 import 'dart:async';
 
+// Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 
+// Project imports:
+import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 import 'package:pogodappka/features/weather/domain/repositories/weather_repository.dart';
 
 part 'weather_event.dart';

@@ -4,7 +4,10 @@
 /// Due to the need to use other DateTime than DateTime.now()
 /// and to adjust colon timer which was not modifiable in original package
 
+// Dart imports:
 import 'dart:async';
+
+// Flutter imports:
 import 'package:flutter/material.dart';
 
 class DigitalClock extends StatefulWidget {

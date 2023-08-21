@@ -1,7 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 
+// Package imports:
+import 'package:intl/intl.dart';
+
+// Project imports:
+import 'package:pogodappka/features/weather/data/models/weather_data.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/digital_clock.dart';
 import 'package:pogodappka/utils/l10n/localization.dart';
 
@@ -37,35 +41,44 @@ class OverallDayInfos extends StatelessWidget {
 
     return Column(
       children: [
-        Text(
-          dateFormatted,
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 17,
-          ),
-        ),
-        if (day == 0)
-          DigitalClock(
-            hourMinuteDigitTextStyle: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-            ),
-            colonTimerInMiliseconds: 1000,
-            dateTime: localDateTime,
-            showSecondsDigit: false,
-            colon: const Text(
-              ":",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
+        if (day < 2)
+          Column(
+            children: [
+              const SizedBox(height: 10),
+              Text(
+                dateFormatted,
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                ),
               ),
-            ),
-          )
-        else
-          const SizedBox(height: 15),
-        const SizedBox(height: 20),
+            ],
+          ),
+        if (day == 0)
+          Column(
+            children: [
+              const SizedBox(height: 10),
+              DigitalClock(
+                hourMinuteDigitTextStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+                colonTimerInMiliseconds: 1000,
+                dateTime: localDateTime,
+                showSecondsDigit: false,
+                colon: const Text(
+                  ":",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        if (day < 2) const SizedBox(height: 20),
         Text(
           showTemperature(
             weatherData: weatherData,

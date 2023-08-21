@@ -26,5 +26,3 @@ class RecentSearchesLoaded extends CitiesState {
   @override
   List<Object> get props => [recentSearches];
 }
-
-class CitiesError extends CitiesState {}

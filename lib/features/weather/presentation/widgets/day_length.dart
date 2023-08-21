@@ -1,5 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:intl/intl.dart';
+
+// Project imports:
 import 'package:pogodappka/utils/l10n/localization.dart';
 
 class DayLength extends StatelessWidget {

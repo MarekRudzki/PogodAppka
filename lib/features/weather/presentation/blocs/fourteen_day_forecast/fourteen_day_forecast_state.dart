@@ -24,5 +24,3 @@ class FourteenDayForecastLoaded extends FourteenDayForecastState {
         isExpanded,
       ];
 }
-
-class FourteenDayForecastError extends FourteenDayForecastState {}

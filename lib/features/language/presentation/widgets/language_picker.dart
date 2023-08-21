@@ -1,7 +1,11 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:country_flags/country_flags.dart';
 
+// Package imports:
+import 'package:country_flags/country_flags.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// Project imports:
 import 'package:pogodappka/features/language/language.dart';
 import 'package:pogodappka/features/language/presentation/blocs/language_bloc/language_bloc.dart';
 
@@ -19,15 +23,12 @@ class LanguagePicker extends StatelessWidget {
             color: Colors.white,
           ),
           onSelected: (value) {
-            if (value == 'polish') {
-              context.read<LanguageBloc>().add(
-                    ChangeLanguage(selectedLanguage: Language.polish),
-                  );
-            } else {
-              context.read<LanguageBloc>().add(
-                    ChangeLanguage(selectedLanguage: Language.english),
-                  );
-            }
+            context.read<LanguageBloc>().add(
+                  ChangeLanguage(
+                    selectedLanguage:
+                        value == 'polish' ? Language.polish : Language.english,
+                  ),
+                );
           },
           itemBuilder: (BuildContext context) => [
             PopupMenuItem(

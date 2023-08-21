@@ -1,4 +1,7 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Project imports:
 import 'package:pogodappka/features/weather/data/models/weather_data_hourly.dart';
 import 'package:pogodappka/features/weather/presentation/widgets/forecast/weather_tile.dart';
 import 'package:pogodappka/utils/l10n/localization.dart';
