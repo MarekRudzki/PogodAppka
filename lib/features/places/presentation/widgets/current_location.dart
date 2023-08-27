@@ -134,11 +134,14 @@ String showGeolocationError({
   required String errorMessage,
   required BuildContext context,
 }) {
-  if (errorMessage == 'location-off') {
-    return context.l10n.locationDisabled;
-  } else if (errorMessage == 'location-deniedForever') {
-    return context.l10n.locationDisabledForever;
-  } else {
-    return context.l10n.cannotGeolocate;
+  switch (errorMessage) {
+    case 'location-off':
+      return context.l10n.locationDisabled;
+    case 'location-denied':
+      return context.l10n.locationRejected;
+    case 'location-deniedForever':
+      return context.l10n.locationDisabledForever;
+    default:
+      return context.l10n.cannotGeolocate;
   }
 }

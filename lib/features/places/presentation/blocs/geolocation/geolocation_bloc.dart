@@ -1,7 +1,6 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';
 
 // Project imports:
@@ -28,30 +27,13 @@ class GeolocationBloc extends Bloc<GeolocationEvent, GeolocationState> {
     emit(GeolocationLoading());
 
     try {
-      final bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (!serviceEnabled) {
-        emit(const GeolocationError('location-off'));
-        return;
-      }
-      LocationPermission permission = await Geolocator.checkPermission();
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.deniedForever) {
-          emit(
-            const GeolocationError(
-              'location-deniedForever',
-            ),
-          );
-          return;
-        }
-      }
-
       final CityModel cityModel =
           await _geolocationRepository.getCurrentLocation();
       emit(GeolocationLoaded(cityModel));
-    } on Exception {
-      emit(const GeolocationError(
-          'Obecnie nie można zlokalizować Twojej pozycji. Spróbuj wyszukać ją ręcznie'));
+    } on Exception catch (e) {
+      final String error = e.toString().substring(e.toString().indexOf('l'));
+
+      emit(GeolocationError(error));
     }
   }
 }

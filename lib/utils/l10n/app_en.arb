@@ -28,6 +28,7 @@
         }
     },
     "locationDisabled": "Location is disabled",
+    "locationRejected": "Location service request rejected",
     "locationDisabledForever": "Location is permanently disabled, your position cannot be located",
     "cannotGeolocate": "Currently, your position cannot be located. Try searching for it manually",
     "errorCitySearch": "Something went wrong. Try searching for the city again.",

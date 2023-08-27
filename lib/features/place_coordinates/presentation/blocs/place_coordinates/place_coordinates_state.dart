@@ -10,7 +10,7 @@ abstract class PlaceCoordinatesState extends Equatable {
 class PlaceCoordinatesLoading extends PlaceCoordinatesState {}
 
 class PlaceCoordinatesLoaded extends PlaceCoordinatesState {
-  final PlaceCooridnatesModel placeCooridnatesModel;
+  final PlaceCoordinatesModel placeCooridnatesModel;
 
   const PlaceCoordinatesLoaded(this.placeCooridnatesModel);
 

@@ -7,9 +7,15 @@ abstract class CitiesEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadLatestCity extends CitiesEvent {}
+class LoadLatestCity extends CitiesEvent {
+  @override
+  List<Object> get props => [];
+}
 
-class LoadRecentSearches extends CitiesEvent {}
+class LoadRecentSearches extends CitiesEvent {
+  @override
+  List<Object> get props => [];
+}
 
 class AddLatestCity extends CitiesEvent {
   final CityModel cityModel;

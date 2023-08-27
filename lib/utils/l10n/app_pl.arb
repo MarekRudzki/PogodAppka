@@ -28,6 +28,7 @@
         }
     },
     "locationDisabled": "Lokalizacja jest wyłączona",
+    "locationRejected": "Odrzucono prośbę o dostęp do lokalizacji",
     "locationDisabledForever": "Lokalizacja jest wyłączona na stałe, nie można zlokalizować Twojej pozycji",
     "cannotGeolocate": "Obecnie nie można zlokalizować Twojej pozycji. Spróbuj wyszukać ją ręcznie",
     "errorCitySearch": "Błąd! Coś poszło nie tak. Spróbuj wyszukać miasto ponownie.",

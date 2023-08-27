@@ -1,8 +1,8 @@
 // Package imports:
 import 'package:equatable/equatable.dart';
 
-class WeatherDataHourly {
-  List<Hourly> hourly;
+class WeatherDataHourly extends Equatable {
+  final List<Hourly> hourly;
 
   WeatherDataHourly({
     required this.hourly,
@@ -13,6 +13,11 @@ class WeatherDataHourly {
         hourly: List<Hourly>.from((json['hours'] as List<dynamic>)
             .map((e) => Hourly.fromJson(e as Map<String, dynamic>))),
       );
+
+  @override
+  List<Object?> get props => [
+        hourly,
+      ];
 }
 
 class Hourly extends Equatable {

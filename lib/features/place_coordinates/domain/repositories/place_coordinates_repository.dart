@@ -11,15 +11,15 @@ class PlaceCoordinatesRepository {
 
   PlaceCoordinatesRepository(this._coordinatesRemoteDataSource);
 
-  Future<PlaceCooridnatesModel> getCoordinates(
+  Future<PlaceCoordinatesModel> getCoordinates(
       {required String placeId}) async {
     final response = await _coordinatesRemoteDataSource.getPlaceCoordinates(
         placeId: placeId);
 
     if (response == null) {
-      return PlaceCooridnatesModel(52.069337, 19.480245);
+      return PlaceCoordinatesModel(52.069337, 19.480245);
     }
 
-    return PlaceCooridnatesModel.fromJson(response);
+    return PlaceCoordinatesModel.fromJson(response);
   }
 }

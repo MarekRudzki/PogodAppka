@@ -33,6 +33,8 @@ dependencies:
   country_flags: ^2.1.0
   injectable: ^2.3.0
   get_it: ^7.6.0
+  
+
 
 flutter_native_splash:
   image: assets/splash.png
@@ -42,10 +44,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  bloc_test: ^9.1.4
   flutter_lints: ^2.0.0
   flutter_launcher_icons: ^0.13.1
   injectable_generator: ^2.4.0
   build_runner: ^2.4.6
+  mocktail: ^1.0.0
+  integration_test:
+    sdk: flutter
+  
 
 
 flutter_launcher_icons:

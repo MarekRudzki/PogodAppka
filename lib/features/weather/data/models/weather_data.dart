@@ -1,10 +1,11 @@
 // Project imports:
+import 'package:equatable/equatable.dart';
 import 'package:pogodappka/features/weather/data/models/daily_weather_data.dart';
 import 'package:pogodappka/features/weather/data/models/weather_data_hourly.dart';
 import 'package:pogodappka/features/weather/data/models/weather_day_length.dart';
 
-class WeatherData {
-  List<WeatherDataModel> weatherDataModel;
+class WeatherData extends Equatable {
+  final List<WeatherDataModel> weatherDataModel;
 
   WeatherData({
     required this.weatherDataModel,
@@ -15,9 +16,14 @@ class WeatherData {
                   as List<dynamic>)
               .map((e) => WeatherDataModel.fromJson(e as Map<String, dynamic>)))
           .toList());
+
+  @override
+  List<Object?> get props => [
+        weatherDataModel,
+      ];
 }
 
-class WeatherDataModel {
+class WeatherDataModel extends Equatable {
   final DailyWeatherData dailyWeatherData;
   final WeatherDataHourly weatherDataHourly;
   final WeatherDayLength weatherDayLength;
@@ -35,4 +41,11 @@ class WeatherDataModel {
       weatherDayLength: WeatherDayLength.fromJson(json),
     );
   }
+
+  @override
+  List<Object?> get props => [
+        dailyWeatherData,
+        weatherDataHourly,
+        weatherDayLength,
+      ];
 }

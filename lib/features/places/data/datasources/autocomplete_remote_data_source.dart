@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class PlacesRemoteDataSource {
+class AutocompleteRemoteDataSource {
   Future<Map<String, dynamic>?> getPlaces({
     required String city,
   }) async {

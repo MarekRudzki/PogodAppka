@@ -9,11 +9,8 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-
-// Package imports:
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-
 import 'package:pogodappka/features/cities/data/local_data_sources/cities_local_data_source.dart'
     as _i3;
 import 'package:pogodappka/features/cities/domain/cities_repository.dart'
@@ -34,11 +31,11 @@ import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_c
     as _i20;
 import 'package:pogodappka/features/places/data/datasources/geolocation_remote_data_source.dart'
     as _i6;
-import 'package:pogodappka/features/places/data/datasources/places_remote_data_source.dart'
+import 'package:pogodappka/features/places/data/datasources/autocomplete_remote_data_source.dart'
     as _i12;
 import 'package:pogodappka/features/places/domain/repositories/geolocation_repository.dart'
     as _i7;
-import 'package:pogodappka/features/places/domain/repositories/places_repository.dart'
+import 'package:pogodappka/features/places/domain/repositories/autocomplete_repository.dart'
     as _i13;
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart'
     as _i16;
@@ -83,16 +80,16 @@ extension GetItInjectableX on _i1.GetIt {
     gh.lazySingleton<_i11.PlaceCoordinatesRepository>(() =>
         _i11.PlaceCoordinatesRepository(
             gh<_i10.PlaceCoordinatesRemoteDataSource>()));
-    gh.lazySingleton<_i12.PlacesRemoteDataSource>(
-        () => _i12.PlacesRemoteDataSource());
-    gh.lazySingleton<_i13.PlacesRepository>(
-        () => _i13.PlacesRepository(gh<_i12.PlacesRemoteDataSource>()));
+    gh.lazySingleton<_i12.AutocompleteRemoteDataSource>(
+        () => _i12.AutocompleteRemoteDataSource());
+    gh.lazySingleton<_i13.AutocompleteRepository>(() =>
+        _i13.AutocompleteRepository(gh<_i12.AutocompleteRemoteDataSource>()));
     gh.lazySingleton<_i14.WeatherRemoteDataSource>(
         () => _i14.WeatherRemoteDataSource());
     gh.lazySingleton<_i15.WeatherRepository>(
         () => _i15.WeatherRepository(gh<_i14.WeatherRemoteDataSource>()));
-    gh.factory<_i16.AutocompleteBloc>(() =>
-        _i16.AutocompleteBloc(placesRepository: gh<_i13.PlacesRepository>()));
+    gh.factory<_i16.AutocompleteBloc>(() => _i16.AutocompleteBloc(
+        autocompleteRepository: gh<_i13.AutocompleteRepository>()));
     gh.factory<_i17.CitiesBloc>(
         () => _i17.CitiesBloc(citiesRepository: gh<_i4.CitiesRepository>()));
     gh.factory<_i18.GeolocationBloc>(() => _i18.GeolocationBloc(

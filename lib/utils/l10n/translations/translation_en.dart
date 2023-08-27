@@ -67,6 +67,9 @@ class WeatherTranslationsEn extends WeatherTranslations {
   String get locationDisabled => 'Location is disabled';
 
   @override
+  String get locationRejected => 'Location service request rejected';
+
+  @override
   String get locationDisabledForever => 'Location is permanently disabled, your position cannot be located';
 
   @override

@@ -67,6 +67,9 @@ class WeatherTranslationsPl extends WeatherTranslations {
   String get locationDisabled => 'Lokalizacja jest wyłączona';
 
   @override
+  String get locationRejected => 'Odrzucono prośbę o dostęp do lokalizacji';
+
+  @override
   String get locationDisabledForever => 'Lokalizacja jest wyłączona na stałe, nie można zlokalizować Twojej pozycji';
 
   @override

@@ -1,4 +1,6 @@
-class PlaceAutocompleteModel {
+import 'package:equatable/equatable.dart';
+
+class PlaceAutocompleteModel extends Equatable {
   final String description;
   final String placeId;
 
@@ -13,4 +15,7 @@ class PlaceAutocompleteModel {
       placeId: json['place_id'] as String,
     );
   }
+
+  @override
+  List<Object> get props => [description, placeId];
 }

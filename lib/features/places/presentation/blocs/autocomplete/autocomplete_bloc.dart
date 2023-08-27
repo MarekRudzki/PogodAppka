@@ -5,17 +5,17 @@ import 'package:injectable/injectable.dart';
 
 // Project imports:
 import 'package:pogodappka/features/places/data/models/place_autocomplete_model.dart';
-import 'package:pogodappka/features/places/domain/repositories/places_repository.dart';
+import 'package:pogodappka/features/places/domain/repositories/autocomplete_repository.dart';
 
 part 'autocomplete_event.dart';
 part 'autocomplete_state.dart';
 
 @injectable
 class AutocompleteBloc extends Bloc<AutocompleteEvent, AutocompleteState> {
-  final PlacesRepository _placesRepository;
+  final AutocompleteRepository _autocompleteRepository;
 
-  AutocompleteBloc({required PlacesRepository placesRepository})
-      : _placesRepository = placesRepository,
+  AutocompleteBloc({required AutocompleteRepository autocompleteRepository})
+      : _autocompleteRepository = autocompleteRepository,
         super(AutocompleteLoading()) {
     on<LoadAutocomplete>(_onLoadAutocomplete);
     on<ClearAutocomplete>(_onClearAutocomplete);
@@ -26,7 +26,7 @@ class AutocompleteBloc extends Bloc<AutocompleteEvent, AutocompleteState> {
     Emitter<AutocompleteState> emit,
   ) async {
     final List<PlaceAutocompleteModel> autocomplete =
-        await _placesRepository.getAutocomplete(city: event.searchInput);
+        await _autocompleteRepository.getAutocomplete(city: event.searchInput);
 
     emit(AutocompleteLoaded(places: autocomplete));
   }

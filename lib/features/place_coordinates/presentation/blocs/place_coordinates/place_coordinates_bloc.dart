@@ -29,7 +29,7 @@ class PlaceCoordinatesBloc
       FetchPlaceCoordinates event, Emitter<PlaceCoordinatesState> emit) async {
     emit(PlaceCoordinatesLoading());
 
-    final PlaceCooridnatesModel placeCooridnatesModel =
+    final PlaceCoordinatesModel placeCooridnatesModel =
         await _placeCoordinatesRepository.getCoordinates(
             placeId: event.placeId);
 

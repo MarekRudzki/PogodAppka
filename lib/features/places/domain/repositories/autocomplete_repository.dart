@@ -2,19 +2,19 @@
 import 'package:injectable/injectable.dart';
 
 // Project imports:
-import 'package:pogodappka/features/places/data/datasources/places_remote_data_source.dart';
+import 'package:pogodappka/features/places/data/datasources/autocomplete_remote_data_source.dart';
 import 'package:pogodappka/features/places/data/models/place_autocomplete_model.dart';
 
 @lazySingleton
-class PlacesRepository {
-  PlacesRepository(this._placeesRemoteDataSource);
+class AutocompleteRepository {
+  AutocompleteRepository(this._autocompleteRemoteDataSource);
 
-  final PlacesRemoteDataSource _placeesRemoteDataSource;
+  final AutocompleteRemoteDataSource _autocompleteRemoteDataSource;
 
   Future<List<PlaceAutocompleteModel>> getAutocomplete({
     required String city,
   }) async {
-    final response = await _placeesRemoteDataSource.getPlaces(city: city);
+    final response = await _autocompleteRemoteDataSource.getPlaces(city: city);
 
     if (response == null) {
       return [];

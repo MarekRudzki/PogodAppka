@@ -213,6 +213,12 @@ abstract class WeatherTranslations {
   /// **'Lokalizacja jest wyłączona'**
   String get locationDisabled;
 
+  /// No description provided for @locationRejected.
+  ///
+  /// In pl, this message translates to:
+  /// **'Odrzucono prośbę o dostęp do lokalizacji'**
+  String get locationRejected;
+
   /// No description provided for @locationDisabledForever.
   ///
   /// In pl, this message translates to:
