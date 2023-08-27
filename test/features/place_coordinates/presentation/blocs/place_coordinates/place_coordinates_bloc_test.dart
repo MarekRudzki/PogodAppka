@@ -1,10 +1,12 @@
+// Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+// Project imports:
 import 'package:pogodappka/features/place_coordinates/data/models/place_coordinates_model.dart';
 import 'package:pogodappka/features/place_coordinates/domain/repositories/place_coordinates_repository.dart';
 import 'package:pogodappka/features/place_coordinates/presentation/blocs/place_coordinates/place_coordinates_bloc.dart';
-
 import '../../../../../test_helper.dart';
 
 class MockPlaceCoordinatesRepository extends Mock

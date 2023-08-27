@@ -1,9 +1,11 @@
+// Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+// Project imports:
 import 'package:pogodappka/features/places/domain/repositories/autocomplete_repository.dart';
 import 'package:pogodappka/features/places/presentation/blocs/autocomplete/autocomplete_bloc.dart';
-
 import '../../../../../test_helper.dart';
 
 class MockAutocompleteRepository extends Mock

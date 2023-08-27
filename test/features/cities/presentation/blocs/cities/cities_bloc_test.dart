@@ -1,9 +1,11 @@
+// Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+// Project imports:
 import 'package:pogodappka/features/cities/domain/cities_repository.dart';
 import 'package:pogodappka/features/cities/presentation/blocs/cities/cities_bloc.dart';
-
 import '../../../../../test_helper.dart';
 
 class MockCitiesRepository extends Mock implements CitiesRepository {}

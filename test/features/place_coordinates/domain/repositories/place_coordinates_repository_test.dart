@@ -1,9 +1,11 @@
+// Package imports:
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+// Project imports:
 import 'package:pogodappka/features/place_coordinates/data/datasource/place_coordinates_remote_data_source.dart';
 import 'package:pogodappka/features/place_coordinates/data/models/place_coordinates_model.dart';
 import 'package:pogodappka/features/place_coordinates/domain/repositories/place_coordinates_repository.dart';
-
 import '../../../../test_helper.dart';
 
 class MockPlaceCoordinatesRemoteDataSource extends Mock

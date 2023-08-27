@@ -1,5 +1,7 @@
-// Project imports:
+// Package imports:
 import 'package:equatable/equatable.dart';
+
+// Project imports:
 import 'package:pogodappka/features/weather/data/models/daily_weather_data.dart';
 import 'package:pogodappka/features/weather/data/models/weather_data_hourly.dart';
 import 'package:pogodappka/features/weather/data/models/weather_day_length.dart';

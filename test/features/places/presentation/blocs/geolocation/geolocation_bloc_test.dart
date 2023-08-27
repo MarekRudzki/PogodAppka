@@ -1,10 +1,12 @@
+// Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+// Project imports:
 import 'package:pogodappka/features/cities/data/models/city_model.dart';
 import 'package:pogodappka/features/places/domain/repositories/geolocation_repository.dart';
 import 'package:pogodappka/features/places/presentation/blocs/geolocation/geolocation_bloc.dart';
-
 import '../../../../../test_helper.dart';
 
 class MockGeolocationRepository extends Mock implements GeolocationRepository {}

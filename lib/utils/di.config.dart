@@ -9,8 +9,11 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+
+// Package imports:
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
+
 import 'package:pogodappka/features/cities/data/local_data_sources/cities_local_data_source.dart'
     as _i3;
 import 'package:pogodappka/features/cities/domain/cities_repository.dart'
