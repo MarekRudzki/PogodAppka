@@ -69,7 +69,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       child: hasInternet
           ? Scaffold(
               backgroundColor: const Color.fromARGB(255, 54, 202, 184),
-              endDrawer: const HomePageDrawer(),
+              endDrawerEnableOpenDragGesture: false,
+              endDrawer: GestureDetector(
+                onHorizontalDragUpdate: (_) {},
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.transparent,
+                  child: const HomePageDrawer(),
+                ),
+              ),
               appBar: AppBar(
                 leading: const LanguagePicker(),
                 centerTitle: true,
