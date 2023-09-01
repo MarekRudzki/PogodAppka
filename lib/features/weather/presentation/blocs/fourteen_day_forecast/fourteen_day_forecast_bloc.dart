@@ -34,7 +34,7 @@ class FourteenDayForecastBloc
     Emitter<FourteenDayForecastState> emit,
   ) {
     final defaultList = List.generate(15, (_) => false);
-    defaultList[event.tileIndex + 2] = !event.isExpanded;
+    defaultList[event.tileIndex + 2] = event.isExpanded;
     emit(FourteenDayForecastLoaded(
       weatherData: event.weatherData,
       isExpanded: defaultList,
