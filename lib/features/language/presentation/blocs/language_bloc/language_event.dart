@@ -18,4 +18,7 @@ class ChangeLanguage extends LanguageEvent {
   List<Object> get props => [selectedLanguage];
 }
 
-class FetchLanguage extends LanguageEvent {}
+class FetchLanguage extends LanguageEvent {
+  @override
+  List<Object> get props => [];
+}

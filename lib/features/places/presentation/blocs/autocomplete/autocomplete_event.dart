@@ -16,4 +16,7 @@ class LoadAutocomplete extends AutocompleteEvent {
   List<Object> get props => [searchInput];
 }
 
-class ClearAutocomplete extends AutocompleteEvent {}
+class ClearAutocomplete extends AutocompleteEvent {
+  @override
+  List<Object> get props => [];
+}

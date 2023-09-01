@@ -7,7 +7,10 @@ abstract class AutocompleteState extends Equatable {
   List<Object> get props => [];
 }
 
-class AutocompleteLoading extends AutocompleteState {}
+class AutocompleteLoading extends AutocompleteState {
+  @override
+  List<Object> get props => [];
+}
 
 class AutocompleteLoaded extends AutocompleteState {
   final List<PlaceAutocompleteModel> places;

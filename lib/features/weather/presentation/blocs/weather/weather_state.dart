@@ -7,7 +7,10 @@ abstract class WeatherState extends Equatable {
   List<Object> get props => [];
 }
 
-class WeatherLoading extends WeatherState {}
+class WeatherLoading extends WeatherState {
+  @override
+  List<Object> get props => [];
+}
 
 class WeatherLoaded extends WeatherState {
   final WeatherData weatherData;
@@ -20,4 +23,7 @@ class WeatherLoaded extends WeatherState {
   List<Object> get props => [weatherData];
 }
 
-class WeatherError extends WeatherState {}
+class WeatherError extends WeatherState {
+  @override
+  List<Object> get props => [];
+}

@@ -7,7 +7,10 @@ class FourteenDayForecastState extends Equatable {
   List<Object> get props => [];
 }
 
-class FourteenDayForecastLoading extends FourteenDayForecastState {}
+class FourteenDayForecastLoading extends FourteenDayForecastState {
+  @override
+  List<Object> get props => [];
+}
 
 class FourteenDayForecastLoaded extends FourteenDayForecastState {
   final WeatherData weatherData;

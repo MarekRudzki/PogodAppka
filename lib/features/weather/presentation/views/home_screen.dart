@@ -29,7 +29,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late TabController _tabController;
-  // ignore: unused_field
   late StreamSubscription<InternetConnectionStatus> _internetSubscription;
   bool hasInternet = true;
 

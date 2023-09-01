@@ -7,7 +7,10 @@ abstract class CitiesState extends Equatable {
   List<Object> get props => [];
 }
 
-class CitiesLoading extends CitiesState {}
+class CitiesLoading extends CitiesState {
+  @override
+  List<Object> get props => [];
+}
 
 class LatestCityLoaded extends CitiesState {
   final CityModel cityModel;
