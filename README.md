@@ -33,11 +33,11 @@ PogodAppka is an application developed mainly for learning purposes. I created i
 - VisualCrossing API
 
 <p float="left">
-![Screenshot_2023-08-30-20-49-57-735_com example pogodappka](https://github.com/MarekRudzki/PogodAppka/assets/102899533/40c9640f-0611-4ea1-81fc-14a0d3167767)
-![Screenshot_2023-08-30-20-51-23-547_com example pogodappka](https://github.com/MarekRudzki/PogodAppka/assets/102899533/ff3ad73e-86bb-4e94-a28b-32a15a199276)
-![Screenshot_2023-08-30-20-51-08-540_com example pogodappka](https://github.com/MarekRudzki/PogodAppka/assets/102899533/e3b662fb-f2e0-4157-bf3e-bcbeb6a6ece4)
-![Screenshot_2023-08-30-20-51-36-497_com example pogodappka](https://github.com/MarekRudzki/PogodAppka/assets/102899533/6bc56552-05a2-4096-90ef-e07d0b140afb)
-![Screenshot_2023-08-30-20-52-20-794_com example pogodappka](https://github.com/MarekRudzki/PogodAppka/assets/102899533/1d6fcdd9-5e2e-4795-afb5-bf9832cfa741)
+<img src="https://user-images.githubusercontent.com/102899533/264995140-cdddac6b-d99e-461d-b467-55343bedbc7e.jpg" width=25% height=25%>
+<img src="https://user-images.githubusercontent.com/102899533/264995699-db517f44-de38-470d-8c83-915d0e5528cc.jpg" width=25% height=25%>
+<img src="https://user-images.githubusercontent.com/102899533/264996092-3dcc4e7d-517a-48f5-b38e-bf8390a81e8c.jpg" width=25% height=25%>
+<img src="https://user-images.githubusercontent.com/102899533/264996261-99526c65-aa86-443d-b424-8cca0a7016d8.jpg" width=25% height=25%>
+<img src="https://user-images.githubusercontent.com/102899533/264996308-6fc97de7-5aba-42c9-b5d3-7adb9a40894c.jpg" width=25% height=25%>
 </p>
 
 ## Technologies
