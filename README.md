@@ -5,6 +5,7 @@ A simple weather forecast app created using Flutter and API from VisualCrossing.
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
+* [How to run](#how-to-run)
 
 ## General info
 PogodAppka is an application developed mainly for learning purposes. I created it to be better at API data processing and to use some interesting packages that I haven't had a chance to use before. This is also my first bigger app where I used BLoC pattern.
@@ -44,6 +45,26 @@ PogodAppka is an application developed mainly for learning purposes. I created i
 Project was created with:
 * Flutter version: 3.13.2
 * Dart version: 3.1.0
+
+## How to run
+1. Copy repository link.
+   ```sh
+   git clone https://github.com/MarekRudzki/PogodAppka.git
+   ```
+2. Open command prompt and navigate to the path where you want to clone repo.
+3. Paste copied link and hit enter.
+4. Congrats, you have successfully cloned this repository in your computer!
+5. Open project in IDE of your choice.
+6. Get a free Weather API key from the [Visual Crossing](https://www.visualcrossing.com/sign-up).
+7. Get a free Google Maps API key from the [Google Cloud Console](https://console.cloud.google.com/).
+8. In main app folder create a file called `.env` including:
+   ```sh
+   GP_Key = Your_Google_Maps_API_Key
+   Weather_Key = Yours_Visual_Crossing_API_Key
+   ```
+9. Run the app.
+   
+
 
 ---
 
