@@ -33,13 +33,8 @@ PogodAppka is an application developed mainly for learning purposes. I created i
 - Lints
 - VisualCrossing API
 
-<p float="left">
-<img src="https://user-images.githubusercontent.com/102899533/264995140-cdddac6b-d99e-461d-b467-55343bedbc7e.jpg" width=25% height=25%>
-<img src="https://user-images.githubusercontent.com/102899533/264995699-db517f44-de38-470d-8c83-915d0e5528cc.jpg" width=25% height=25%>
-<img src="https://user-images.githubusercontent.com/102899533/264996092-3dcc4e7d-517a-48f5-b38e-bf8390a81e8c.jpg" width=25% height=25%>
-<img src="https://user-images.githubusercontent.com/102899533/264996261-99526c65-aa86-443d-b424-8cca0a7016d8.jpg" width=25% height=25%>
-<img src="https://user-images.githubusercontent.com/102899533/264996308-6fc97de7-5aba-42c9-b5d3-7adb9a40894c.jpg" width=25% height=25%>
-</p>
+https://user-images.githubusercontent.com/102899533/275152722-b4805e51-7cb9-4546-824b-c0b219dc8409.mp4
+
 
 ## Technologies
 Project was created with:
