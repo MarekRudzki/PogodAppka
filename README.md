@@ -1,4 +1,4 @@
-# :partly_sunny: PogodAppka - Weather App :partly_sunny:
+# ⛅ PogodAppka - Weather App ⛅
 
 A simple weather forecast app created using Flutter and API from VisualCrossing.
 
@@ -68,7 +68,7 @@ Project was created with:
   <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="30px"/>
 </h1>
 
-### <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="30"> About Me :
+### <img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="30"> About Me
 
 
 I am a Flutter enthusiast from Poland.
@@ -76,7 +76,7 @@ I am a Flutter enthusiast from Poland.
 - :book: Learning new Flutter related stuff every day.
 - :computer: In my free time, I love to read books and play video games.
 
-### :hammer_and_wrench: Languages and Tools :
+### :hammer_and_wrench: Languages and Tools
 <div>
   <img src="https://github.com/devicons/devicon/blob/master/icons/flutter/flutter-original.svg" title="Flutter" alt="Flutter" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/dart/dart-original.svg" title="Dart" alt="Dart" width="40" height="40"/>&nbsp;
@@ -84,5 +84,5 @@ I am a Flutter enthusiast from Poland.
   <img src="https://github.com/devicons/devicon/blob/master/icons/firebase/firebase-plain-wordmark.svg" title="Firebase" alt="Firebase" width="40" height="40"/>
 </div>
 
-### :fire: My Stats :
+### :fire: My Stats
 [![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=MarekRudzki&theme=dark&background=000000)](https://git.io/streak-stats)
